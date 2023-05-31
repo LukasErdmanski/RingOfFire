@@ -1,0 +1,77 @@
+<!-- PLAYER AVATAR & NAME 
+[name] ist Input Variable, deklariert in 'player.component.ts; Wert wird hier aus dem Array eingegeben
+und weiter an 'player.component.ts' und player.component.html' gegeben. -->
+<app-player
+  *ngFor="let player of game.players; let i = index; trackBy: trackByFn"
+  [ngStyle]="{ 'top.px': 100 + i * 90 }"
+  class="player-position"
+  [name]="player"
+  [playerActive]="i == game.currentPlayer"
+></app-player>
+
+<div class="field">
+  <div class="card-stack">
+    <!-- UNTERER STAPEL
+    [ngStyle]="{ 'right.px': i * 5} die CSS Property 'right' wird in Einheit px
+    dynamisch für das aktuell iterierte i-Element mal 5 multipoliziert und eingesetzt. 
+    
+    *ngFor="let c of [0, 1, 2, 3, 4]; let i = index das ist eine Angular for-Schleife in HTML -->
+    <img
+      *ngFor="let c of [0, 1, 2, 3]; let i = index"
+      [ngStyle]="{ 'right.px': i * 5 }"
+      src="../../assets/img/cards/card_cover.png"
+    />
+
+    <!--UNTERER STAPEL: OBERSTE KARTE VERDECKT -->
+    <img (click)="takeCard()" class="top-card" style="right: 25px" src="../../assets/img/cards/card_cover.png" />
+
+    <!-- OBERER STAPEL
+    Das 'ngFor' Direktiv wird verwendet, um über jedes Element in 'game.playedCards' zu iterieren und 
+    ein 'img' Element für jedes zu erstellen. 
+    
+    'trackBy: trackByFn' wird verwendet, um Angular zu helfen, die Liste effizient zu rendern. Ohne 'trackBy' 
+    würde Angular jedes Element in der Liste neu rendern, wann immer sich etwas ändert, auch wenn die Änderung 
+    nur ein einziges Element betrifft. Das kann zu Leistungsproblemen führen, wenn die Liste sehr groß ist. 
+    
+    Mit 'trackBy' gibt Angular der 'trackByFn' Funktion den Index und das aktuelle Element jedes Elements in 
+    der Liste. Die Funktion gibt einen eindeutigen Identifikator zurück (in diesem Fall den Index), den Angular 
+    verwendet, um zu verfolgen, welche Elemente sich geändert haben und neu gerendert werden müssen. Dadurch 
+    wird nur das geänderte Element neu gerendert, was die Leistung verbessert. -->
+    <ng-container *ngIf="game.playedCards.length > 0">
+      <img
+        *ngFor="let card of game.playedCards; trackBy: trackByFn"
+        class="played-card"
+        src="../../assets/img/cards/{{ card }}.png"
+      />
+    </ng-container>
+
+    <ng-container *ngIf="game.playedCards.length > 0">
+      <img
+        *ngFor="let card of game.playedCards; trackBy: trackByFn"
+        class="played-card"
+        src="../../assets/img/cards/{{ card }}.png"
+      />
+    </ng-container>
+
+    <!-- AKTEULL GEZOGENE FLIEGENDE KARTE ABGELEGT AUF OBEREM STAPEL
+    Dieses img-Element ist durch '*ngIf' erst sichtbar wenn 'pickCardAnimation' 'true' ist.
+    [class.pick-card]="pickCardAnimation" Klasse 'pick-card' wird hinzugefügt wenn 'pickCardAnimation auf 'true' gesetzt wird
+    wenn man durch CLick die Methode 'takeCard', s.o., ausführt. -->
+    <img
+      (click)="takeCard()"
+      *ngIf="pickCardAnimation"
+      class="pick-card"
+      style="right: 25px"
+      src="../../assets/img/cards/{{ currentCard }}.png"
+    />
+  </div>
+</div>
+<!-- GAME INFO BOX
+Angular Material Component from https://material.angular.io/components/card/overview-->
+<app-game-info [card]="currentCard" class="pin-bottom"> </app-game-info>
+
+<!-- ADD PLAYER BUTTON
+Angular Material Component from https://material.angular.io/components/button/overview -->
+<button mat-fab color="primary" class="btn-add" (click)="openDialog()">
+  <mat-icon>add</mat-icon>
+</button>

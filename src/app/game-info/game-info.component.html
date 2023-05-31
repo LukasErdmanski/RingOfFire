@@ -1,0 +1,9 @@
+<mat-card>
+  <!-- Entweder Oder, d.h. wenn 'card' 'undefined' am Spielanfang ist, wird alternativ der Satz angezeigt. Sonst 'title'. -->
+  <mat-card-title>{{ card ? title : 'Please pick a card' }}</mat-card-title>
+
+  <!-- Entweder Oder, d.h. wenn 'card' 'undefined' uam Spielanfang ist, wird alternativ der Satz angezeigt. Sonst 'description'. -->
+  <mat-card-content>{{
+    card ? description : 'Please click on the card stack to select the next card.'
+  }}</mat-card-content>
+</mat-card>
