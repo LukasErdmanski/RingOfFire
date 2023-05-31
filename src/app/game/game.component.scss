@@ -1,8 +1,9 @@
 .field {
-  weight: 100vw;
+  width: 100vw;
   height: 100vh;
   max-width: 100%;
   background-image: url('../../assets/img/board.jpg');
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;

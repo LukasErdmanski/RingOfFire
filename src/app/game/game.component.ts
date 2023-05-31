@@ -49,7 +49,7 @@ export class GameComponent implements OnInit {
         this.game.playedCards.push(this.currentCard);
         // 'pickCardAnimation' wird auf 'false' resetet, damit die 'pick-card-animation' erneut abgespielt werden kann, bei jedem Kartenzugund nicht nur Einmal.
         this.pickCardAnimation = false;
-      }, 1005);
+      }, 1000);
     }
   }
 
