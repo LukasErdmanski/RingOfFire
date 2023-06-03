@@ -59,16 +59,16 @@ und weiter an 'player.component.ts' und player.component.html' gegeben. -->
     wenn man durch CLick die Methode 'takeCard', s.o., ausführt. -->
     <img
       (click)="takeCard()"
-      *ngIf="pickCardAnimation"
+      *ngIf="game.pickCardAnimation"
       class="pick-card"
       style="right: 25px"
-      src="assets/img/cards/{{ currentCard }}.png"
+      src="assets/img/cards/{{ game.currentCard }}.png"
     />
   </div>
 </div>
 <!-- GAME INFO BOX
 Angular Material Component from https://material.angular.io/components/card/overview-->
-<app-game-info [card]="currentCard" class="pin-bottom"> </app-game-info>
+<app-game-info [card]="game.currentCard" class="pin-bottom"> </app-game-info>
 
 <!-- ADD PLAYER BUTTON
 Angular Material Component from https://material.angular.io/components/button/overview -->

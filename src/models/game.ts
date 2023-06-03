@@ -7,6 +7,9 @@ export class Game {
   public stack: string[] = [];
   public playedCards: string[] = [];
   public currentPlayer: number = 0;
+  /* Ergänzen um diese Props (Animationsvariable und Variable der aktuellen Karte) für Synchronisierung dieser Reaktionen auf anderen Geräten. */
+  public pickCardAnimation: Boolean = false;
+  public currentCard: string = '';
 
   constructor() {
     /* Fügt 52 Karten von 4 Kartensroten in 'stack' array hinzu. */
@@ -37,5 +40,18 @@ export class Game {
     }
 
     return array;
+  }
+
+  /* Convert Game Object to Json. */
+  public toJson() {
+    return {
+      players: this.players,
+      stack: this.stack,
+      playedCards: this.playedCards,
+      currentPlayer: this.currentPlayer,
+      /* Ergänzen um diese Props (Animationsvariable und Variable der aktuellen Karte) für Synchronisierung dieser Reaktionen auf anderen Geräten. */
+      pickCardAnimation: this.pickCardAnimation,
+      currentCard: this.currentCard,
+    };
   }
 }

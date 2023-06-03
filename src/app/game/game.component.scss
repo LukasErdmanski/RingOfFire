@@ -51,7 +51,8 @@
     transform: scale(1.7);
   }
   100% {
-    transform: scale(1.3) translateX(140px) translateY(-180px) rotate(-10deg);
+    transform: scale(1.3) translateX(140px) t
+    ranslateY(-180px) rotate(-10deg);
   }
 }
 
@@ -65,6 +66,7 @@
   position: absolute;
   right: 32px;
   bottom: 32px;
+  z-index: 1;
 }
 
 .pin-bottom {
