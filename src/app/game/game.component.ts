@@ -1,5 +1,5 @@
 /* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Output, inject } from '@angular/core';
 import { Firestore, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
@@ -54,7 +54,7 @@ export class GameComponent implements OnInit {
       /* Angular, dieses Programm weißt nicht ob 'game' von Firebase DB dieses Properties wie game.players, game.stack, game.playedCars etc. hat. 
       Um diesen Fehler in strict mode umzugen, schreibt man game: any */
       gameDocumentData$.subscribe((game: any) => {
-        console.log('Game update', game);
+        // console.log('Game update', game);
         /* Updaten der App Variable game um die Werte aus der Firebase DB. */
         this.game.players = game.players;
         this.game.stack = game.stack;
@@ -103,22 +103,6 @@ export class GameComponent implements OnInit {
     }
   }
 
-  /**
-   * Track by function for ngFor directive.
-   *
-   * This function takes the index and the item itself as parameters and returns
-   * a unique identifier for the item. In this case, we are simply using the index
-   * of the item as the unique identifier. This helps Angular to optimize the rendering
-   * of items in a list by only re-rendering the items that have changed.
-   *
-   * @param {number} index - The index of the current item in the list.
-   * @param {any} item - The item itself. We don't use it in this case, but it's included to conform with Angular's expected signature for trackBy functions.
-   * @returns {number} - The unique identifier for the item. In this case, it's the index of the item in the list.
-   */
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   /* Angular Material Component from https://material.angular.io/components/dialog/overview */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
@@ -142,5 +126,21 @@ export class GameComponent implements OnInit {
     /* From https://betterprogramming.pub/angular-13-firebase-crud-tutorial-with-angularfire-7-2d6980dcc091 */
     const gameDocumentReference = doc(this.firestore, `games/${this.gameId}`);
     updateDoc(gameDocumentReference, this.game.toJson());
+  }
+
+  /**
+   * Track by function for ngFor directive.
+   *
+   * This function takes the index and the item itself as parameters and returns
+   * a unique identifier for the item. In this case, we are simply using the index
+   * of the item as the unique identifier. This helps Angular to optimize the rendering
+   * of items in a list by only re-rendering the items that have changed.
+   *
+   * @param {number} index - The index of the current item in the list.
+   * @param {any} item - The item itself. We don't use it in this case, but it's included to conform with Angular's expected signature for trackBy functions.
+   * @returns {number} - The unique identifier for the item. In this case, it's the index of the item in the list.
+   */
+  trackByFn(index: number, item: any): number {
+    return index;
   }
 }

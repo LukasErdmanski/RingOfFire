@@ -1,0 +1,18 @@
+<mat-card class="arrows-players-container">
+  <img *ngIf="scrollArrowsVisable" class="arrow cp" (click)="scrollByPlayerCard(-1)" src="assets/img/arrow-left.png" />
+
+  <div #playersContainer id="players-container" class="players-container" (window:resize)="setScrollArrowsVisibility()">
+    <div id="players-bar" class="players-bar">
+      <!-- PLAYER AVATAR & NAME 
+      [name] ist Input Variable, deklariert in 'player.component.ts; Wert wird hier aus dem Array eingegeben
+      und weiter an 'player.component.ts' und player.component.html' gegeben. -->
+      <app-player
+        *ngFor="let player of game.players; let i = index; trackBy: trackByFn"
+        [name]="player"
+        [playerActive]="i == game.currentPlayer"
+      ></app-player>
+    </div>
+  </div>
+
+  <img *ngIf="scrollArrowsVisable" class="arrow cp" (click)="scrollByPlayerCard(+1)" src="assets/img/arrow-right.png" />
+</mat-card>

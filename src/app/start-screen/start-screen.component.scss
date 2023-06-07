@@ -1,34 +1,83 @@
-.start-screen {
+.start-screen-bg {
+  display: flex;
+  height: 100%;
+  justify-content: center;
   background-color: #404040;
-  height: 100vh;
-  width: 100vw;
-  /* To avoid horizontal scroll bar when width equals 100vw. */
-  max-width: 100%;
+}
+
+.start-screen {
   display: flex;
   align-items: center;
   justify-content: center;
-  img {
-    height: 100vh;
-    max-width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 576px) {
+    border: 12px solid #e6af00;
   }
 
-  .start-label-box {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 50px;
-    display: flex;
-    justify-content: center;
+  #screen1,
+  #screen2 {
+    max-height: 98vh;
+    max-width: calc(100% - 64px);
 
-    img {
-      width: 40vw;
-      /* With 'auto' the height will be set automaticly proportionally to the width. */
-      height: auto;
+    @media (max-width: 576px) {
+      max-height: unset;
+      max-width: unset;
 
-      &:hover {
-        filter: brightness(1.25);
-        cursor: pointer;
-      }
+      height: 108vh;
+      max-width: auto;
+      object-fit: cover;
+      border: 20px solid #e6af00;
     }
+  }
+
+  @media (max-width: 1554px) {
+    #screen1 {
+      display: none;
+    }
+
+    #screen2 {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1554px) {
+    #screen1 {
+      display: block;
+    }
+
+    #screen2 {
+      display: none;
+    }
+  }
+}
+
+#start-btn {
+  position: absolute;
+  margin-top: 50%;
+  max-width: 55%;
+  opacity: 0.87;
+  filter: brightness(0.98);
+  transform: transformY(0);
+  transform: scale(1);
+  transition: transform 225ms ease-in;
+
+  @media (min-width: 1554px) {
+    max-width: 35%;
+    margin-top: 30%;
+  }
+
+  @media (max-width: 576px) {
+    margin-top: 80%;
+    max-width: 73%;
+  }
+
+  &:hover {
+    filter: brightness(1.07);
+    opacity: 0.92;
+    transform: scale(1.05);
+    transform: transformY(-10px);
+    cursor: pointer;
   }
 }

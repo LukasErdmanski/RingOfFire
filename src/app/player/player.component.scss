@@ -1,25 +1,47 @@
-.player {
-  width: 300px;
-  display: flex;
+.player-card {
+  margin: 6px;
   align-items: center;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+  border-radius: 16px 16px 16px 16px;
+  border: 0.1px solid rgb(87, 87, 87);
+  padding: 4px 0 0 0;
+  background-color: rgba(64, 64, 64, 0.437);
+  transition: scale 225ms ease-in-out;
+  opacity: 0.88;
 
-  span {
-    font-size: 32px;
-    margin-left: 16px;
-  }
-
-  background-color: rgba(119, 119, 119, 0.75);
-
-  img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 100%;
+  &:hover {
+    cursor: pointer;
   }
 }
 
+.avatar-img-border-bg {
+  background-color: rgba(230, 224, 224, 0.904);
+  border: double 2.5px transparent;
+  border-radius: 50%;
+  display: flex;
+}
+
+.avatar-img {
+  border-radius: 50%;
+  border: 1.9px solid rgb(87, 87, 87);
+  width: 50px;
+  height: 50px;
+}
+
+.player-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(38, 38, 38);
+  text-size-adjust: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 60px;
+  margin: 4px 2px 0 6px;
+  text-align: center;
+}
+
 .player-active {
-  background-color: rgba(255, 168, 0, 0.85) !important;
+  opacity: 1;
+  scale: 1.1;
+  background-color: rgb(251 185 57 / 85%) !important;
 }

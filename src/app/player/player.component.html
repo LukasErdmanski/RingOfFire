@@ -1,5 +1,7 @@
-<div class="player" [class.player-active]="playerActive">
-  <img src="assets/img/profile/1.webp" />
+<mat-card [class.player-active]="playerActive" class="player-card">
+  <div class="avatar-img-border-bg">
+    <img class="avatar-img" src="assets/img/profile/1.webp" />
+  </div>
   <!-- Input Variable, deklariert in 'player.component.ts'; Wert eingegeben in 'game.component.html '-->
-  <span>{{ name }}</span>
-</div>
+  <span class="player-name">{{ name }}</span>
+</mat-card>

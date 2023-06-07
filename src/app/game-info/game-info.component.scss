@@ -1,3 +1,24 @@
+mat-card {
+  height: 162px;
+  width: 360px;
+  border-radius: 16px;
+
+  @media (max-width: 576px) {
+    font-size: 0.86rem;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
 mat-card-title {
   padding: 16px 16px 0 16px;
+
+  @media (max-width: 576px) {
+    padding: 14px 14px 0 14px;
+  }
+}
+
+mat-card-content {
+  @media (max-width: 576px) {
+    padding: 2px 14px 14px 14px !important;
+  }
 }

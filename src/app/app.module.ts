@@ -31,6 +31,7 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { PlayerContainerComponent } from './player-container/player-container.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     PlayerComponent,
     DialogAddPlayerComponent,
     GameInfoComponent,
+    PlayerContainerComponent,
   ],
   imports: [
     BrowserModule,
