@@ -1,11 +1,10 @@
 export const environment = {
   firebase: {
-    /* from https://console.firebase.google.com/u/2/project/erdlukringoffire/settings/general/web:OGM2MTY0ZWItY2QwYi00ODVkLTkzNjctMzFmNTY3NzA3NDUw?nonce=1685621910825 */
-    apiKey: 'AIzaSyDEr8JAnLJ7ccx0vXDJYPqMBU5Jd7_nlAs',
-    authDomain: 'erdlukringoffire.firebaseapp.com',
-    projectId: 'erdlukringoffire',
-    storageBucket: 'erdlukringoffire.appspot.com',
-    messagingSenderId: '603895876921',
-    appId: '1:603895876921:web:8bbb4cdbe4d085b47a2ce8',
+    projectId: 'erdluktodolist',
+    appId: '1:645578114962:web:8b56e4ce9ca5cd500f234b',
+    storageBucket: 'erdluktodolist.appspot.com',
+    apiKey: 'AIzaSyBylt0EUz8cpqvWW1ULzYxSYjFFcW2Ph8o',
+    authDomain: 'erdluktodolist.firebaseapp.com',
+    messagingSenderId: '645578114962',
   },
 };

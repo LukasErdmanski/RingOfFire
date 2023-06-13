@@ -3,6 +3,8 @@
   height: 100%;
   justify-content: center;
   background-color: #404040;
+
+  // border: 5px solid green;
 }
 
 .start-screen {
@@ -18,17 +20,11 @@
 
   #screen1,
   #screen2 {
-    max-height: 98vh;
+    max-height: 100vh;
     max-width: calc(100% - 64px);
 
     @media (max-width: 576px) {
-      max-height: unset;
-      max-width: unset;
-
-      height: 108vh;
-      max-width: auto;
-      object-fit: cover;
-      border: 20px solid #e6af00;
+      max-width: none;
     }
   }
 

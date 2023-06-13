@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "erdlukringoffire": {
-      "hosting": {
-        "ringoffire": [
-          "erdlukringoffire"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "erdlukringoffire"
   }

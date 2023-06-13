@@ -1,24 +1,31 @@
 body {
-  margin: 0;
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
+  /* margin at the body has to be like in the user agent style sheet, it means; 8px. Otherwise it does not work.  */
+  margin: 0 !important;
+  /* height of the body should be 100 vh */
+  height: 100vh !important;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: black;
+
+  // border: 4px solid blueviolet;
 }
 
-@media (max-width: 720px) {
-  .hide-mobile {
-    display: none;
-  }
-}
+/* safe-area */
+app-root {
+  background-color: #404040;
 
-@media (min-width: 720px) {
-  .hide-desktop {
-    display: none;
-  }
+  // display: flex;
+  // align-items: top;
+  // justify-content: center;
+
+  position: fixed;
+  top: constant(safe-area-inset-top);
+  top: env(safe-area-inset-top);
+  left: constant(safe-area-inset-left);
+  left: env(safe-area-inset-left);
+  right: constant(safe-area-inset-right);
+  right: env(safe-area-inset-right);
+  bottom: constant(safe-area-inset-bottom);
+  bottom: env(safe-area-inset-bottom);
+
+  // border: 5px solid blue;
 }
