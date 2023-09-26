@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +6,9 @@ import { Component, inject } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  title = 'ringoffire';
+  title = 'LE - Ring of fire';
+  contentVisible = true;
 
-  constructor() {}
+  constructor() {
+  }
 }

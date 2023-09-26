@@ -3,21 +3,26 @@
 /* Für die einzelnen Properties der Klasse muss der Visibilty Parameter eingestellt werden. */
 export class Game {
   /* Initilisierung von Game Objekt Properties. */
+  public id: string = '';
   public players: string[] = [];
+  public player_images: string[] = [];
   public stack: string[] = [];
   public playedCards: string[] = [];
+  public cardsRightToBottomStack: number[] = [0, 1, 2, 3];
   public currentPlayer: number = 0;
   /* Ergänzen um diese Props (Animationsvariable und Variable der aktuellen Karte) für Synchronisierung dieser Reaktionen auf anderen Geräten. */
-  public pickCardAnimation: Boolean = false;
+  public pickCardAnimation: boolean = false;
   public currentCard: string = '';
+  public gameOver: boolean = false;
+  public newGameId: string = '';
 
   constructor() {
     /* Fügt 52 Karten von 4 Kartensroten in 'stack' array hinzu. */
-    for (let i = 1; i < 14; i++) {
+    for (let i = 1; i < 3; i++) {
       this.stack.push('spade_' + i);
       this.stack.push('hearts_' + i);
       this.stack.push('clubs_' + i);
-      this.stack.push('diamonds_' + i);
+      // this.stack.push('diamonds_' + i);
     }
 
     this.shuffle(this.stack);
@@ -45,13 +50,17 @@ export class Game {
   /* Convert Game Object to Json. */
   public toJson() {
     return {
+      id: this.id,
       players: this.players,
+      player_images: this.player_images,
       stack: this.stack,
       playedCards: this.playedCards,
+      cardsRightToBottomStack: this.cardsRightToBottomStack,
       currentPlayer: this.currentPlayer,
       /* Ergänzen um diese Props (Animationsvariable und Variable der aktuellen Karte) für Synchronisierung dieser Reaktionen auf anderen Geräten. */
       pickCardAnimation: this.pickCardAnimation,
       currentCard: this.currentCard,
+      gameOver: this.gameOver,
     };
   }
 }

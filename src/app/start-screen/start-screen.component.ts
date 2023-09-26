@@ -1,40 +1,31 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
-/* Router Libary für die Initialisierung im ctor hier erforderlich und die Verwendung in dieser App. */
-import { Router } from '@angular/router';
-import { Game } from 'src/models/game';
+import { Component } from '@angular/core';
+import { GameService } from '../services/game.service';
 
 @Component({
-  selector: 'app-start-screen',
-  templateUrl: './start-screen.component.html',
-  styleUrls: ['./start-screen.component.scss'],
+    selector: 'app-start-screen',
+    templateUrl: './start-screen.component.html',
+    styleUrls: ['../../assets/scss/screen.scss'],
 })
-export class StartScreenComponent implements OnInit {
-  /* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
-  private firestore: Firestore = inject(Firestore);
+export class StartScreenComponent {
+    /* Sie möchten nicht mehrere Instanzen desselben Service in Ihrer Anwendung haben. 
+  Wenn Sie einen Service über den Konstruktor einer Komponente bereitstellen, 
+  erstellt Angular keine neue Instanz des Services, sondern verwendet eine Singleton-Instanz, 
+  die im Root-Injector der Anwendung vorhanden ist. Dies ist genau das Verhalten, das Sie wollen.
 
-  /* Router gebraucht, um durch Click auf 'start-screen' zu 'game.component' zu routen */
-  /* VisibilIty Parameter auf 'private' */
-  constructor(private router: Router) {}
+  In Angular, wenn ein Service mit dem @Injectable({ providedIn: 'root' }) Dekorator markiert ist (wie es üblich ist), 
+  dann wird der Service als Singleton behandelt. Das bedeutet, dass Angular automatisch eine einzige Instanz des Service erstellt 
+  und diese an alle Komponenten bereitstellt, die den Service benötigen. 
+  Wenn Sie den Service in den Konstruktor einer Komponente injizieren, erhalten Sie Zugriff auf diese Singleton-Instanz.
 
-  ngOnInit(): void {}
+  Also, obwohl es so aussieht, als würden Sie jedes Mal eine neue Instanz des Service erstellen, 
+  wenn Sie den Service in den Konstruktor einer Komponente injizieren, ist das nicht der Fall. 
+  Sie greifen tatsächlich auf die gleiche Singleton-Instanz des Service zu, egal in welcher Komponente Sie sich befinden.
 
-  newGame() {
-    /* Initialisieren eines neuen Games. */
-    let game = new Game();
+  Daher ist Ihr ursprünglicher Ansatz, den Service im Konstruktor zu injizieren, korrekt und wird empfohlen: */
+    // Der GameService wird hier injiziert
+    constructor(private gameService: GameService) {}
 
-    /* From https://betterprogramming.pub/angular-13-firebase-crud-tutorial-with-angularfire-7-2d6980dcc091 */
-    // Holen der collection 'games'
-    const gamesCollectionReference = collection(this.firestore, 'games');
-    /* Adden eines neuen document in 'games' collection mit dem Value 'this.game' konvertiert davor to JSON durch eigene Methode 'toJson()'.
-     Firestore bieter uns eine weitere Methode ähnlich wie 'subscribe', um aus addDoc resultierende Promise aufzulösen, nämlich 'then'.
-     UNTERSCHIED: 'Then' wird nur EINMAL aufgerufen, 'subscribe' MEHRMALS'. Für Spielstart um ein neues Game anzulegen, nur ein Dokument in die Collection. braucht man es nur EINMAL!
-     Nach 'then' mit der Eingabe des 'DocumentReference' Objekts können wir anschließende Aktionen, wie 'navigate' zu '/game' machen. */
-    addDoc(gamesCollectionReference, game.toJson()).then((docRef) => {
-      let gameId = docRef.id;
-      // Start game navigating to '/game/:gameId 'route ('game.component') by the router.
-      console.log('Cread a new game with ID: ', gameId);
-      this.router.navigate([`/game/${gameId}`]);
-    });
-  }
+    startNewGame() {
+        this.gameService.startNewGame();
+    }
 }

@@ -1,0 +1,54 @@
+{
+  "Please pick a card": "Bitte ziehe eine Karte",
+  "Please click on the card stack to select the next card.": "Bitte klicken Sie auf den Kartenstapel, um die nächste Karte auszuwählen.",
+
+  "Add new player": "Neuen Spieler hinzufügen",
+  "Please enter the name of a player": "Bitte geben Sie den Namen eines Spielers ein",
+  "Name": "Name",
+  "No Thanks": "Nein danke",
+
+  "Edit player": "Spieler bearbeiten",
+  "Close": "Schließen",
+  "Delete player": "Spieler löschen",
+
+  "Waterfall": "Wasserfall",
+  "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Alle müssen gleichzeitig anfangen zu trinken. Sobald Spieler 1 aufhört zu trinken, darf Spieler 2 aufhören zu trinken. Spieler 3 darf aufhören, sobald Spieler 2 aufgehört hat zu trinken, und so weiter.",
+
+  "You": "Du",
+  "You decide who drinks": "Du bestimmst, wer trinkt",
+
+  "Me": "Ich",
+  "Congrats! Drink a shot!": "Glückwunsch! Trink einen Schnaps!",
+
+  "Category": "Kategorie",
+  "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.": "Denke dir eine Kategorie aus (z.B. Farben). Jeder Spieler muss einen Gegenstand aus der Kategorie nennen.",
+
+  "Bust a jive": "Tanzbewegung",
+  "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.": "Spieler 1 macht eine Tanzbewegung. Spieler 2 wiederholt die Tanzbewegung und fügt eine zweite hinzu.",
+
+  "Chicks": "Mädels",
+  "All girls drink.": "Alle Mädchen trinken.",
+
+  "Heaven": "Himmel",
+  "Put your hands up! The last player drinks!": "Hände hoch! Der letzte Spieler trinkt!",
+
+  "Mate": "Kumpel",
+  "Pick a mate. Your mate must always drink when you drink and the other way around.": "Wähle einen Kumpel. Dein Kumpel muss immer trinken, wenn du trinkst, und umgekehrt.",
+
+  "Thumbmaster": "Daumenmeister",
+  "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.": "Wenn du der Daumenmeister wirst, kannst du jederzeit deinen Daumen auf den Tisch legen. Der letzte, der seinen Daumen auf den Tisch legt, muss trinken.",
+
+  "Men": "Männer",
+  "All men drink.": "Alle Männer trinken.",
+
+  "Quizmaster": "Quizmaster",
+  "As the Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.": "Als Quizmaster kannst du jederzeit jedem eine Frage stellen. Wenn sie sich weigern zu antworten, müssen sie trinken.",
+
+  "Never have i ever...": "Ich habe noch nie...",
+  "Say something you never did. Everyone who did it has to drink.": "Sag etwas, was du noch nie getan hast. Jeder, der es getan hat, muss trinken.",
+
+  "Rule": "Regel",
+  "Make a rule. Everyone needs to drink when he breaks the rule.": "Mache eine Regel. Jeder muss trinken, wenn er die Regel bricht.",
+
+  "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start Game'.": "Einer der Spieler auf einem anderen Gerät hat eine neue Spielrunde gestartet. Möchten Sie daran teilnehmen? Wenn ja, drücken Sie 'OK'. Andernfalls drücken Sie 'NEIN', um dieses Fenster zu schließen. Sie können eine neue Spielrunde mit neuen Spielern starten, indem Sie 'Start game' drücken."
+}

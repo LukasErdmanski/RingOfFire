@@ -1,0 +1,32 @@
+<div class="flags"></div>
+
+<!-- <button mat-fab color="primary" class="btn-flag">
+  <img onclick="english()" src="assets/img/british-flag.png" />
+</button>
+
+<button mat-fab color="primary" class="btn-add">
+  <img onclick="german()" src="assets/img/german-flag.png" />
+</button>
+
+<button mat-fab color="primary" class="btn-add">
+  <img onclick="polish()" src="assets/img/polish-flag.png" />
+</button> -->
+
+<!-- flags-container.component.html -->
+<div class="btns-flas-container" [ngStyle]="{ gap: containerVisible ? '16px' : '0' }">
+  <div *ngFor="let lang of ['en', 'de', 'pl', 'hu']; let i = index">
+    <button
+      *ngIf="containerVisible || currentLang === lang"
+      [class.currentLang]="containerVisible && currentLang === lang"
+      class="btn-flag"
+      (click)="setCurrentLang(lang)"
+      (click)="toggleContainerVisibility()"
+      mat-fab
+      color="primary"
+    >
+      <div class="flag-container">
+        <img src="assets/img/{{ lang }}-flag.png" />
+      </div>
+    </button>
+  </div>
+</div>

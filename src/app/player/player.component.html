@@ -1,6 +1,7 @@
-<mat-card [class.player-active]="playerActive" class="player-card">
+<mat-card [class.player-active]="playerActive" class="player-card"
+[class.player-card-visible]="!playersSlideContainerHidden" [class.player-card-unvisible]="playersSlideContainerHidden">
   <div class="avatar-img-border-bg">
-    <img class="avatar-img" src="assets/img/profile/1.webp" />
+    <img class="avatar-img" src="assets/img/profile/{{ image }}" />
   </div>
   <!-- Input Variable, deklariert in 'player.component.ts'; Wert eingegeben in 'game.component.html '-->
   <span class="player-name">{{ name }}</span>

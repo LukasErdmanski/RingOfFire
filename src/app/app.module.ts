@@ -32,6 +32,22 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { PlayerContainerComponent } from './player-container/player-container.component';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { EditPlayerComponent } from './edit-player/edit-player.component';
+import { RotateDeviceInfoComponent } from './rotate-device-info/rotate-device-info.component';
+import { GameOverScreenComponent } from './game-over-screen/game-over-screen.component';
+import { FlagsContainerComponent } from './flags-container/flags-container.component';
+// Required for ngx-translate
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { GameService } from './services/game.service';
+
+// Required for ngx-translate
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +58,10 @@ import { PlayerContainerComponent } from './player-container/player-container.co
     DialogAddPlayerComponent,
     GameInfoComponent,
     PlayerContainerComponent,
+    EditPlayerComponent,
+    RotateDeviceInfoComponent,
+    GameOverScreenComponent,
+    FlagsContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,8 +77,21 @@ import { PlayerContainerComponent } from './player-container/player-container.co
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    // Required for ngx-translate
+    HttpClientModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    // no need to place any providers due to the `providedIn` flag in GameSerivce
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

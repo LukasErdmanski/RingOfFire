@@ -1,0 +1,17 @@
+#rotateDeviceInfo {
+  display: none;
+}
+
+#content {
+  display: inline;
+}
+
+@media (max-height: 576px) and (orientation: landscape) {
+  #rotateDeviceInfo {
+    display: inline;
+  }
+
+  #content {
+    display: none;
+  }
+}

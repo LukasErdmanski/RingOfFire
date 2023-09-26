@@ -1,15 +1,18 @@
 .player-card {
-  margin: 6px;
+  margin: 8px;
   align-items: center;
   border-radius: 16px 16px 16px 16px;
   border: 0.1px solid rgb(87, 87, 87);
   padding: 4px 0 0 0;
   background-color: rgba(64, 64, 64, 0.437);
-  transition: scale 225ms ease-in-out;
-  opacity: 0.88;
+  transition: all 225ms 550ms ease-in-out;
 
   &:hover {
     cursor: pointer;
+    filter: brightness(1.15);
+    filter: drop-shadow(0px 0px 6px #00225557);
+    transform: scale(1.05);
+    opacity: 1;
   }
 }
 
@@ -25,6 +28,9 @@
   border: 1.9px solid rgb(87, 87, 87);
   width: 50px;
   height: 50px;
+  object-fit: contain;
+  box-sizing: border-box;
+  padding: 3px;
 }
 
 .player-name {
@@ -44,4 +50,16 @@
   opacity: 1;
   scale: 1.1;
   background-color: rgb(251 185 57 / 85%) !important;
+}
+
+@media (max-width: 576px) {
+  .player-card-visible {
+    opacity: 0.88;
+    transition: all 225ms 550ms ease-in-out;
+  }
+
+  .player-card-unvisible {
+    opacity: 0;
+    transition: all 225ms 50ms ease-in-out;
+  }
 }

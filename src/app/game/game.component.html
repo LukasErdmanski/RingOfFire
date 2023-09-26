@@ -1,4 +1,5 @@
-<div class="game-container">
+<!-- GAME CONTAINER -->
+<div *ngIf="firstDataReceived" class="game-container" [class.fade-out]="game.gameOver">
   <app-player-container
     *ngIf="game.players.length > 0"
     [game]="game"
@@ -6,6 +7,14 @@
     [playerCount]="game.players.length"
   ></app-player-container>
 
+  <!-- PRELOADED NEXT COVERED CARD -->
+  <img
+    *ngIf="game.stack.length > 0"
+    class="preload"
+    src="assets/img/cards/{{ game.stack[game.stack.length - 1] }}.png"
+  />
+
+  <!-- FIELD -->
   <div class="field">
     <div class="card-stack">
       <!-- UNTERER STAPEL
@@ -13,14 +22,23 @@
     dynamisch für das aktuell iterierte i-Element mal 5 multipoliziert und eingesetzt. 
     
     *ngFor="let c of [0, 1, 2, 3, 4]; let i = index das ist eine Angular for-Schleife in HTML -->
-      <img
-        *ngFor="let c of [0, 1, 2, 3]; let i = index"
-        [ngStyle]="{ 'right.px': i * 5 }"
-        src="assets/img/cards/card_cover.png"
-      />
+      <ng-container *ngFor="let card of game.cardsRightToBottomStack; let i = index">
+        <img
+          *ngIf="game.cardsRightToBottomStack[i] != undefined"
+          (click)="takeCard()"
+          [ngStyle]="{ 'right.px': (i + 1) * 5 }"
+          src="assets/img/cards/card_cover.png"
+        />
+      </ng-container>
 
       <!--UNTERER STAPEL: OBERSTE KARTE VERDECKT -->
-      <img (click)="takeCard()" class="top-card" style="right: 25px" src="assets/img/cards/card_cover.png" />
+      <img
+        *ngIf="game.stack.length - game.cardsRightToBottomStack.length > 0"
+        (click)="takeCard()"
+        class="top-card"
+        style="right: 25px"
+        src="assets/img/cards/card_cover.png"
+      />
 
       <!-- OBERER STAPEL
       Das 'ngFor' Direktiv wird verwendet, um über jedes Element in 'game.playedCards' zu iterieren und 
@@ -42,20 +60,11 @@
         />
       </ng-container>
 
-      <ng-container *ngIf="game.playedCards.length > 0">
-        <img
-          *ngFor="let card of game.playedCards; trackBy: trackByFn"
-          class="played-card"
-          src="assets/img/cards/{{ card }}.png"
-        />
-      </ng-container>
-
       <!-- AKTEULL GEZOGENE FLIEGENDE KARTE ABGELEGT AUF OBEREM STAPEL
     Dieses img-Element ist durch '*ngIf' erst sichtbar wenn 'pickCardAnimation' 'true' ist.
     [class.pick-card]="pickCardAnimation" Klasse 'pick-card' wird hinzugefügt wenn 'pickCardAnimation auf 'true' gesetzt wird
     wenn man durch CLick die Methode 'takeCard', s.o., ausführt. -->
       <img
-        (click)="takeCard()"
         *ngIf="game.pickCardAnimation"
         class="pick-card"
         style="right: 25px"
@@ -66,11 +75,14 @@
 
   <!-- GAME INFO BOX
   Angular Material Component from https://material.angular.io/components/card/overview-->
-  <app-game-info [card]="game.currentCard" class="pin-bottom"> </app-game-info>
+  <app-game-info [card]="game.currentCard" class="pin-bottom"></app-game-info>
+
+  <!-- CHANGE LANG BUTTON -->
+  <app-flags-container></app-flags-container>
 
   <!-- ADD PLAYER BUTTON
   Angular Material Component from https://material.angular.io/components/button/overview -->
-  <button *ngIf="game.players.length < 10" mat-fab color="primary" class="btn-add" (click)="openDialog()">
+  <button *ngIf="game.players.length < 11" mat-fab color="primary" class="btn-add" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

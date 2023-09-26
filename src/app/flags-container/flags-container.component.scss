@@ -1,0 +1,32 @@
+.btns-flas-container {
+  position: absolute;
+  right: 16px;
+  bottom: 250px;
+  z-index: 1;
+  opacity: 0.87;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  transition: gap 225ms ease-in-out;
+}
+
+.btn-flag {
+  overflow: hidden;
+
+  .flag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  img {
+    height: 56px;
+  }
+}
+
+.currentLang {
+  border: 4px solid rgb(253, 225, 40);
+  filter: drop-shadow(2px 2px 5px rgb(253, 225, 40)) !important;
+  transform: scale(1.24);
+}

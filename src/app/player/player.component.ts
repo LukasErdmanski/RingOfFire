@@ -11,4 +11,6 @@ export class PlayerComponent {
   /* Am Anfang ist ein Spieler nicht aktiv. Diese Variable steuert auch die Aktivität/Vorhandensein 
   der SCCS Klasse 'player-active' für aktiven Spieler in 'player.component.html' */
   @Input() playerActive: boolean = false;
+  @Input() image: string = '1.webp';
+  @Input() playersSlideContainerHidden: boolean = false;
 }
