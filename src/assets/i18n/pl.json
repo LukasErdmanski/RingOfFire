@@ -3,13 +3,15 @@
   "Please click on the card stack to select the next card.": "Proszę kliknąć na stos kart, aby wybrać następną kartę.",
 
   "Add new player": "Dodaj nowego gracza",
-  "Please enter the name of a player": "Proszę wprowadzić imię gracza",
+  "Select an avatar.": "Wybierz avatar.",
+  "Enter the name.": "Wprowadzić imię.",
   "Name": "Imię",
-  "No Thanks": "Nie, dziękuję",
+  "Cancel": "Anuluj",
+  "Add": "Dodaj",
 
   "Edit player": "Edytuj gracza",
-  "Close": "Zamknij",
-  "Delete player": "Usuń gracza",
+  "Delete": "Usuń",
+  "Save": "Zapisz",
 
   "Waterfall": "Wodospad",
   "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Wszyscy muszą zacząć pić w tym samym czasie. Jak tylko gracz 1 przestaje pić, gracz 2 może przestać pić. Gracz 3 może przestać, jak tylko gracz 2 przestanie pić, i tak dalej.",

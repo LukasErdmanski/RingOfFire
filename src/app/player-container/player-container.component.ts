@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, AfterViewInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { Game } from 'src/models/game';
-import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GameService } from '../services/game.service';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,6 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
     playersSlideContainerHidden: boolean = false;
 
     constructor(public dialog: MatDialog, private gameService: GameService) {}
-    private dialogRefSubscription?: Subscription;
 
     /**
      * Track by function for ngFor directive.
@@ -64,7 +63,6 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
     }
 
     ngOnDestroy() {
-        this.dialogRefSubscription?.unsubscribe();
     }
 
     setScrollArrowsVisibility(): void {
@@ -112,8 +110,8 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
     editPlayer(playerId: number) {
         console.log('Edit player', playerId);
 
-        const dialogRef = this.dialog.open(EditPlayerComponent);
-        this.dialogRefSubscription = dialogRef.afterClosed().subscribe((change: string) => {
+        const dialogRef = this.dialog.open(DialogEditPlayerComponent);
+        dialogRef.afterClosed().subscribe((change: string) => {
             console.log('Received change', change);
             /* Prüfen ob change != undefined ist, also wirklich eine Img-Änderung gemacht wurde beim Öffen/Schliessen von Dialog, 
       da ohne die ifAbfrage ein undefined in Array gelangen würde und kein Avatar dargestellt wird, wenn man das Dialog anders schliesst
@@ -127,9 +125,8 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
                     /* Aktualisieren des Pictures Array an der Stelle 'playerId' um den Wert 'change. */
                     this.game.player_images[playerId] = change;
                 }
-                this.gameService.updateGameDoc();
+                this.gameService.updateGameDoc(this.game);
             }
-            this.dialogRefSubscription?.unsubscribe();
         });
     }
 

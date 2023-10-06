@@ -3,13 +3,15 @@
   "Please click on the card stack to select the next card.": "Please click on the card stack to select the next card.",
 
   "Add new player": "Add new player",
-  "Please enter the name of a player": "Please enter the name of a player",
+  "Select an avatar.": "Select an avatar.",
+  "Enter the name.": "Enter the name.",
   "Name": "Name",
-  "No Thanks": "No Thanks",
+  "Cancel": "Cancel",
+  "Add": "Add",
 
   "Edit player": "Edit player",
-  "Close": "Close",
-  "Delete player": "Delete player",
+  "Delete": "Delete",
+  "Save": "Save",
 
   "Waterfall": "Waterfall",
   "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.",

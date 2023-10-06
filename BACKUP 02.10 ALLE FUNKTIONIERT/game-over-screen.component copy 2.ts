@@ -2,12 +2,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { Router } from '@angular/router';
-import { Observable, Subscription, filter, firstValueFrom, map } from 'rxjs';
+import { Observable, Subscription, filter, map } from 'rxjs';
 import { Game } from 'src/models/game';
 import { TransactionStatus } from '../enums/transaction-status.enum';
-import { DialogJoinGameComponent as DialogJoinGameComponent } from '../dialog-join-game/dialog-join-game.component';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogIncludeLastGamePlayersComponent } from '../dialog-include-last-game-players/dialog-include-last-game-players.component';
 
 @Component({
     selector: 'app-game-over-screen',
@@ -15,9 +12,7 @@ import { DialogIncludeLastGamePlayersComponent } from '../dialog-include-last-ga
     styleUrls: ['../../assets/scss/screen.scss'],
 })
 export class GameOverScreenComponent implements OnInit, AfterViewInit {
-    private decisionJoinGame: boolean = false;
-    joinGame!: boolean;
-    constructor(private gameService: GameService, private router: Router, public dialog: MatDialog) {
+    constructor(private gameService: GameService, private router: Router) {
         // this.subscribeToGameUpdates();
         debugger;
     }
@@ -66,7 +61,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
                         this.unsubscribe_gameOverInNewGameSub();
 
                         if (!gameOver) {
-                            this.askWantToJoinNewGame();
+                            this.askToJoinNewGame();
                         }
                     });
                 } else {
@@ -74,36 +69,15 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
             });
     }
 
-    async askWantToJoinNewGame() {
-        debugger;
-        const dialogRef = this.dialog.open(DialogJoinGameComponent, {
-            disableClose: true,
-        });
-
-        this.joinGame = await firstValueFrom(dialogRef.afterClosed());
-
-        if (this.joinGame === true) {
-            // Wenn "Ja" ausgewählt wurde
-            this.router.navigate([`/game/${this.gameService.game.id}`]);
-        } else if (this.joinGame === false) {
+    askToJoinNewGame() {
+        if (confirm('Ein Spieler aus der letzten Runde hat bereits ein neues Spiel gestartet, mit denselben Mitspielern. Möchten Sie beitreten? Ja / Nein')) {
+            // this.joinNewGame();
             debugger;
-            // Wenn "Nein" ausgewählt wurde oder der Dialog abgebrochen wurde
+
+            this.router.navigate([`/game/${this.gameService.game.id}`]);
+        } else {
             this.gameService.resetGame();
         }
-    }
-
-    async askShouldIncludeLastGamePlayers(): Promise<boolean> {
-        const dialogRef = this.dialog.open(DialogIncludeLastGamePlayersComponent, {
-            disableClose: true,
-        });
-
-        console.log('TO JEST PLAYERS IN GAME SERVICE GAME: ', this.gameService.game.players);
-
-        const includeLastGamePlayers: boolean = await firstValueFrom(dialogRef.afterClosed());
-
-        debugger;
-
-        return includeLastGamePlayers;
     }
 
     async startNewGame() {
@@ -111,14 +85,8 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
         this.unsubscribe_newGameIdInLastGameSub();
         this.gameService.unsubscribeGameDoc();
 
-        let includeLastGamePlayers: boolean = false;
-
-        if (this.joinGame === undefined) {
-            includeLastGamePlayers = await this.askShouldIncludeLastGamePlayers();
-        }
-
         try {
-            await this.gameService.createGameDoc2(includeLastGamePlayers); // Hier wird die Methode aufgerufen
+            await this.gameService.createGameDoc2(); // Hier wird die Methode aufgerufen
 
             // Wenn das Promise aufgelöst wird, navigieren Sie zum Spiel mit der neuen ID
             this.router.navigate([`/game/${this.gameService.game.id}`]); // Hier navigieren Sie zum neuen Spiel
@@ -127,7 +95,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
             if (error === TransactionStatus.ALREADY_CREATED) {
                 // Wenn das Spiel bereits existiert, rufen Sie die existierende Methode askToJoinNewGame auf
-                this.askWantToJoinNewGame();
+                this.askToJoinNewGame();
             } else {
                 alert(`Es ist ein Fehler aufgetreten beim Erstellen oder Abrufen der Spielinformationen. 
                 Jemand hat möglicherweise bereits ein Spiel gestartet.
@@ -179,27 +147,6 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
         }
 
         this.gameOverInNewGameSub?.unsubscribe();
-    }
-
-    openDialogConfirmJoinGame() {
-        /* Prüfen ob change != undefined ist, also wirklich eine Img-Änderung gemacht wurde beim Öffen/Schliessen von Dialog, 
-      da ohne die ifAbfrage ein undefined in Array gelangen würde und kein Avatar dargestellt wird, wenn man das Dialog anders schliesst
-      als ohne Click auf ein Avatar-Vorschlag */
-        // if (change) {
-        //     if (change == 'DELETE') {
-        //         /* Löschen des Players und seines Avatars an der Stelle 'playerId', wenn Button mit ReturnValue 'DELETE' gedrückt wurde. */
-        //         this.game.players.splice(playerId, 1);
-        //         this.game.player_images.splice(playerId, 1);
-        //     } else {
-        //         /* Aktualisieren des Pictures Array an der Stelle 'playerId' um den Wert 'change. */
-        //         this.game.player_images[playerId] = change;
-        //     }
-        //     this.gameService.updateGameDoc(this.game);
-        // }
-
-        // if (change == true) this.decisionJoinGame = true;
-        // else if (change ===false) this.decisionJoinGame = false;
-        debugger;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

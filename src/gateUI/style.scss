@@ -1,0 +1,868 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$toms-gate-ui-primary: mat.define-palette(mat.$indigo-palette);
+$toms-gate-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$toms-gate-ui-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$toms-gate-ui-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $toms-gate-ui-primary,
+            accent: $toms-gate-ui-accent,
+            warn: $toms-gate-ui-warn,
+        ),
+    )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($toms-gate-ui-theme);
+
+// Add css/scss imports here.
+@import 'https://sapui5.hana.ondemand.com/resources/sap/ui/core/themes/base/SAP-icons.css';
+@import 'assets/css/bootstrap-override.scss';
+@import 'assets/css/sass_variables.scss';
+
+// Fonts
+@font-face {
+    font-family: '72-Regular';
+    src: local('72-Regular'), url(./assets/fonts/72-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: '72-Bold';
+    src: local('72-Bold'), url(./assets/fonts/72-Bold.ttf) format('truetype');
+}
+
+// General
+body {
+    margin: 0 !important;
+    line-height: normal;
+    font-family: '72-Regular' !important;
+}
+
+a {
+    text-decoration: none !important;
+    font-size: 14px !important;
+    filter: brightness(1.2);
+    &:hover {
+        text-decoration: underline !important;
+        filter: brightness(0.7) !important;
+    }
+    &:disabled {
+        opacity: 0.5 !important;
+    }
+}
+
+b {
+    font-weight: 400 !important;
+    font-family: var(--sapFontBoldFamily) !important;
+}
+
+button {
+    height: 26px !important;
+    border-radius: 3px !important;
+    padding: 5px 8px 5px 8px !important;
+    font-size: 14px !important;
+    font-family: var(--sapFontFamily) !important;
+    line-height: 16px !important;
+}
+
+label {
+    /* Label */
+
+    position: static;
+    height: 16px !important;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+
+    font-family: var(--sapFontFamily) !important;
+    font-size: 14px !important;
+    line-height: 16px;
+
+    /* Text/ sapContent_LabelColor */
+    color: #6a6d70 !important;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    &::after {
+        content: ':';
+    }
+
+    &.plain::after {
+        content: '';
+    }
+
+    &.required::after {
+        content: ':*';
+        color: var(--bs-danger);
+    }
+}
+
+input[type='text'],
+input[type='date'] {
+    /* Input Field */
+    height: 26px !important;
+    // margin-top: 3px !important;
+    padding: 0 5px 0 5px !important;
+
+    /* Input/ sapField_BorderColor */
+    border: 1px solid #89919a !important;
+    box-sizing: border-box !important;
+    border-radius: 2px !important;
+
+    font-family: var(--sapFontFamily) !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    color: #32363a !important;
+
+    &:focus,
+    &:focus-visible {
+        border: 1px solid $sapActiveColor !important;
+        border-radius: 2px !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    &.is-invalid {
+        border-color: var(--sapNegativeColor) !important;
+        padding-right: 30px !important;
+    }
+
+    &.is-valid {
+        border-color: var(--sapPositiveColor) !important;
+        padding-right: 30px !important;
+    }
+
+    &.is-warned {
+        border-color: var(--sapCriticalColor) !important;
+    }
+}
+
+textarea {
+    border-radius: 2px !important;
+    border: 1px solid #89919a !important;
+    font-family: var(--sapFontFamily) !important;
+    font-size: 14px !important;
+    padding: 2px 5px 2px 5px !important;
+
+    &:focus,
+    &:focus-visible {
+        border: 1px solid $sapActiveColor !important;
+        border-radius: 2px !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+}
+
+.form-select {
+    height: 26px !important;
+    margin-top: 3px;
+    background-color: #ffffff;
+
+    font-family: var(--sapFontFamily) !important;
+    font-size: 14px !important;
+    padding: 0 20px 0 5px !important;
+
+    border: 1px solid #89919a !important;
+    box-sizing: border-box !important;
+    border-radius: 2px !important;
+
+    &:focus {
+        border: 1px solid $sapActiveColor !important;
+        border-radius: 2px !important;
+        box-shadow: none !important;
+    }
+
+    &.is-invalid {
+        border-color: var(--sapNegativeColor) !important;
+    }
+
+    &.is-valid {
+        border-color: var(--sapPositiveColor) !important;
+    }
+
+    &.is-warned {
+        border-color: var(--sapCriticalColor) !important;
+    }
+
+    option {
+        padding: 0px 8px 0px 16px !important;
+        font-family: var(--sapFontFamily) !important;
+        font-style: normal !important;
+        font-size: 14px !important;
+        line-height: 16px !important;
+        box-shadow: none !important;
+        font-weight: 400 !important;
+        appearance: none !important;
+
+        :hover {
+            background-color: $sapActiveColor !important;
+        }
+    }
+}
+
+.pointer-on-hover {
+    cursor: pointer;
+}
+
+.sap-font {
+    font-family: SAP-icons;
+}
+
+.reserved-height {
+    min-height: 18px;
+}
+
+.reserved-height-h5 {
+    min-height: 24px;
+}
+
+// *******
+// BREAKPOINTS SAP
+// *******
+/* Bootstrap XS */
+
+@media only screen and (min-width: 0px) {
+    .sap-container {
+        padding-right: 2rem !important;
+        padding-left: 2rem !important;
+    }
+    .sap-container-2 {
+        padding-right: 1.2rem !important;
+        padding-left: 0 !important;
+    }
+    .object-tabswitch {
+        padding-left: 1rem;
+    }
+}
+
+/* Bootstrap SM */
+
+@media only screen and (min-width: 576px) {
+    .sap-container {
+        padding-right: 2rem !important;
+        padding-left: 2rem !important;
+    }
+    .sap-container-2 {
+        padding-right: 1.2rem !important;
+        padding-left: 0 !important;
+    }
+    .object-tabswitch {
+        padding-left: 1rem;
+    }
+}
+
+/* Bootstrap MD */
+
+@media only screen and (min-width: 768px) {
+    .sap-container {
+        padding-right: 2.2rem !important;
+        padding-left: 2.2rem !important;
+    }
+    .sap-container-2 {
+        padding-right: 0.4rem !important;
+        padding-left: 0.4rem !important;
+    }
+    .object-tabswitch {
+        padding-left: 1.2rem;
+    }
+}
+
+/* Bootstrap LG */
+
+@media only screen and (min-width: 992px) {
+    .sap-container {
+        padding-right: 2.8rem !important;
+        padding-left: 2.8rem !important;
+    }
+    .sap-container-2 {
+        padding-right: 0.5rem !important;
+        padding-left: 0.5rem !important;
+    }
+    .pt-xs-2 {
+        padding-top: 0rem;
+    }
+    .object-tabswitch {
+        padding-left: 1.8rem;
+    }
+}
+
+/* Bootstrap XL */
+
+@media only screen and (min-width: 1200px) {
+    .sap-container {
+        padding-right: 5.9rem !important;
+        padding-left: 5.9rem !important;
+    }
+    .sap-container-2 {
+        padding-right: 3.9rem !important;
+        padding-left: 3.9rem !important;
+    }
+    .object-tabswitch {
+        padding-left: 4.8rem;
+    }
+}
+
+// *******
+// Table
+// *******
+/* Table style */
+.infra-table {
+    line-height: 1.5 !important;
+    font-family: var(--sapFontFamily), var(--sapFontFamily) !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+    th {
+        background: var(--sapList_HeaderBackground) !important;
+        color: var(--sapTextColor) !important;
+        font-weight: 400 !important;
+        border-top: 1px solid var(--sapList_BorderColor) !important;
+        border-bottom: 1px solid var(--sapList_BorderColor) !important;
+        padding: 8px 8px 8px 8px !important;
+    }
+    td {
+        border-bottom: 1px solid var(--sapList_BorderColor) !important;
+        padding: 8px 8px 8px 8px !important;
+        div {
+            padding: 0 !important;
+        }
+    }
+    tr {
+        color: var(--sapContent_LabelColor) !important;
+        background: var(--sapList_Background) !important;
+        border-top: none !important;
+        &:hover {
+            background: var(--sapContent_FocusColor) !important;
+            cursor: pointer !important;
+            color: var(--sapTextColor) !important;
+        }
+
+        &.invalid {
+            opacity: 0.5 !important;
+            cursor: default !important;
+        }
+    }
+
+    .checkbox {
+        cursor: default !important;
+        padding: 0 !important;
+    }
+    .form-check-input[type='checkbox'] {
+        width: 1rem !important;
+        height: 1rem !important;
+    }
+
+    span {
+        padding: 0 !important;
+    }
+}
+
+.no-event {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+/* Make text unselectable */
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tooltip-inner {
+    border: 1px solid var(--sapLink_SubtleColor) !important;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: var(--sapLink_SubtleColor) !important;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: var(--sapLink_SubtleColor) !important;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: var(--sapLink_SubtleColor) !important;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: var(--sapLink_SubtleColor) !important;
+}
+
+.warning-border-bottom {
+    border-bottom: 2px solid var(--sapCriticalColor);
+}
+
+.mat-option {
+    height: 26px !important;
+    font-size: 14px !important;
+}
+
+.card {
+    border-radius: 2px !important;
+}
+
+.spinner-grow {
+    background-color: var(--sapLink_SubtleColor) !important;
+}
+
+.spinner-grow-lg {
+    width: 5rem;
+    height: 5rem;
+}
+
+.camera-live-view div:first-child {
+    margin-top: 3.1rem !important;
+}
+
+.camera-live-view div:not(:first-child) {
+    margin-top: 1.5rem !important;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+//*******
+// ALERTS
+//*******
+
+// Alerts
+.alert {
+    height: 24px !important;
+    font-size: small !important;
+    color: black !important;
+    min-width: 240px; // To counter shifting, when alert length differs
+    &.alert-success {
+        border-color: $sapSuccessBorderColor;
+    }
+    &.alert-warning {
+        border-color: $sapWarningBorderColor;
+    }
+    &.alert-danger {
+        border-color: $sapErrorBorderColor;
+    }
+    &.alert-info {
+        border-color: $sapInformationBorderColor;
+    }
+    .btn-close {
+        padding: 0.9rem 0.9rem;
+        width: 0.2em !important;
+        height: 0.2em !important;
+    }
+}
+
+//*******
+// BADGES
+//*******
+.badge-alert {
+    position: absolute;
+}
+
+//**********
+// DROPDOWNS
+//**********
+
+.dropdown {
+    position: relative;
+    margin-left: auto;
+}
+
+.dropdown-menu {
+    min-width: 256px !important;
+}
+
+.dropdown-menu::before {
+    border-bottom: 9px solid rgba(0, 0, 0, 0.2);
+    border-left: 8px solid rgba(0, 0, 0, 0);
+    border-right: 8px solid rgba(0, 0, 0, 0);
+    content: '';
+    display: inline-block;
+    right: 14px;
+    position: absolute;
+    top: -8px;
+    width: 16px;
+}
+
+.dropdown-menu::after {
+    border-bottom: 8px solid #ffffff;
+    border-left: 8px solid rgba(0, 0, 0, 0);
+    border-right: 8px solid rgba(0, 0, 0, 0);
+    content: '';
+    display: inline-block;
+    right: 14px;
+    position: absolute;
+    top: -7px;
+    width: 16px;
+}
+
+// *******
+// BUTTONS
+// *******
+.remove-driver-btn {
+    padding-top: 0.2rem !important;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// *******
+// STEPPER
+// *******
+.mat-step-icon {
+    background-color: $sapNeutralBackground !important;
+    color: $sapTextColor !important;
+}
+
+.mat-step-icon-selected {
+    background-color: $sapHighlightColor !important;
+    color: $sapHighlightTextColor !important;
+}
+
+.mat-step-icon-state-edit {
+    background-color: $sapHighlightColor !important;
+    color: $sapHighlightTextColor !important;
+}
+
+.mat-step-icon-state-done {
+    background-color: $sapHighlightColor !important;
+    color: $sapHighlightTextColor !important;
+}
+
+.negative-margin-stepper {
+    margin-left: -24px !important;
+    margin-right: -24px !important;
+}
+
+.mat-stepper-horizontal {
+    font-family: '72-Regular' !important;
+}
+
+.mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+.mat-step-icon-state-edit {
+    background-color: #fff !important;
+    color: #006220 !important;
+    border: 2px solid #006220 !important;
+}
+
+.mat-step-icon-selected:parent {
+    border-bottom: 3px solid #006220 !important;
+}
+
+.card {
+    // background-color: var(--sapNeutralBackground) !important;
+    background-color: #e9ecef !important;
+    border: 1px solid #89919a !important;
+}
+
+.container-xxl {
+    box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999 !important;
+    min-height: calc(100% - 46px);
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    .toggle-footer {
+        max-width: 1320px;
+    }
+}
+
+.toggle-footer {
+    width: 100%;
+}
+
+.footer-bar {
+    background-color: white !important;
+    border-radius: 10px !important;
+    border: 1px solid rgb(187, 187, 187) !important;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.28) !important;
+    overflow: hidden;
+}
+
+.footer-position {
+    position: fixed;
+    bottom: 8px;
+}
+
+.mat-step-header:has(.mat-step-label-selected) {
+    border-bottom: 3px solid green !important;
+}
+
+// *******
+// TOAST
+// *******
+.toast {
+    background-color: white !important;
+    border-radius: 10px !important;
+    border: 1px solid rgb(187, 187, 187) !important;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.28) !important;
+    height: 36px !important;
+    // display: flex!important;
+    justify-content: center !important;
+    width: auto !important;
+
+    &.warning {
+        color: white;
+        background-color: $sapCriticalTextColor !important;
+    }
+
+    &.error {
+        color: white;
+        background-color: $sapErrorColor !important;
+    }
+
+    & .toast-body {
+        line-height: 12px;
+        text-align: center !important;
+    }
+}
+
+// *******
+// MODEL CARD
+// *******
+.main-class {
+    border: 1px solid #89919a !important;
+    // background-color: var(--sapNeutralBackground) !important;
+    background-color: #e9ecef !important;
+}
+
+.adjacent-class {
+    border: 1px solid #89919a !important;
+    // background-color: var(--sapNeutralBackground) !important;
+    background-color: #e9ecef !important;
+    border-top-style: none !important;
+}
+
+.simple-prop {
+    border: 1px solid #89919a !important;
+    border-top-style: none !important;
+}
+
+// Collapse Arrow Icons
+
+div {
+    &.collapsed {
+        span.collapse-icon {
+            transform: rotate(-90deg);
+        }
+    }
+    span.collapse-icon {
+        display: inline-block;
+        transform: rotate(0deg);
+        transition: transform 0.2s;
+    }
+}
+
+.model-card-wrapper a:hover {
+    text-decoration: none !important;
+    filter: none !important;
+}
+
+.model-label {
+    margin-bottom: 0 !important;
+}
+
+.depth-1 {
+    padding-left: 1rem;
+}
+
+.depth-2 {
+    padding-left: 2rem;
+}
+
+.depth-3 {
+    padding-left: 3rem;
+}
+
+.depth-4 {
+    padding-left: 4rem;
+}
+
+.depth-5 {
+    padding-left: 5rem;
+}
+
+.depth-6 {
+    padding-left: 6rem;
+}
+
+.depth-7 {
+    padding-left: 7rem;
+}
+
+.depth-8 {
+    padding-left: 8rem;
+}
+
+// ******
+// HEADER
+// ******
+.h-center {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// ***************
+// Validation
+// ***************
+.infra-invalid-feedback {
+    display: table;
+    font-size: small;
+    background: rgba($sapErrorBackground, 0.7) !important;
+}
+
+.infra-warned-feedback {
+    display: table;
+    font-size: small;
+    background: rgba($sapWarningBackground, 0.7) !important;
+}
+// All labels should have a colon
+.label::after {
+    content: ':';
+}
+
+.overflow-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.collapse-icon {
+    margin-left: -1.5rem;
+    position: absolute;
+}
+
+.SummaryTitle {
+    border-bottom: 1px solid #a8b3bd;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    margin: 0;
+    margin-top: 0.5em;
+}
+
+.label-col {
+    @extend .pb-1;
+    @extend .pb-md-0;
+    @extend .col-12;
+    @extend .col-md-4;
+    @extend .col-xl-3;
+    @extend .text-start;
+    @extend .text-md-end;
+    line-height: 1em;
+    &.form-label {
+        height: 100%;
+        min-height: 24px;
+        padding-top: 4px;
+        > span,
+        label {
+            margin-top: 4px;
+        }
+    }
+}
+
+.value-col {
+    @extend .col-12;
+    @extend .col-md-8;
+    @extend .col-xl-9;
+    @extend .text-start;
+    @extend .align-self-end;
+    line-height: 1em;
+}
+
+.data-row {
+    @extend .row;
+    @extend .my-2;
+    @extend .align-items-start;
+}
+
+.data-group-content {
+    @extend .pt-2;
+}
+
+.data-group {
+    @extend .pt-3;
+}
+
+mat-option > span {
+    display: block;
+    width: 100%;
+}
+
+/** Tour header **/
+.m-auto {
+    margin: auto;
+}
+
+.dynamic-object-header-value {
+    min-height: 3rem;
+    min-width: 4rem;
+}
+
+.dynamic-object-header > .fs-6 {
+    font-family: '72-Bold', '72-Boldfull', '72', '72full', Arial, Helvetica, sans-serif;
+}
+
+/** Pictures **/
+
+.picture-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .picture-item {
+        flex-basis: calc(50% - 5px);
+        margin-bottom: 20px;
+
+        &:nth-child(odd) {
+            margin-right: 2.5px;
+        }
+        &:nth-child(even) {
+            margin-left: 2.5px;
+        }
+
+        .picture-preview {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+    }
+}

@@ -15,9 +15,9 @@ https://material.angular.io/components/dialog/api
 */
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.component';
+import { DialogAddEditPlayerComponent } from './dialog-add-edit-player/dialog-add-edit-player.component';
 /* Erforderliche Module bzgl. Style, Forms, Inputfelder für Dialog Fenster, 
-damit diese HTML-Elemente/tages in 'dialog-add-player.component.html' wie 
+damit diese HTML-Elemente/tages in 'dialog-add-edit-player.component.html' wie 
 <div mat-dialog-content>, <mat-form-field>, <mat-label>, <input matInput>, <div mat-dialog-actions> etc.
 überhaupt ohne Fehler funktionieren */
 import { MatDialogModule } from '@angular/material/dialog';
@@ -33,7 +33,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { PlayerContainerComponent } from './player-container/player-container.component';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { EditPlayerComponent } from './edit-player/edit-player.component';
+import { DialogEditPlayerComponent } from './dialog-edit-player/dialog-edit-player.component';
 import { RotateDeviceInfoComponent } from './rotate-device-info/rotate-device-info.component';
 import { GameOverScreenComponent } from './game-over-screen/game-over-screen.component';
 import { FlagsContainerComponent } from './flags-container/flags-container.component';
@@ -42,56 +42,46 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GameService } from './services/game.service';
+import { DialogJoinGameComponent } from './dialog-join-game/dialog-join-game.component';
+import { DialogIncludeLastGamePlayersComponent } from './dialog-include-last-game-players/dialog-include-last-game-players.component';
 
 // Required for ngx-translate
-// AoT requires an exported function for factories
+// AoT requires an exported function for factorie
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    StartScreenComponent,
-    GameComponent,
-    PlayerComponent,
-    DialogAddPlayerComponent,
-    GameInfoComponent,
-    PlayerContainerComponent,
-    EditPlayerComponent,
-    RotateDeviceInfoComponent,
-    GameOverScreenComponent,
-    FlagsContainerComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    FormsModule,
-    MatInputModule,
-    MatCardModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()),
-    // Required for ngx-translate
-    HttpClientModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-  ],
-  providers: [
-    // no need to place any providers due to the `providedIn` flag in GameSerivce
-  ],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, GameComponent, StartScreenComponent, PlayerComponent, DialogAddEditPlayerComponent, GameInfoComponent, PlayerContainerComponent, DialogEditPlayerComponent, RotateDeviceInfoComponent, GameOverScreenComponent, FlagsContainerComponent, DialogJoinGameComponent, DialogIncludeLastGamePlayersComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule,
+        FormsModule,
+        MatInputModule,
+        MatCardModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase()),
+        provideFirestore(() => getFirestore()),
+        provideStorage(() => getStorage()),
+        // Required for ngx-translate
+        HttpClientModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+    ],
+    providers: [
+        // no need to place any providers due to the `providedIn` flag in GameSerivce
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

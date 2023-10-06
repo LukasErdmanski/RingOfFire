@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Game } from 'src/models/game';
-import { CollectionReference, DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, runTransaction, updateDoc } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
-import { TransactionStatus } from '../enums/transaction-status.enum';
 
 /* Sie möchten nicht mehrere Instanzen desselben Service in Ihrer Anwendung haben. 
   Wenn Sie einen Service über den Konstruktor einer Komponente bereitstellen, 
@@ -35,14 +34,11 @@ export class GameService {
     gameId!: string;
 
     constructor(private router: Router) {
-        debugger;
         this.resetGame();
     }
 
     private gameOverSubject = new BehaviorSubject<boolean>(false);
     public gameOver$ = this.gameOverSubject.asObservable();
-
-    async startNewGameFromStartScreen() {}
 
     async startNewGame2() {
         console.log('GAME SERVICE__ / __ startNewGame2, firstDataReceived: ', this.firstDataReceived);
@@ -64,87 +60,7 @@ export class GameService {
         // this.game = new Game();
     }
 
-    async createGameDoc2(includeLastGamePlayers?: boolean): Promise<TransactionStatus> {
-        return new Promise<TransactionStatus>(async (resolve, reject) => {
-            try {
-                const newGame = new Game();
-
-                debugger;
-                if (includeLastGamePlayers) {
-                    debugger;
-                    newGame.players = this.game.players;
-                    newGame.player_images = this.game.player_images;
-                }
-
-                
-            let transactionSuccessful = true;
-
-                await runTransaction(this.firestore, async (transaction) => {
-                    let lastGameSingleDocRef;
-                    let lastGameSingleDoc;
-
-                    if (this.game && this.game.id) {
-                        lastGameSingleDocRef = this.getSingleGameDocRef(this.game);
-                        lastGameSingleDoc = await transaction.get(lastGameSingleDocRef);
-
-                        if (lastGameSingleDoc.exists() && lastGameSingleDoc.data()['newGameId']) {
-                            // Aktualisieren Sie this.game mit dem neuen Game Objekt
-                            const newGameId = lastGameSingleDoc.data()['newGameId'];
-
-                            debugger;
-                            this.game.id = newGameId;
-                            reject(TransactionStatus.ALREADY_CREATED);
-                            transactionSuccessful = false;
-                            return;
-                        }
-                    }
-
-                    debugger;
-
-                    const gameColRef = this.getGameColRef();
-
-                    const newGameAsJson = newGame.toJson();
-                    const newGameDocRef = await addDoc(gameColRef, newGameAsJson);
-                    const newGameId = newGameDocRef.id;
-                    // ////////////////////////////////////////////
-                    if (lastGameSingleDocRef) {
-                        this.game.newGameId = newGameId;
-                        transaction.update(lastGameSingleDocRef, { newGameId: newGameId });
-                        console.log('Dokument aktualisiert');
-                    }
-
-                    debugger;
-
-                    newGame.id = newGameId;
-                    transaction.update(newGameDocRef, { id: newGameId });
-                });
-
-                if (transactionSuccessful) {
-                    this.game = newGame;
-                    resolve(TransactionStatus.SUCCES);
-                }
-            } catch (error) {
-                console.error('Ein Fehler ist aufgetreten:', error);
-                if (error === TransactionStatus.ALREADY_CREATED) {
-                    // Wenn der Fehler TransactionStatus.ALREADY_CREATED ist, werfen Sie ihn erneut,
-                    // sodass er im catch-Block von startNewGame abgefangen werden kann.
-                    throw error;
-                } else {
-                    // Für alle anderen Fehler, lehnen Sie das Promise ab.
-                    reject(error);
-                }
-            } finally {
-                debugger;
-                console.warn('GAME SERVICE / CREATE GAME DOC geht HIEEEEER ZU ENDE ');
-            }
-        });
-    }
-
-    ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////
-
-    async createGameDoc3() {
+    async createGameDoc2() {
         console.log('GAME SERVICE__ / __ createGameDoc2 Anfang, firstDataReceived: ', this.firstDataReceived);
         const gameColRef = this.getGameColRef();
         const newGame = new Game();
@@ -197,7 +113,7 @@ export class GameService {
 
     lastGameId!: string;
 
-    setnewGameId(newGameId: string) {
+    setNewGameId(newGameId: string) {
         this.game.newGameId = newGameId;
     }
 
@@ -274,7 +190,7 @@ export class GameService {
     /* TODO: Vielleicht am Ende nach Oben schieben */
     game$!: Observable<Game>;
     gameSub!: Subscription;
-    navigatedToGameOverScreen!: boolean;
+    navigatedToGameOverScreen!: boolean
 
     async subcribeGameDoc(): Promise<Game> {
         this.firstDataReceived = false;
@@ -329,13 +245,13 @@ export class GameService {
 
     unsubscribeGameDoc() {
         debugger;
-        if (this.gameSub && !this.gameSub.closed) {
-            console.warn('GAME SERVICE / unsubscribeGameDoc:  JA ES EXISITERT EINE SUBSCRIPTION und Die Subscription ist noch aktiv.');
+        if(this.gameSub && !this.gameSub.closed) {
+            console.warn("GAME SERVICE / unsubscribeGameDoc:  JA ES EXISITERT EINE SUBSCRIPTION und Die Subscription ist noch aktiv.");
         } else {
-            console.log('GAME SERVICE / unsubscribeGameDoc:  Die Subscription ist geschlossen.');
+            console.log("GAME SERVICE / unsubscribeGameDoc:  Die Subscription ist geschlossen.");
         }
 
-        this.gameSub?.unsubscribe();
+        this.gameSub?.unsubscribe();    
     }
 
     getGameDocData(game: Game): Observable<Game> {

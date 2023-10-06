@@ -1,0 +1,40 @@
+<h1 mat-dialog-title translate>Möchten Sie eine neue Runde mit den gleichen Spielern starten?</h1>
+
+
+
+<div mat-dialog-content >
+  <!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
+und an in DialogEditPlayer() Methode, an dialogRef.afterClosed().subscribe((change: string) => {} 
+als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change' gleich, und in der Arrow-Fn verarbeitet. -->
+    <!-- <p>Möchten Sie eine neue Runde mit den gleichen Spielern starten?<br><br> -->
+    <p>Wählen Sie die gewünschten Spieler aus oder ab.<br>
+        Standardmäßig sind alle bisherigen Spieler ausgewählt.<br><br>
+        Klicken Sie 'Ja', um mit den ausgewählten Spielern fortzufahren, oder 'Nein', um ohne sie zu starten."
+    </p>
+
+    <div class="avatar-collection">
+
+        <div (click)="togglePlayerSelection(i)" class="avatar-name-container" *ngFor="let picture of game.player_images, let i = index">  
+            <div [class.avatarSelected]="playerSelections[i]" class="avatar-img-border-bg" >
+                <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
+            </div>
+            <span class="player-name" [class.player-nameSelected]="playerSelections[i]">{{ game.players[i] }}</span>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button color="warn" (click)="closeDialog(false)">
+        <span translate>No</span>
+    </button>
+    <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
+    und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
+    ' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf
+  
+    Rote Farbe des Button from https://material.angular.io/components/button/overview  
+  
+    DELETE muss man "''" so schreiben damit dies als String Eintrag und nicht eine Variable erkannt wird. -->
+    <button mat-button color="primary" (click)="closeDialog(true)" cdkFocusInitial>
+      <span translate>Yes</span>
+    </button>
+</div>

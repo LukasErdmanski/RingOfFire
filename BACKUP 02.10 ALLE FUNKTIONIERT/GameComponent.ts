@@ -1,10 +1,6 @@
-/* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
 import { Component, OnInit } from '@angular/core';
-
-import { DialogAddEditPlayerComponent } from '../dialog-add-edit-player/dialog-add-edit-player.component';
-import { DialogData } from '../dialog-add-edit-player/dialog-data.interface';
-
 import { MatDialog } from '@angular/material/dialog';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
@@ -18,7 +14,6 @@ export class GameComponent implements OnInit {
     private routeParamsSubscription?: Subscription;
 
     // cardsRightToBottomStack: any[] = [0, 1, 2, 3];
-
     // TODO: VIELLEICHT WIRD es hier global nicht benörigt, man würde es aus dem subRouteParams direkt in GameService übergeben
     // TODO: Vielleicht wird es gebraucth für den Vergleich alte Game ID / neue Game Id bei Starten New Game in gleichem Browser Tab
     routeGameId: string = '';
@@ -97,15 +92,15 @@ export class GameComponent implements OnInit {
             /* Mit pop() wird das letzte Element aus dem Array entfernt und returnt. Es wird unter 'currentCard' gespeichert. */
             this.game.currentCard = this.game.stack.pop()!;
 
-            /* Reduziert das Array 'cardsRightToBottomStack' wenn nur <= 4 Karten übrig sind, 
-      damit diese reduziert richtig nach jedem Zug dargestellt sind, 
+            /* Reduziert das Array 'cardsRightToBottomStack' wenn nur <= 4 Karten übrig sind,
+      damit diese reduziert richtig nach jedem Zug dargestellt sind,
       wenn 48 Karten von unterem Stapel bereits gezogen wurden. */
             if (this.game.stack.length <= 3) this.game.cardsRightToBottomStack.splice(this.game.cardsRightToBottomStack.length - 1, 1);
 
             this.game.pickCardAnimation = true;
 
             /* Erhöhen / Ändern des aktuellen Spielers nach jedem Kartenzug.
-      durch Zirkulation (durch Modulo-Division). 
+      durch Zirkulation (durch Modulo-Division).
       Aber erst wenn ein Pool an Spielern vorhanden ist, da wenn man vorher erst einige Karten ziehen würde
       und erst dann Spieler adden würde, würde die stylische Anzeige für aktuellen Spieler nicht funktionieren. */
             if (this.game.players.length > 0) {
@@ -124,7 +119,6 @@ export class GameComponent implements OnInit {
                 // 'pickCardAnimation' wird auf 'false' resetet, damit die 'pick-card-animation' erneut abgespielt werden kann, bei jedem Kartenzugund nicht nur Einmal.
                 this.game.pickCardAnimation = false;
                 /* Speichern des Game Zustandes / Aktualisieren der Firebase DB des aktuellen Spielers und Hinzufügen der gezogenen Karte zum oberen Kartenstapel */
-
                 if (this.game.stack.length == 0) {
                     debugger;
                     this.game.gameOver = true;
@@ -139,38 +133,26 @@ export class GameComponent implements OnInit {
 
     /* Angular Material Component from https://material.angular.io/components/dialog/overview */
     openDialog(mode: 'add' | 'edit', playerId?: number): void {
-        const dialogRef = this.dialog.open(DialogAddEditPlayerComponent, { data: { mode: mode, playerId: playerId } });
-
-        dialogRef.afterClosed().subscribe((data: { name?: string; avatar?: string; delete?: boolean } | null) => {
-            if (!data) return; // Wenn data null ist (Cancel geklickt), dann einfach zurückkehren
-
-            if (data.delete) {
-                this.deletePlayer(playerId!);
-            } else if (mode === 'edit' && data.name && data.avatar) {
-                this.editPlayer(playerId!, data.name, data.avatar);
-            } else if (mode === 'add' && data.name && data.avatar && data.name.trim().length > 0) {
-                this.addPlayer(data.name, data.avatar);
-            }
-
-            this.gameService.updateGameDoc(this.game);
+        const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
+            data: { mode: mode },
         });
-    }
 
-    deletePlayer(playerId: number): void {
-        this.game.players.splice(playerId, 1);
-        this.game.player_images.splice(playerId, 1);
-    }
-
-    editPlayer(playerId: number, name: string, avatar: string): void {
-        if (this.game.players[playerId] !== name || this.game.player_images[playerId] !== avatar) {
-            this.game.players[playerId] = name;
-            this.game.player_images[playerId] = avatar;
-        }
-    }
-
-    addPlayer(name: string, avatar: string): void {
-        this.game.players.push(name);
-        this.game.player_images.push(avatar);
+        dialogRef.afterClosed().subscribe((dialogClosedResult: { name: string; avatar: string }) => {
+            /* Adden des Players nach dem Closen des Dialog Fensters,
+      aber nur wenn wirklich eine Name exisitert und eingegebunen wurde,
+      also 'name && name.length > 0',
+      damit nicht ein Avatar-Name-Konstrukt für ein nicht existierended und "leeres" 'name' aus Array gerendert wird.
+      Es wird automatisch gemäß CRUD automatisch in '<app-player>'
+      mittels '*ngFor="let player of game.players' gemäß CRUD gerendert. */
+            debugger;
+            if (dialogClosedResult && dialogClosedResult.name.length > 0) {
+                this.game.players.push(dialogClosedResult.name);
+                this.game.player_images.push(dialogClosedResult.avatar);
+                /* Speichern des Game Zustandes / Aktualisieren der Firebase DB nach Hinzufügen des Spielers */
+                // this.gameService.saveGame(this.game);
+                this.gameService.updateGameDoc(this.game);
+            }
+        });
     }
 
     /**
@@ -191,7 +173,6 @@ export class GameComponent implements OnInit {
 
     ///////////////////////////////////////////////////// TO CHECK 29.09.2023 OB NOCH WEITER BENÖTIGT ///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
     firstGameUpdate: boolean = false;
 
@@ -200,7 +181,6 @@ export class GameComponent implements OnInit {
 
     //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
     // initialDelayGameOverStartBtn: any = undefined;
-
     //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
     resetGameState(): void {
         this.firstGameUpdate = false;

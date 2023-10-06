@@ -1,0 +1,40 @@
+<div class="sap-container navigation">
+    <span class="backbutton">
+      <button
+        type="button"
+        class="btn btn-primary mr-2 back-button"
+        (click)="reloadWindow()"
+        [disabled]="disableBackButton()">
+        <span class="sap-font" name="settings">&#xe067;</span>
+      </button>
+    </span>
+    <span class="logo me-3">
+      <img
+        class="ms-1 noselect"
+        src="data:image/png;base64,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" />
+    </span>
+    <span class="primary-title">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a [routerLink]="['/']" class="nav-link noselect" role="button"> TOMS-Gate </a>
+        </li>
+      </ul>
+    </span>
+    <span class="ms-3 secondary-title noselect"> Gate-UI </span>
+    <div class="ms-auto">
+      <div class="d-flex align-items-center gap-1 right-buttons">
+        <button class="btn btn-primary p-0">
+          <app-system-health class="d-flex flex-1 h-100 justify-content-center align-items-center"></app-system-health>
+        </button>
+        <button class="btn btn-primary p-0">
+          <app-system-information class="d-flex flex-1 h-100 justify-content-center align-items-center"></app-system-information>
+        </button>
+        <button class="btn btn-primary p-0" (click)="letterBoxToggle.emit()">
+          <span class="sap-font">&#xe166;</span>
+        </button>
+        <button class="btn btn-primary p-0" disabled>
+          <span class="sap-font text-white noselect" name="settings">&#xe082;</span>
+        </button>
+      </div>
+    </div>
+  </div>

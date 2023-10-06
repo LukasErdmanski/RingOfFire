@@ -1,0 +1,43 @@
+
+<!-- Dropdown -->
+<div class="d-flex dropdown-large h-100 justify-content-center w-100">
+    <!-- Notification Button -->
+    <span class="nav-link position-relative h-100 w-100 d-flex justify-content-center align-items-center" role="button" data-bs-toggle="dropdown" data-bs-offset="8,2">
+      <span class="sap-font text-white w-100">&#xe23a;</span>
+      <!-- Alert Badge -->
+      <span *ngIf="true" class="badge-alert top-50 end-50 badge rounded-pill bg-danger position-absolute">
+        <!-- <span *ngIf="countNotifications() > 0" class="badge-alert top-50 end-50 badge rounded-pill bg-danger position position-absolute"> -->
+        <span>{{ countNotifications() }}</span>
+      </span>
+      <!-- Alert Badge END-->
+      <!-- Notification Button END -->
+    </span>
+  
+    <!-- Notification Dropdown Menu -->
+    <ul class="dropdown-menu dropdown-menu-end" role="menu">
+      <h5 class="text-center pt-1" i18n="@@health.status">System Status</h5>
+      <hr />
+  
+      <!-- No Notifications -->
+      <div *ngIf="countNotifications() <= 0" class="row">
+        <span class="col mx-2 text-secondary text-center" i18n="@@health.notifications.none">No new Notifications.</span>
+      </div>
+  
+      <!-- Row for each Notification  -->
+      <div *ngIf="countNotifications() >= 1">
+        <div class="row" *ngFor="let systemStatus of systemStatuses">
+          <div class="col mx-2" *ngIf="systemStatus.Status >= 300 || systemStatus.Status < 100">
+            <!-- Notification -->
+            <div class="alert d-flex align-items-center" [ngClass]="getAlertClass(systemStatus)" role="alert">
+              <span>{{ systemStatus.Descriptor }}: {{ systemStatus.Message }}</span>
+              <!-- Notification END -->
+            </div>
+          </div>
+          <!-- Row for each Notification END-->
+        </div>
+      </div>
+  
+      <!-- Notification Dropdown Menu END-->
+    </ul>
+    <!-- Dropwdown END -->
+  </div>

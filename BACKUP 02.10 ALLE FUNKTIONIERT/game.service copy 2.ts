@@ -64,21 +64,10 @@ export class GameService {
         // this.game = new Game();
     }
 
-    async createGameDoc2(includeLastGamePlayers?: boolean): Promise<TransactionStatus> {
+    async createGameDoc2(): Promise<TransactionStatus> {
         return new Promise<TransactionStatus>(async (resolve, reject) => {
             try {
                 const newGame = new Game();
-
-                debugger;
-                if (includeLastGamePlayers) {
-                    debugger;
-                    newGame.players = this.game.players;
-                    newGame.player_images = this.game.player_images;
-                }
-
-                
-            let transactionSuccessful = true;
-
                 await runTransaction(this.firestore, async (transaction) => {
                     let lastGameSingleDocRef;
                     let lastGameSingleDoc;
@@ -91,15 +80,12 @@ export class GameService {
                             // Aktualisieren Sie this.game mit dem neuen Game Objekt
                             const newGameId = lastGameSingleDoc.data()['newGameId'];
 
-                            debugger;
                             this.game.id = newGameId;
+
                             reject(TransactionStatus.ALREADY_CREATED);
-                            transactionSuccessful = false;
                             return;
                         }
                     }
-
-                    debugger;
 
                     const gameColRef = this.getGameColRef();
 
@@ -113,16 +99,12 @@ export class GameService {
                         console.log('Dokument aktualisiert');
                     }
 
-                    debugger;
-
                     newGame.id = newGameId;
                     transaction.update(newGameDocRef, { id: newGameId });
                 });
-
-                if (transactionSuccessful) {
-                    this.game = newGame;
-                    resolve(TransactionStatus.SUCCES);
-                }
+                // Wenn die Transaktion erfolgreich ist, führen Sie die folgenden Anweisungen aus:
+                this.game = newGame;
+                resolve(TransactionStatus.SUCCES);
             } catch (error) {
                 console.error('Ein Fehler ist aufgetreten:', error);
                 if (error === TransactionStatus.ALREADY_CREATED) {
@@ -134,7 +116,6 @@ export class GameService {
                     reject(error);
                 }
             } finally {
-                debugger;
                 console.warn('GAME SERVICE / CREATE GAME DOC geht HIEEEEER ZU ENDE ');
             }
         });
