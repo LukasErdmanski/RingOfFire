@@ -1,12 +1,7 @@
 /* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
 import { Component, OnInit } from '@angular/core';
 
-<<<<<<< Updated upstream
-import { DialogAddEditPlayerComponent } from '../dialog-add-edit-player/dialog-add-edit-player.component';
-import { DialogData } from '../dialog-add-edit-player/dialog-data.interface';
-=======
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
->>>>>>> Stashed changes
 
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -143,7 +138,7 @@ export class GameComponent implements OnInit {
 
     /* Angular Material Component from https://material.angular.io/components/dialog/overview */
     openDialog(mode: 'add' | 'edit', playerId?: number): void {
-        const dialogRef = this.dialog.open(DialogAddEditPlayerComponent, { data: { mode: mode, playerId: playerId } });
+        const dialogRef = this.dialog.open(DialogAddPlayerComponent, { data: { mode: mode, playerId: playerId } });
 
         dialogRef.afterClosed().subscribe((data: { name: string; avatar: string }) => {
             debugger;

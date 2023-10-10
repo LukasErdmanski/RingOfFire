@@ -15,7 +15,6 @@ https://material.angular.io/components/dialog/api
 */
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogAddEditPlayerComponent } from './dialog-add-edit-player/dialog-add-edit-player.component';
 /* Erforderliche Module bzgl. Style, Forms, Inputfelder für Dialog Fenster, 
 damit diese HTML-Elemente/tages in 'dialog-add-edit-player.component.html' wie 
 <div mat-dialog-content>, <mat-form-field>, <mat-label>, <input matInput>, <div mat-dialog-actions> etc.
@@ -45,6 +44,7 @@ import { DialogJoinGameComponent } from './dialog-join-game/dialog-join-game.com
 import { DialogIncludeLastGamePlayersComponent } from './dialog-include-last-game-players/dialog-include-last-game-players.component';
 import { DialogEditPlayerComponent } from './dialog-edit-player/dialog-edit-player.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.component';
 
 // Required for ngx-translate
 // AoT requires an exported function for factorie
