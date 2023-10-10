@@ -31,6 +31,8 @@ export class GameService {
     public firstDataReceived!: boolean;
     public game!: Game;
 
+    // TODO: Vielleicht wird es gebraucth für den Vergleich alte Game ID / neue Game Id bei Starten New Game in gleichem Browser Tab
+    gameId!: string;
 
     constructor(private router: Router) {
         debugger;
@@ -39,6 +41,18 @@ export class GameService {
 
     private gameOverSubject = new BehaviorSubject<boolean>(false);
     public gameOver$ = this.gameOverSubject.asObservable();
+
+    async startNewGameFromStartScreen() {}
+
+    async startNewGame2() {
+        console.log('GAME SERVICE__ / __ startNewGame2, firstDataReceived: ', this.firstDataReceived);
+        // debugger;
+
+        // this.resetGame(); // Reset the current game
+        await this.createGameDoc2(); // Create a new game document
+        console.log('GAME SERVICE__ / __ VOR NAVIGIEIRE ZU GAME ID, firstDataReceived: ', this.firstDataReceived);
+        this.router.navigate([`/game/${this.game.id}`]); // Navigate to the new game
+    }
 
     /* Erstellt neues Game Objekt */
     resetGame(): void {
@@ -50,20 +64,10 @@ export class GameService {
         // this.game = new Game();
     }
 
-    async createGameDoc(includeLastGamePlayers?: boolean): Promise<TransactionStatus> {
+    async createGameDoc2(): Promise<TransactionStatus> {
         return new Promise<TransactionStatus>(async (resolve, reject) => {
             try {
                 const newGame = new Game();
-
-                debugger;
-                if (includeLastGamePlayers) {
-                    debugger;
-                    newGame.players = this.game.players;
-                    newGame.player_images = this.game.player_images;
-                }
-
-                let transactionSuccessful = true;
-
                 await runTransaction(this.firestore, async (transaction) => {
                     let lastGameSingleDocRef;
                     let lastGameSingleDoc;
@@ -76,15 +80,12 @@ export class GameService {
                             // Aktualisieren Sie this.game mit dem neuen Game Objekt
                             const newGameId = lastGameSingleDoc.data()['newGameId'];
 
-                            debugger;
                             this.game.id = newGameId;
+
                             reject(TransactionStatus.ALREADY_CREATED);
-                            transactionSuccessful = false;
                             return;
                         }
                     }
-
-                    debugger;
 
                     const gameColRef = this.getGameColRef();
 
@@ -98,16 +99,12 @@ export class GameService {
                         console.log('Dokument aktualisiert');
                     }
 
-                    debugger;
-
                     newGame.id = newGameId;
                     transaction.update(newGameDocRef, { id: newGameId });
                 });
-
-                if (transactionSuccessful) {
-                    this.game = newGame;
-                    resolve(TransactionStatus.SUCCES);
-                }
+                // Wenn die Transaktion erfolgreich ist, führen Sie die folgenden Anweisungen aus:
+                this.game = newGame;
+                resolve(TransactionStatus.SUCCES);
             } catch (error) {
                 console.error('Ein Fehler ist aufgetreten:', error);
                 if (error === TransactionStatus.ALREADY_CREATED) {
@@ -119,15 +116,140 @@ export class GameService {
                     reject(error);
                 }
             } finally {
-                debugger;
                 console.warn('GAME SERVICE / CREATE GAME DOC geht HIEEEEER ZU ENDE ');
             }
         });
     }
 
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
+    async createGameDoc3() {
+        console.log('GAME SERVICE__ / __ createGameDoc2 Anfang, firstDataReceived: ', this.firstDataReceived);
+        const gameColRef = this.getGameColRef();
+        const newGame = new Game();
+        const newGameAsJson = newGame.toJson();
+        await addDoc(gameColRef, newGameAsJson)
+            .then(async (newGameDocRef: DocumentReference<DocumentData>) => {
+                // debugger;
+                console.warn('Created game doc with ID: ', newGameDocRef?.id);
+                const newGameId = newGameDocRef.id;
+                this.game = await this.getNewGameAfterUpdatedIds(newGame, newGameId);
+                console.warn('GAME SERVICE / !!!!!UPDATEN DER IDs zu ENDE ');
+                // debugger;
+                // debugger;
+            })
+            .catch((err) => {
+                // debugger;
+                console.log(err);
+                // debugger;
+            });
+        console.warn('GAME SERVICE / CREATE 2 geht HIEEEEER ZU ENDE ');
+    }
+
+    async getNewGameAfterUpdatedIds(newGame: Game, newGameId: string) {
+        // debugger;
+
+        newGame.id = newGameId;
+        await this.updateGameDoc(newGame);
+
+        const oldGame = this.game;
+        if (oldGame.id) {
+            oldGame.newGameId = newGameId;
+            await this.updateGameDoc(oldGame);
+        }
+
+        return newGame;
+    }
+
+    // in old game Obj newGame id speichern
+    // firbase old game aktualisieren
+    // immer noch old game subscriben
+    // wenn new Game id kommt, checken das new Game gefüllt
+    // info zum mitspiel zeigen
+    // entscheidung von info zu mitspiel auswerten
+    // sich entschiedene spieler zum container wieder hinzufügen
+    // erst unsubscriben wenn
+    // a confirm mitzuspielen
+    // cancel mitzuspielen
+    // selbst auf start gedrückt
+    // selbst auf start nach cancel gedrückt hat
+
+    lastGameId!: string;
+
+    setnewGameId(newGameId: string) {
+        this.game.newGameId = newGameId;
+    }
+
+    /*     async createGameDoc3() {
+        console.log('IN CREATEGAMEDOC ist the firstDataReceived___: ', this.firstDataReceived);
+        debugger;
+        const gameColRef = this.getGameColRef();
+
+        var oldGame;
+        if(this.game) var oldGame = this.game;
+
+        const newGame = new Game();   
+        const newGameAsJson = newGame.toJson();
+
+        var currentGameToUpdate = this.newGame;
+        if(oldGame) currentGameToUpdate = oldGame;
+
+        await addDoc(gameColRef, newGameAsJson)
+            .then(async (newGameDocRef: DocumentReference<DocumentData>) => {
+                debugger;
+
+                newGame.id = newGameDocRef.id;
+                if(oldGame) oldGame.newGameId = newGameDocRef.id;
+
+                this.game.id = newGameDocRef.id;
+                await this.updateGameDoc();
+                console.log('Created game doc with ID: ', newGameDocRef?.id);
+                debugger;
+            })
+            .catch((err) => {
+                debugger;
+                console.log(err);
+                debugger;
+            });
+    } */
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    async startNewGame() {
+        console.log('GAME SERVICE__ / __ startNeGame__, firstDataReceived: ', this.firstDataReceived);
+        this.resetGame();
+        await this.createGameDoc();
+        // debugger;
+        console.log('GAME SERVICE__ / __ VOR NAVIGIEIRE ZU GAME ID, firstDataReceived: ', this.firstDataReceived);
+
+        this.router.navigate([`/game/${this.game.id}`]);
+    }
+
+    //#region CRUD
+    async createGameDoc() {
+        console.log('GAME SERVICE__ / __ createGameDoc Anfang, firstDataReceived: ', this.firstDataReceived);
+
+        // debugger;
+        const gameColRef = this.getGameColRef();
+        const gameAsJson = this.game.toJson();
+        await addDoc(gameColRef, gameAsJson)
+            .then(async (gameDocRef: DocumentReference<DocumentData>) => {
+                // debugger;
+                this.game.id = gameDocRef.id;
+                await this.updateGameDoc(this.game);
+                console.log('Created game doc with ID: ', gameDocRef?.id);
+                // debugger;
+            })
+            .catch((err) => {
+                // debugger;
+                console.log(err);
+                // debugger;
+            });
+    }
 
     //#region READ / GET / SUB
     /* TODO: Vielleicht am Ende nach Oben schieben */
@@ -204,6 +326,11 @@ export class GameService {
         return docData(gameSingleDocRef).pipe(map((gameDocData: DocumentData) => gameDocData as Game));
     }
 
+    /* TODO: WAHRSCHEINLICH UNNÖTIG WEIL WIR HIER DIREKT AUF DOKUMENT(GAME) ZUGREIFEN UND NICHT WIE BEI NOTES AUF EINE LISTE (SAMMLUNG) VON DOKUMENTEN */
+    getGameColData(): Observable<Game> {
+        return collectionData(this.getGameColRef()).pipe(map((gameDocData: DocumentData) => gameDocData as Game));
+    }
+
     getGameColRef(): CollectionReference<DocumentData> {
         return collection(this.firestore, 'games');
     }
@@ -256,4 +383,35 @@ export class GameService {
 
         // debugger;
     }
+
+    ///////////////////////////////////////////////////// TO CHECK 29.09.2023 OB NOCH WEITER BENÖTIGT ///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    startNewGameOLD(): void {
+        // debugger;
+        /* From https://betterprogramming.pub/angular-13-firebase-crud-tutorial-with-angularfire-7-2d6980dcc091 */
+        // Holen der collection 'games'
+        const gamesCollectionReference = collection(this.firestore, 'games');
+
+        this.resetGame();
+
+        const gameAsJson = this.game.toJson();
+
+        /* Adden eines neuen document in 'games' collection mit dem Value 'this.game' konvertiert davor to JSON durch eigene Methode 'toJson()'.
+        Firestore bieter uns eine weitere Methode ähnlich wie 'subscribe', um aus addDoc resultierende Promise aufzulösen, nämlich 'then'.
+        UNTERSCHIED: 'Then' wird nur EINMAL aufgerufen, 'subscribe' MEHRMALS'. Für Spielstart um ein neues Game anzulegen, nur ein Dokument in die Collection. braucht man es nur EINMAL!
+        Nach 'then' mit der Eingabe des 'DocumentReference' Objekts können wir anschließende Aktionen, wie 'navigate' zu '/game' machen. */
+        addDoc(gamesCollectionReference, gameAsJson).then((docRef) => {
+            // debugger;
+            this.game.id = docRef.id;
+            // this.gameSubject.next(this.game);
+            this.updateGameDoc(this.game);
+            // Start game navigating to '/game/:gameId 'route ('game.component') by the router.
+            console.log('Created a new game with ID: ', this.game.id);
+
+            this.router.navigate([`/game/${this.game.id}`]);
+        });
+    }
+
+    informOtherPlayersAboutNewGame(): void {}
 }

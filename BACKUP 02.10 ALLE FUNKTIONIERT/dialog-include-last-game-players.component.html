@@ -1,13 +1,15 @@
-<h1 mat-dialog-title translate>Would you like to start a new round with the same players?</h1>
+<h1 mat-dialog-title translate>Möchten Sie eine neue Runde mit den gleichen Spielern starten?</h1>
+
+
 
 <div mat-dialog-content >
-<!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
+  <!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
 und an in DialogEditPlayer() Methode, an dialogRef.afterClosed().subscribe((change: string) => {} 
 als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change' gleich, und in der Arrow-Fn verarbeitet. -->
     <!-- <p>Möchten Sie eine neue Runde mit den gleichen Spielern starten?<br><br> -->
-    <p><span translate>Select the desired players to include or exclude.</span><br>
-        <span translate>By default, all previous players are selected.</span><br><br>
-        <span translate>Click 'Yes' to continue with the selected players, or 'No' to start without them.</span>
+    <p>Wählen Sie die gewünschten Spieler aus oder ab.<br>
+        Standardmäßig sind alle bisherigen Spieler ausgewählt.<br><br>
+        Klicken Sie 'Ja', um mit den ausgewählten Spielern fortzufahren, oder 'Nein', um ohne sie zu starten."
     </p>
 
     <div class="avatar-collection">
@@ -28,11 +30,11 @@ als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change
     <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
     und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
     ' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf
-
+  
     Rote Farbe des Button from https://material.angular.io/components/button/overview  
-
+  
     DELETE muss man "''" so schreiben damit dies als String Eintrag und nicht eine Variable erkannt wird. -->
     <button mat-button color="primary" (click)="closeDialog(true)" cdkFocusInitial>
-    <span translate>Yes</span>
+      <span translate>Yes</span>
     </button>
 </div>

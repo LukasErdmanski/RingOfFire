@@ -1,54 +1,64 @@
 {
-  "Please pick a card": "Kérjük, válasszon egy lapot",
-  "Please click on the card stack to select the next card.": "Kérjük, kattintson a kártyahalomra, hogy kiválassza a következő lapot.",
+    "Please pick a card": "Kérjük, válasszon egy lapot",
+    "Please click on the card stack to select the next card.": "Kérjük, kattintson a kártyahalomra, hogy kiválassza a következő lapot.",
 
-  "Add new player": "Új játékos hozzáadása",
-  "Please enter the name of a player": "Kérjük, adja meg a játékos nevét",
-  "Name": "Név",
-  "No Thanks": "Nem, köszönöm",
+    "Add new player": "Új játékos hozzáadása",
+    "Select an avatar.": "Válassz egy avatart.",
+    "Enter the name.": "Add meg a nevet.",
+    "Name": "Név",
+    "Cancel": "Mégse",
+    "Add": "Hozzáad",
 
-  "Edit player": "Játékos szerkesztése",
-  "Close": "Bezár",
-  "Delete player": "Játékos törlése",
+    "Edit player": "Játékos szerkesztése",
+    "Delete": "Törlés",
+    "Save": "Mentés",
 
-  "Waterfall": "Vízesés",
-  "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Mindenki egyidejűleg kezdjen el inni. Amint az 1. játékos abbahagyja az ivást, a 2. játékos is megállhat. A 3. játékos megállhat, amint a 2. játékos is abbahagyja az ivást, és így tovább.",
+    "Would you like to start a new round with the same players?": "Szeretne új körben kezdeni azonos játékosokkal?",
+    "Select the desired players to include or exclude.": "Válassza ki a kívánt játékosokat, hogy bevegye vagy kizárja őket.",
+    "By default, all previous players are selected.": "Alapértelmezés szerint minden korábbi játékos kiválasztva.",
+    "Click 'Yes' to continue with the selected players, or 'No' to start without them.": "Kattintson 'Igen'-re, ha a kiválasztott játékosokkal szeretne folytatni, vagy 'Nem'-re, ha nélkülük szeretne kezdeni.",
+    "No": "Nem",
+    "Yes": "Igen",
 
-  "You": "Te",
-  "You decide who drinks": "Te döntöd el, hogy ki igyon",
+    "One player from the last round has already started a new game with the same teammates.": "Az utolsó körből egy játékos már elkezdett egy új játékot ugyanazokkal a csapattársakkal.",
+    "Would you like to join?": "Szeretne csatlakozni?",
 
-  "Me": "Én",
-  "Congrats! Drink a shot!": "Gratulálok! Igyál egy kortyot!",
+    "Waterfall": "Vízesés",
+    "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Mindenki egyidejűleg kezdjen el inni. Amint az 1. játékos abbahagyja az ivást, a 2. játékos is megállhat. A 3. játékos megállhat, amint a 2. játékos is abbahagyja az ivást, és így tovább.",
 
-  "Category": "Kategória",
-  "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.": "Hozz létre egy kategóriát (például: Színek). Minden játékosnak felsorolnia kell egy elemet a kategóriából.",
+    "You": "Te",
+    "You decide who drinks": "Te döntöd el, hogy ki igyon",
 
-  "Bust a jive": "Tánc",
-  "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.": "Az 1. játékos táncmozdulatot mutat be. A 2. játékos megismétli a táncmozdulatot, majd hozzáad egy másodikat.",
+    "Me": "Én",
+    "Congrats! Drink a shot!": "Gratulálok! Igyál egy kortyot!",
 
-  "Chicks": "Csajok",
-  "All girls drink.": "Minden lány igyon.",
+    "Category": "Kategória",
+    "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.": "Hozz létre egy kategóriát (például: Színek). Minden játékosnak felsorolnia kell egy elemet a kategóriából.",
 
-  "Heaven": "Mennyország",
-  "Put your hands up! The last player drinks!": "Emeld fel a kezedet! Az utolsó játékos igyon!",
+    "Bust a jive": "Tánc",
+    "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.": "Az 1. játékos táncmozdulatot mutat be. A 2. játékos megismétli a táncmozdulatot, majd hozzáad egy másodikat.",
 
-  "Mate": "Társ",
-  "Pick a mate. Your mate must always drink when you drink and the other way around.": "Válassz egy társat. A társad mindig akkor iszik, amikor te iszol, és fordítva.",
+    "Chicks": "Csajok",
+    "All girls drink.": "Minden lány igyon.",
 
-  "Thumbmaster": "Hüvelykujjas",
-  "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.": "Amikor te vagy a Hüvelykujjas, bármikor leteheted a hüvelykujjad az asztalra. Az utolsó személynek, aki leteszi a hüvelykujját az asztalra, innia kell.",
+    "Heaven": "Mennyország",
+    "Put your hands up! The last player drinks!": "Emeld fel a kezedet! Az utolsó játékos igyon!",
 
-  "Guys": "Fiúk",
-  "All guys drink.": "Minden fiú igyon.",
+    "Mate": "Társ",
+    "Pick a mate. Your mate must always drink when you drink and the other way around.": "Válassz egy társat. A társad mindig akkor iszik, amikor te iszol, és fordítva.",
 
-  "Quizmaster": "Kvízmester",
-  "As Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.": "Mint a Kvízmester, bármikor feltehetsz bárkinek egy kérdést. Ha nem válaszol, innia kell.",
+    "Thumbmaster": "Hüvelykujjas",
+    "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.": "Amikor te vagy a Hüvelykujjas, bármikor leteheted a hüvelykujjad az asztalra. Az utolsó személynek, aki leteszi a hüvelykujját az asztalra, innia kell.",
 
-  "Never have i ever...": "Nekem soha nem...",
-  "Say something you never did. Everyone who did it has to drink.": "Mondj valamit, amit soha nem tettél. Mindenki, aki megcsinálta, innia kell.",
+    "Guys": "Fiúk",
+    "All guys drink.": "Minden fiú igyon.",
 
-  "Rule": "Szabály",
-  "Make a rule. Everyone needs to drink when he breaks the rule.": "Készíts egy szabályt. Mindenki akkor kell innia, ha megszegi a szabályt.",
+    "Quizmaster": "Kvízmester",
+    "As Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.": "Mint a Kvízmester, bármikor feltehetsz bárkinek egy kérdést. Ha nem válaszol, innia kell.",
 
-  "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start Game'.": "Egy játékos egy másik eszközön új játékkört indított. Szeretne csatlakozni? Ha igen, nyomja meg az 'OK' gombot. Ellenkező esetben nyomja meg a 'NEM' gombot, hogy bezárja ezt az ablakot. Új játékkört indíthat új játékosokkal a 'Start game' gomb megnyomásával."
+    "Never have i ever...": "Nekem soha nem...",
+    "Say something you never did. Everyone who did it has to drink.": "Mondj valamit, amit soha nem tettél. Mindenki, aki megcsinálta, innia kell.",
+
+    "Rule": "Szabály",
+    "Make a rule. Everyone needs to drink when he breaks the rule.": "Készíts egy szabályt. Mindenki akkor kell innia, ha megszegi a szabályt."
 }

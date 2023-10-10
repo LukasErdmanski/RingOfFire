@@ -82,7 +82,7 @@
 
   <!-- ADD PLAYER BUTTON
   Angular Material Component from https://material.angular.io/components/button/overview -->
-  <button *ngIf="game.players.length < 11" mat-fab color="primary" class="btn-add" (click)="openDialog()">
+  <button *ngIf="game.players.length < 11" mat-fab color="primary" class="btn-add" (click)="openDialog('add')">
     <mat-icon>add</mat-icon>
   </button>
 </div>

@@ -16,9 +16,11 @@ export class Game {
   public gameOver: boolean = false;
   public newGameId: string = '';
 
+  public allProfilesPictures: string[] = ['1.webp', '2.png', 'monkey.png', 'pinguin.svg', 'serious-woman.svg', 'winkboy.svg'];
+
   constructor() {
     /* Fügt 52 Karten von 4 Kartensroten in 'stack' array hinzu. */
-    for (let i = 1; i < 3; i++) {
+    for (let i = 1; i < 2; i++) {
       this.stack.push('spade_' + i);
       this.stack.push('hearts_' + i);
       this.stack.push('clubs_' + i);
@@ -61,6 +63,7 @@ export class Game {
       pickCardAnimation: this.pickCardAnimation,
       currentCard: this.currentCard,
       gameOver: this.gameOver,
+      newGameId: this.newGameId,
     };
   }
 }

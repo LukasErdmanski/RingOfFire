@@ -1,19 +1,27 @@
 <h1 mat-dialog-title translate>Add new player</h1>
 
 <div mat-dialog-content>
-  <p translate>Please enter the name of a player</p>
-  <mat-form-field>
-    <mat-label translate>Name</mat-label>
-    <!-- Mit ngModel kann bidirektional z.B. eine Variable mit einem InputFeld binden, 
-        d.h. wenn sich etwas in Variable ändert, ändert sich auch das InputFeld, und genauso andersrum. -->
-    <input matInput [(ngModel)]="name" />
-  </mat-form-field>
+    <p translate>Select an avatar.</p>
+    <div class="avatar-collection">
+        <div (click)="selectAvatar(picture)" [class.avatarSelected]="selectedAvatar === picture" class="avatar-img-border-bg" *ngFor="let picture of game.allProfilesPictures">
+            <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
+        </div> 
+    </div>
+
+    <p translate>Enter the name.</p>
+    <mat-form-field>
+        <mat-label translate>Name</mat-label>
+        <input matInput [(ngModel)]="name"/>
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <!-- <button mat-button (click)="onNoClick()"><span translate>No Thanks</span></button> -->
-  <button mat-button (click)="onNoClick()"><span translate>No Thanks</span></button>
-  <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
-  und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
-  ' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf.-->
-  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="onNoClick()"><span translate>Cancel</span></button>
+
+
+    <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
+    und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
+' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf.-->
+    <button color="primary" mat-button [disabled]="name.length == 0" [mat-dialog-close]="{ name: name, avatar: selectedAvatar }" cdkFocusInitial>
+        <span translate>Add</span>
+    </button>    
 </div>

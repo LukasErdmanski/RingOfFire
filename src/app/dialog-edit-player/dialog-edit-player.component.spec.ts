@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import DialogEditPlayerComponent from './dialog-edit-player.component';
+import { DialogEditPlayerComponent } from './dialog-edit-player.component';
 
 describe('DialogEditPlayerComponent', () => {
     let component: DialogEditPlayerComponent;

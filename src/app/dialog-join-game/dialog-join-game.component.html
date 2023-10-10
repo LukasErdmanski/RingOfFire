@@ -3,9 +3,12 @@
 und an in DialogEditPlayer() Methode, an dialogRef.afterClosed().subscribe((change: string) => {} 
 als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change' gleich, und in der Arrow-Fn verarbeitet. -->
     <p>
-        <span translate>One player from the last round has already started a new game with the same teammates.</span><br><br>
-        <span translate>Would you like to join?</span>
+        Ein Spieler aus der letzten Runde hat bereits ein neues Spiel gestartet, mit denselben Mitspielern.<br><br>
+        Möchten Sie beitreten?
     </p>
+  <!-- <div class="avatar-img-border-bg" [mat-dialog-close]="picture" *ngFor="let picture of allProfilesPictures">
+    <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
+  </div> -->
 </div>
 
 <div mat-dialog-actions>

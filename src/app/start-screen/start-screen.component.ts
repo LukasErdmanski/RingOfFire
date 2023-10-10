@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameService } from '../services/game.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-start-screen',
@@ -23,9 +24,20 @@ export class StartScreenComponent {
 
   Daher ist Ihr ursprünglicher Ansatz, den Service im Konstruktor zu injizieren, korrekt und wird empfohlen: */
     // Der GameService wird hier injiziert
-    constructor(private gameService: GameService) {}
+    public constructor(private gameService: GameService, private router: Router) {}
 
-    startNewGame() {
-        this.gameService.startNewGame();
+    public async startNewGame(): Promise<void> {
+        try {
+            await this.gameService.createGameDoc();
+            // Here you navigate to the new game
+            this.router.navigate([`/game/${this.gameService.game.id}`]);
+        } catch (error) {
+            console.error('An error occurred:', error);
+            alert(`An error occurred while creating the game. 
+            Error: ${error}
+            The app will be reloaded.`);
+            // Back to the start screen
+            this.router.navigate(['/start']);
+        }
     }
 }
