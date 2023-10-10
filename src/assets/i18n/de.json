@@ -13,6 +13,16 @@
     "Delete": "Löschen",
     "Save": "Speichern",
 
+    "Would you like to start a new round with the same players?": "Möchten Sie eine neue Runde mit den gleichen Spielern starten?",
+    "Select the desired players to include or exclude.": "Wählen Sie die gewünschten Spieler aus oder ab.",
+    "By default, all previous players are selected.": "Standardmäßig sind alle bisherigen Spieler ausgewählt.",
+    "Click 'Yes' to continue with the selected players, or 'No' to start without them.": "Klicken Sie 'Ja', um mit den ausgewählten Spielern fortzufahren, oder 'Nein', um ohne sie zu starten.",
+    "No": "Nein",
+    "Yes": "Ja",
+
+    "One player from the last round has already started a new game with the same teammates.": "Ein Spieler aus der letzten Runde hat bereits ein neues Spiel gestartet, mit denselben Mitspielern.",
+    "Would you like to join?": "Möchten Sie beitreten?",
+
     "Waterfall": "Wasserfall",
     "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Alle müssen gleichzeitig anfangen zu trinken. Sobald Spieler 1 aufhört zu trinken, darf Spieler 2 aufhören zu trinken. Spieler 3 darf aufhören, sobald Spieler 2 aufgehört hat zu trinken, und so weiter.",
 
@@ -50,7 +60,5 @@
     "Say something you never did. Everyone who did it has to drink.": "Sag etwas, was du noch nie getan hast. Jeder, der es getan hat, muss trinken.",
 
     "Rule": "Regel",
-    "Make a rule. Everyone needs to drink when he breaks the rule.": "Mache eine Regel. Jeder muss trinken, wenn er die Regel bricht.",
-
-    "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start Game'.": "Einer der Spieler auf einem anderen Gerät hat eine neue Spielrunde gestartet. Möchten Sie daran teilnehmen? Wenn ja, drücken Sie 'OK'. Andernfalls drücken Sie 'NEIN', um dieses Fenster zu schließen. Sie können eine neue Spielrunde mit neuen Spielern starten, indem Sie 'Start game' drücken."
+    "Make a rule. Everyone needs to drink when he breaks the rule.": "Mache eine Regel. Jeder muss trinken, wenn er die Regel bricht."
 }

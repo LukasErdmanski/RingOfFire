@@ -1,8 +1,12 @@
 /* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
 import { Component, OnInit } from '@angular/core';
 
+<<<<<<< Updated upstream
 import { DialogAddEditPlayerComponent } from '../dialog-add-edit-player/dialog-add-edit-player.component';
 import { DialogData } from '../dialog-add-edit-player/dialog-data.interface';
+=======
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+>>>>>>> Stashed changes
 
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -141,36 +145,18 @@ export class GameComponent implements OnInit {
     openDialog(mode: 'add' | 'edit', playerId?: number): void {
         const dialogRef = this.dialog.open(DialogAddEditPlayerComponent, { data: { mode: mode, playerId: playerId } });
 
-        dialogRef.afterClosed().subscribe((data: { name?: string; avatar?: string; delete?: boolean } | null) => {
-            if (!data) return; // Wenn data null ist (Cancel geklickt), dann einfach zurückkehren
+        dialogRef.afterClosed().subscribe((data: { name: string; avatar: string }) => {
+            debugger;
 
-            if (data.delete) {
-                this.deletePlayer(playerId!);
-            } else if (mode === 'edit' && data.name && data.avatar) {
-                this.editPlayer(playerId!, data.name, data.avatar);
-            } else if (mode === 'add' && data.name && data.avatar && data.name.trim().length > 0) {
-                this.addPlayer(data.name, data.avatar);
+            // if (!data) return; // Wenn data null ist (Cancel geklickt), dann einfach zurückkehren
+            // else if (data.name && data.name.trim().length > 0) {
+
+            if (data?.name && data?.name.trim().length > 0) {
+                this.game.players.push(data.name);
+                this.game.player_images.push(data.avatar);
+                this.gameService.updateGameDoc(this.game);
             }
-
-            this.gameService.updateGameDoc(this.game);
         });
-    }
-
-    deletePlayer(playerId: number): void {
-        this.game.players.splice(playerId, 1);
-        this.game.player_images.splice(playerId, 1);
-    }
-
-    editPlayer(playerId: number, name: string, avatar: string): void {
-        if (this.game.players[playerId] !== name || this.game.player_images[playerId] !== avatar) {
-            this.game.players[playerId] = name;
-            this.game.player_images[playerId] = avatar;
-        }
-    }
-
-    addPlayer(name: string, avatar: string): void {
-        this.game.players.push(name);
-        this.game.player_images.push(avatar);
     }
 
     /**
@@ -187,36 +173,5 @@ export class GameComponent implements OnInit {
      */
     trackByFn(index: number, item: any): number {
         return index;
-    }
-
-    ///////////////////////////////////////////////////// TO CHECK 29.09.2023 OB NOCH WEITER BENÖTIGT ///////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
-    firstGameUpdate: boolean = false;
-
-    //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
-    lastGameId: string = '';
-
-    //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
-    // initialDelayGameOverStartBtn: any = undefined;
-
-    //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
-    resetGameState(): void {
-        this.firstGameUpdate = false;
-        // this.initialDelayGameOverStartBtn = undefined;
-        this.lastGameId = this.game.id;
-    }
-
-    //TODO: 29.09 SPÄTER WAHRSCHEINLICH TO DELETE / NICHT MEHR GEBRAUCHT
-    initializeGameState() {
-        if (!this.firstGameUpdate) {
-            this.firstGameUpdate = true;
-            if (this.game.gameOver) {
-                // this.initialDelayGameOverStartBtn = false;
-            } else {
-                // this.initialDelayGameOverStartBtn = true;
-            }
-        }
     }
 }

@@ -16,6 +16,8 @@ export class Game {
   public gameOver: boolean = false;
   public newGameId: string = '';
 
+  public allProfilesPictures: string[] = ['1.webp', '2.png', 'monkey.png', 'pinguin.svg', 'serious-woman.svg', 'winkboy.svg'];
+
   constructor() {
     /* Fügt 52 Karten von 4 Kartensroten in 'stack' array hinzu. */
     for (let i = 1; i < 2; i++) {

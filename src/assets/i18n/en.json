@@ -1,56 +1,64 @@
 {
-  "Please pick a card": "Please pick a card",
-  "Please click on the card stack to select the next card.": "Please click on the card stack to select the next card.",
+    "Please pick a card": "Please pick a card",
+    "Please click on the card stack to select the next card.": "Please click on the card stack to select the next card.",
 
-  "Add new player": "Add new player",
-  "Select an avatar.": "Select an avatar.",
-  "Enter the name.": "Enter the name.",
-  "Name": "Name",
-  "Cancel": "Cancel",
-  "Add": "Add",
+    "Add new player": "Add new player",
+    "Select an avatar.": "Select an avatar.",
+    "Enter the name.": "Enter the name.",
+    "Name": "Name",
+    "Cancel": "Cancel",
+    "Add": "Add",
 
-  "Edit player": "Edit player",
-  "Delete": "Delete",
-  "Save": "Save",
+    "Edit player": "Edit player",
+    "Delete": "Delete",
+    "Save": "Save",
 
-  "Waterfall": "Waterfall",
-  "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.",
+    "Would you like to start a new round with the same players?": "Would you like to start a new round with the same players?",
+    "Select the desired players to include or exclude.": "Select the desired players to include or exclude.",
+    "By default, all previous players are selected.": "By default, all previous players are selected.",
+    "Click 'Yes' to continue with the selected players, or 'No' to start without them.": "Click 'Yes' to continue with the selected players, or 'No' to start without them.",
+    "No": "No",
+    "Yes": "Yes",
 
-  "You": "You",
-  "You decide who drinks": "You decide who drinks",
+    "One player from the last round has already started a new game with the same teammates.": "A player from the last round has already started a new game with the same teammates.",
+    "Would you like to join?": "Would you like to join?",
 
-  "Me": "Me",
-  "Congrats! Drink a shot!": "Congrats! Drink a shot!",
+    "Waterfall": "Waterfall",
+    "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.",
 
-  "Category": "Category",
-  "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.": "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.",
+    "You": "You",
+    "You decide who drinks": "You decide who drinks",
 
-  "Bust a jive": "Bust a jive",
-  "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.": "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.",
+    "Me": "Me",
+    "Congrats! Drink a shot!": "Congrats! Drink a shot!",
 
-  "Chicks": "Chicks",
-  "All girls drink.": "All girls drink.",
+    "Category": "Category",
+    "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.": "Come up with a category (e.g. Colors). Each player must enumerate one item from the category.",
 
-  "Heaven": "Heaven",
-  "Put your hands up! The last player drinks!": "Put your hands up! The last player drinks!",
+    "Bust a jive": "Bust a jive",
+    "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.": "Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one.",
 
-  "Mate": "Mate",
-  "Pick a mate. Your mate must always drink when you drink and the other way around.": "Pick a mate. Your mate must always drink when you drink and the other way around.",
+    "Chicks": "Chicks",
+    "All girls drink.": "All girls drink.",
 
-  "Thumbmaster": "Thumbmaster",
-  "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.": "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.",
+    "Heaven": "Heaven",
+    "Put your hands up! The last player drinks!": "Put your hands up! The last player drinks!",
 
-  "Men": "Men",
-  "All men drink.": "All men drink.",
+    "Mate": "Mate",
+    "Pick a mate. Your mate must always drink when you drink and the other way around.": "Pick a mate. Your mate must always drink when you drink and the other way around.",
 
-  "Quizmaster": "Quizmaster",
-  "As the Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.": "As the Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.",
+    "Thumbmaster": "Thumbmaster",
+    "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.": "When you become the Thumbmaster, you can put your thumb on the table at any time. The last person to put their thumb on the table has to drink.",
 
-  "Never have i ever...": "Never have i ever...",
-  "Say something you never did. Everyone who did it has to drink.": "Say something you never did. Everyone who did it has to drink.",
+    "Men": "Men",
+    "All men drink.": "All men drink.",
 
-  "Rule": "Rule",
-  "Make a rule. Everyone needs to drink when he breaks the rule.": "Make a rule. Everyone needs to drink when he breaks the rule.",
+    "Quizmaster": "Quizmaster",
+    "As the Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.": "As the Quizmaster, you can ask anyone a question at any time. If they refuse to answer, they have to drink.",
 
-  "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start Game'.": "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start game'."
+    "Never have i ever...": "Never have i ever...",
+    "Say something you never did. Everyone who did it has to drink.": "Say something you never did. Everyone who did it has to drink.",
+
+    "Rule": "Rule",
+    "Make a rule. Everyone needs to drink when he breaks the rule.": "Make a rule. Everyone needs to drink when he breaks the rule."
 }

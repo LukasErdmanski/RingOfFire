@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, AfterViewInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { Game } from 'src/models/game';
-import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GameService } from '../services/game.service';
 import { Subscription } from 'rxjs';
+import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 
 @Component({
     selector: 'app-player-container',
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./player-container.component.scss'],
 })
 export class PlayerContainerComponent implements AfterViewInit, OnChanges {
+    selectedAvatar!: string;
     @Input() game!: Game;
     // @Input() gameId: string = '';
     @Input() currentPlayer!: number;
@@ -62,8 +63,7 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
         }
     }
 
-    ngOnDestroy() {
-    }
+    ngOnDestroy() {}
 
     setScrollArrowsVisibility(): void {
         if (this.playersContainer && this.playersContainer.nativeElement) {
@@ -106,29 +106,31 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
             }
         }
     }
-
     editPlayer(playerId: number) {
-        console.log('Edit player', playerId);
-
-        const dialogRef = this.dialog.open(DialogEditPlayerComponent);
-        dialogRef.afterClosed().subscribe((change: string) => {
-            console.log('Received change', change);
-            /* Prüfen ob change != undefined ist, also wirklich eine Img-Änderung gemacht wurde beim Öffen/Schliessen von Dialog, 
-      da ohne die ifAbfrage ein undefined in Array gelangen würde und kein Avatar dargestellt wird, wenn man das Dialog anders schliesst
-      als ohne Click auf ein Avatar-Vorschlag */
-            if (change) {
-                if (change == 'DELETE') {
-                    /* Löschen des Players und seines Avatars an der Stelle 'playerId', wenn Button mit ReturnValue 'DELETE' gedrückt wurde. */
-                    this.game.players.splice(playerId, 1);
-                    this.game.player_images.splice(playerId, 1);
-                } else {
-                    /* Aktualisieren des Pictures Array an der Stelle 'playerId' um den Wert 'change. */
-                    this.game.player_images[playerId] = change;
+        const dialogRef = this.dialog.open(DialogEditPlayerComponent, { data: { playerId: playerId } });
+        dialogRef.afterClosed().subscribe((data: { name?: string; avatar?: string; delete?: boolean } | undefined) => {
+            if (data) {
+                if (data.delete) {
+                    this.deletePlayer(playerId!);
+                    this.gameService.updateGameDoc(this.game);
+                } else if (this.game.players[playerId] !== data.name || this.game.player_images[playerId] !== data.avatar) {
+                    this.changePlayerNameAvatar(playerId!, data.name!, data.avatar!);
+                    this.gameService.updateGameDoc(this.game);
                 }
-                this.gameService.updateGameDoc(this.game);
             }
         });
     }
+    
+    deletePlayer(playerId: number): void {
+        this.game.players.splice(playerId, 1);
+        this.game.player_images.splice(playerId, 1);
+    }
+    
+    changePlayerNameAvatar(playerId: number, name: string, avatar: string): void {
+        this.game.players[playerId] = name;
+        this.game.player_images[playerId] = avatar;
+    }
+    
 
     moveDownTop() {
         this.playersSlideContainerHidden = !this.playersSlideContainerHidden;

@@ -21,7 +21,7 @@ damit diese HTML-Elemente/tages in 'dialog-add-edit-player.component.html' wie
 <div mat-dialog-content>, <mat-form-field>, <mat-label>, <input matInput>, <div mat-dialog-actions> etc.
 überhaupt ohne Fehler funktionieren */
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { GameInfoComponent } from './game-info/game-info.component';
 
@@ -33,7 +33,6 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { PlayerContainerComponent } from './player-container/player-container.component';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { DialogEditPlayerComponent } from './dialog-edit-player/dialog-edit-player.component';
 import { RotateDeviceInfoComponent } from './rotate-device-info/rotate-device-info.component';
 import { GameOverScreenComponent } from './game-over-screen/game-over-screen.component';
 import { FlagsContainerComponent } from './flags-container/flags-container.component';
@@ -44,6 +43,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GameService } from './services/game.service';
 import { DialogJoinGameComponent } from './dialog-join-game/dialog-join-game.component';
 import { DialogIncludeLastGamePlayersComponent } from './dialog-include-last-game-players/dialog-include-last-game-players.component';
+import { DialogEditPlayerComponent } from './dialog-edit-player/dialog-edit-player.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 // Required for ngx-translate
 // AoT requires an exported function for factorie
@@ -52,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-    declarations: [AppComponent, GameComponent, StartScreenComponent, PlayerComponent, DialogAddEditPlayerComponent, GameInfoComponent, PlayerContainerComponent, DialogEditPlayerComponent, RotateDeviceInfoComponent, GameOverScreenComponent, FlagsContainerComponent, DialogJoinGameComponent, DialogIncludeLastGamePlayersComponent],
+    declarations: [AppComponent, GameComponent, StartScreenComponent, PlayerComponent, DialogAddPlayerComponent, GameInfoComponent, PlayerContainerComponent, DialogEditPlayerComponent, RotateDeviceInfoComponent, GameOverScreenComponent, FlagsContainerComponent, DialogJoinGameComponent, DialogIncludeLastGamePlayersComponent, NotFoundComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -63,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         MatInputModule,
         MatCardModule,
+        ReactiveFormsModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),

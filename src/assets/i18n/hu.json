@@ -13,6 +13,16 @@
     "Delete": "Törlés",
     "Save": "Mentés",
 
+    "Would you like to start a new round with the same players?": "Szeretne új körben kezdeni azonos játékosokkal?",
+    "Select the desired players to include or exclude.": "Válassza ki a kívánt játékosokat, hogy bevegye vagy kizárja őket.",
+    "By default, all previous players are selected.": "Alapértelmezés szerint minden korábbi játékos kiválasztva.",
+    "Click 'Yes' to continue with the selected players, or 'No' to start without them.": "Kattintson 'Igen'-re, ha a kiválasztott játékosokkal szeretne folytatni, vagy 'Nem'-re, ha nélkülük szeretne kezdeni.",
+    "No": "Nem",
+    "Yes": "Igen",
+
+    "One player from the last round has already started a new game with the same teammates.": "Az utolsó körből egy játékos már elkezdett egy új játékot ugyanazokkal a csapattársakkal.",
+    "Would you like to join?": "Szeretne csatlakozni?",
+
     "Waterfall": "Vízesés",
     "Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.": "Mindenki egyidejűleg kezdjen el inni. Amint az 1. játékos abbahagyja az ivást, a 2. játékos is megállhat. A 3. játékos megállhat, amint a 2. játékos is abbahagyja az ivást, és így tovább.",
 
@@ -50,7 +60,5 @@
     "Say something you never did. Everyone who did it has to drink.": "Mondj valamit, amit soha nem tettél. Mindenki, aki megcsinálta, innia kell.",
 
     "Rule": "Szabály",
-    "Make a rule. Everyone needs to drink when he breaks the rule.": "Készíts egy szabályt. Mindenki akkor kell innia, ha megszegi a szabályt.",
-
-    "One of the players on another device started a new game round. Would you like to join it? If yes, press 'OK'. Otherwise, press 'NO' to close this window. You can start a new game round with new players by pressing 'Start Game'.": "Egy játékos egy másik eszközön új játékkört indított. Szeretne csatlakozni? Ha igen, nyomja meg az 'OK' gombot. Ellenkező esetben nyomja meg a 'NEM' gombot, hogy bezárja ezt az ablakot. Új játékkört indíthat új játékosokkal a 'Start game' gomb megnyomásával."
+    "Make a rule. Everyone needs to drink when he breaks the rule.": "Készíts egy szabályt. Mindenki akkor kell innia, ha megszegi a szabályt."
 }
