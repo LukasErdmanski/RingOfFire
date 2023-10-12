@@ -135,7 +135,7 @@ export class GameService {
     gameSub!: Subscription;
     navigatedToGameOverScreen!: boolean;
 
-    async subcribeGameDoc(): Promise<Game> {
+    async subscribeGameDoc(): Promise<Game> {
         this.firstDataReceived = false;
         this.navigatedToGameOverScreen = false;
 

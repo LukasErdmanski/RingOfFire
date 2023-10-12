@@ -16,8 +16,6 @@ app-game-over-screen {
     justify-content: center;
     box-sizing: border-box;
     opacity: 1;
-
-    // border: 5px solid yellow;
 }
 
 .fade-out {
@@ -67,7 +65,7 @@ app-player-container {
     }
 }
 
-/* Oberste Karte auf dem Stapel VERDECKT */
+// Top card on the stack COVERED
 .top-card {
     cursor: pointer;
     transition: all 125ms ease-in-out;
@@ -77,7 +75,7 @@ app-player-container {
     }
 }
 
-/* GEPICKTE UMGEDREHTE Karte */
+// PICKED FLIPPED card
 .pick-card {
     z-index: 2;
     animation: pick-card-animation 1s ease-in-out;
@@ -116,7 +114,7 @@ app-player-container {
 }
 
 .played-card {
-    // Wir müssen es um 25px weiter scheiben, weil der untere Stapel davor auch schon um 25px verschoben wurde, um 5 Karten nebeneinander anzuzeigen.
+    // It needs to be shifted by 25px because the bottom stack has already been shifted by 25px to display 5 cards side by side.
     right: 25px;
     transform: scale(1.25) translateX(106px) translateY(-132px) rotate(-8deg);
     @media (min-width: 576px) {

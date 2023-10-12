@@ -1,151 +1,161 @@
-/* From https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md */
 import { Component, OnInit } from '@angular/core';
-
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { map, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 
+/**
+ * Represents the main game component.
+ */
 @Component({
     selector: 'app-game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-    private routeParamsSubscription?: Subscription;
+    private cardsRightToBottomStack: any[] = [0, 1, 2, 3];
 
-    // cardsRightToBottomStack: any[] = [0, 1, 2, 3];
+    /**
+     * Initializes a new instance of the GameComponent.
+     * Injects the necessary services, including the 'route' of type 'ActivatedRoute'
+     * to retrieve the game 'id' from the route.
+     *
+     * @param dialog - Service for opening dialog components.
+     * @param route - Service for working with route parameters.
+     * @param router - Service for navigating among routes.
+     * @param gameService - Service for game-related operations.
+     */
+    constructor(private route: ActivatedRoute, private router: Router, private gameService: GameService, private dialog: MatDialog) {}
 
-    // TODO: VIELLEICHT WIRD es hier global nicht benörigt, man würde es aus dem subRouteParams direkt in GameService übergeben
-    // TODO: Vielleicht wird es gebraucth für den Vergleich alte Game ID / neue Game Id bei Starten New Game in gleichem Browser Tab
-    routeGameId: string = '';
-
-    /* ================================================================================================================================= */
-    /* ================================================================================================================================= */
-    /* ==============================  AB 22.09.2023 NEU ANFANG  ======================================================================= */
-    /* Es wird eine neuer Service, 'route' vom Typ 'ActivatedRoute' injectet und man man die game 'id' aus der Route rauslesen. */
-    constructor(public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private gameService: GameService) {}
-
-    /* Führt 'newGame' nach der Initialisierung von Game Objekt aus. */
-    ngOnInit() {
-        debugger;
-
-        this.subRouteParams();
-        // console.log('_____________THIS IS CURRNE GAME________ ', this.game);
-        debugger;
-
-        this.startSubGameInGameService();
-        // this.zzzzzz();
-        debugger;
+    /**
+     * Angular's OnInit lifecycle hook.
+     * Starts the necessary subscriptions related to the game component.
+     */
+    ngOnInit(): void {
+        this.subscribeToRouteParams();
+        this.startSubcribeToGameInGameService();
     }
 
-    ngOnChanges() {}
-
-    ngOnDestroy() {
-        debugger;
-        this.routeParamsSubscription?.unsubscribe();
-        debugger;
+    /**
+     * Subscribes to route parameters.
+     * Focuses specifically on the 'id' property from the route parameters.
+     * and assigns it to the game property in the game service.
+     */
+    private subscribeToRouteParams(): void {
+        this.route.params
+            .pipe(
+                take(1),
+                map((params) => params['id'])
+            )
+            .subscribe((routeGameId) => {
+                this.gameService.game.id = routeGameId;
+            });
     }
 
-    subRouteParams(): void {
-        this.routeParamsSubscription = this.route.params.subscribe((params) => {
-            // debugger;
-            /* 'params' kann noch andere Paramter der Route beinhaltet, so fokussiert man sich nur auf die Property 'id' */
-            console.log('GAME COMPONENT / DIE ID AUS ROUTE: ', params['id']);
-            this.routeGameId = params['id'];
-
-            // debugger;
-            // Überprüfen, ob routeGameId gesetzt ist, bevor subscribeGame aufgerufen wird.
-            if (this.routeGameId) {
-                debugger;
-
-                /* ZUM CHECKEN OB MAN gameID, und game.Id braucht und ob man updaten muss */
-                // this.gameService.gameId = this.routeGameId;
-                this.gameService.game.id = this.routeGameId;
-                // this.gameService.updateGameDoc();
-            }
-        });
-    }
-
-    get game() {
-        return this.gameService.game;
-    }
-
-    async startSubGameInGameService() {
-        debugger;
+    /**
+     * Subscribes to game data in the service and navigates to game-over screen if the game is over.
+     * @throws {Error} Throws an error if unable to subscribe to the game.
+     */
+    private async startSubcribeToGameInGameService(): Promise<void> {
         try {
-            const game = await this.gameService.subcribeGameDoc(); // Warte, bis das Promise aufgelöst wird.
-            console.log('GAME COMPONENT / startSubGameInGameService Empfangenes Spiel:', game);
+            await this.gameService.subscribeGameDoc();
             if (this.game.gameOver) {
                 this.router.navigate(['/game-over-screen']);
             }
         } catch (err) {
-            console.error('Fehler beim Abonnieren des Spiels:', err);
+            console.error('Error subscribing to the game:', err);
         }
     }
 
-    get firstDataReceived() {
+    /**
+     * Getter for the first data received flag from the game service.
+     */
+    get firstDataReceived(): boolean {
         return this.gameService.firstDataReceived;
     }
 
-    takeCard() {
-        // Die Prüfung erforderlich, damit nur alle 1,5 Sekunden auf die letzte Karte des Stappels gedrückt werden kann, nicht früher.
-        if (!this.game.pickCardAnimation) {
-            /* Mit pop() wird das letzte Element aus dem Array entfernt und returnt. Es wird unter 'currentCard' gespeichert. */
-            this.game.currentCard = this.game.stack.pop()!;
-
-            /* Reduziert das Array 'cardsRightToBottomStack' wenn nur <= 4 Karten übrig sind, 
-      damit diese reduziert richtig nach jedem Zug dargestellt sind, 
-      wenn 48 Karten von unterem Stapel bereits gezogen wurden. */
-            if (this.game.stack.length <= 3) this.game.cardsRightToBottomStack.splice(this.game.cardsRightToBottomStack.length - 1, 1);
-
-            this.game.pickCardAnimation = true;
-
-            /* Erhöhen / Ändern des aktuellen Spielers nach jedem Kartenzug.
-      durch Zirkulation (durch Modulo-Division). 
-      Aber erst wenn ein Pool an Spielern vorhanden ist, da wenn man vorher erst einige Karten ziehen würde
-      und erst dann Spieler adden würde, würde die stylische Anzeige für aktuellen Spieler nicht funktionieren. */
-            if (this.game.players.length > 0) {
-                this.game.currentPlayer++;
-                console.log(this.game.currentPlayer);
-                this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-            }
-
-            /* Speichern des Game Zustandes / Aktualisieren der Firebase DB nach Kartenzug */
-            // this.gameService.saveGame(this.game);
-            this.gameService.updateGameDoc(this.game);
-
-            setTimeout(() => {
-                // Hinzufügen der aktuell gezogenen Karte zum Stapel bereits gespielten Karten, erst nachdem die Animation zu Ende ist (also pickCardAnimation = false).
-                this.game.playedCards.push(this.game.currentCard);
-                // 'pickCardAnimation' wird auf 'false' resetet, damit die 'pick-card-animation' erneut abgespielt werden kann, bei jedem Kartenzugund nicht nur Einmal.
-                this.game.pickCardAnimation = false;
-                /* Speichern des Game Zustandes / Aktualisieren der Firebase DB des aktuellen Spielers und Hinzufügen der gezogenen Karte zum oberen Kartenstapel */
-
-                if (this.game.stack.length == 0) {
-                    debugger;
-                    this.game.gameOver = true;
-                }
-
-                this.gameService.updateGameDoc(this.game);
-            }, 1000);
-        }
-
-        console.log('GAME UPDATE: ', this.game);
+    /**
+     * Getter for the game data from the game service.
+     */
+    get game() {
+        return this.gameService.game;
     }
 
-    /* Angular Material Component from https://material.angular.io/components/dialog/overview */
-    openDialog(mode: 'add' | 'edit', playerId?: number): void {
-        const dialogRef = this.dialog.open(DialogAddPlayerComponent, { data: { mode: mode, playerId: playerId } });
+    /**
+     * Handles the card-taking process and related game logic.
+     */
+    takeCard(): void {
+        // Ensures a card is taken only once every 1.5 seconds.
+        if (!this.game.pickCardAnimation) {
+            this.updateCurrentCard();
+            this.updateStack();
+            this.updateCurrentPlayer();
+            this.gameService.updateGameDoc(this.game);
+            this.handleCardAnimation();
+        }
+    }
 
+    /**
+     * Updates the current card by taking the top card from the stack.
+     */
+    private updateCurrentCard(): void {
+        this.game.currentCard = this.game.stack.pop()!;
+    }
+
+    /**
+     * Updates the card stack and associated properties.
+     */
+    private updateStack(): void {
+        /**
+         * Adjusts the 'cardsRightToBottomStack' array when there are <= 4 cards left in the stack
+         * to ensure they are displayed correctly after each move.
+         */
+        if (this.game.stack.length <= 4) {
+            this.game.cardsRightToBottomStack.splice(this.game.cardsRightToBottomStack.length - 1, 1);
+        }
+        this.game.pickCardAnimation = true;
+    }
+
+    /**
+     * Updates the current player's index.
+     * Cycles to the next player using modulo division.
+     * Only updates if there's a pool of players, ensuring the
+     * stylish display for the current player functions correctly.
+     */
+    private updateCurrentPlayer(): void {
+        if (this.game.players.length > 0) {
+            this.game.currentPlayer = (this.game.currentPlayer + 1) % this.game.players.length;
+        }
+    }
+
+    /**
+     * Handles the card animation and related properties.
+     */
+    private handleCardAnimation(): void {
+        setTimeout(() => {
+            // Adds the taken card to the played cards stack after animation ends.
+            this.game.playedCards.push(this.game.currentCard);
+            // Resets animation flag for the next card pull.
+            this.game.pickCardAnimation = false;
+            // Checks if the game is over based on the remaining cards in the stack.
+            if (this.game.stack.length == 0) {
+                this.game.gameOver = true;
+            }
+            // Updates the game state in the Firebase database.
+            this.gameService.updateGameDoc(this.game);
+        }, 1000);
+    }
+
+    /**
+     * Opens the dialog for adding players.
+     *
+     * Angular Material Component from
+     * https://material.angular.io/components/dialog/overview
+     */
+    openDialog(): void {
+        const dialogRef = this.dialog.open(DialogAddPlayerComponent);
         dialogRef.afterClosed().subscribe((data: { name: string; avatar: string }) => {
-            debugger;
-
-            // if (!data) return; // Wenn data null ist (Cancel geklickt), dann einfach zurückkehren
-            // else if (data.name && data.name.trim().length > 0) {
-
             if (data?.name && data?.name.trim().length > 0) {
                 this.game.players.push(data.name);
                 this.game.player_images.push(data.avatar);
@@ -162,9 +172,6 @@ export class GameComponent implements OnInit {
      * of the item as the unique identifier. This helps Angular to optimize the rendering
      * of items in a list by only re-rendering the items that have changed.
      *
-     * @param {number} index - The index of the current item in the list.
-     * @param {any} item - The item itself. We don't use it in this case, but it's included to conform with Angular's expected signature for trackBy functions.
-     * @returns {number} - The unique identifier for the item. In this case, it's the index of the item in the list.
      */
     trackByFn(index: number, item: any): number {
         return index;
