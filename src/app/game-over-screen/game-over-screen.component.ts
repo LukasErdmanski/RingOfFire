@@ -59,7 +59,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
      */
     private viewInit$ = new AsyncSubject<boolean>();
     private joinGameDecision!: boolean;
-    private subscriptions: Subscription[] = [];
+    private subscriptions!: Subscription[];
 
     /**
      * Creates an instance of the GameOverScreenComponent.
@@ -73,11 +73,14 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
     /**
      * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
      * Here, it adds the active game subscription from the game service to the subscription list and
-     * starts observing the new game ID from the last game.
+     * starts observing the new game ID from the last game, if the subscription in game service exist.
      */
     ngOnInit(): void {
-        this.addActiveGameSubInGameServiceInSubList();
-        this.observeNewGameIdFromLastGame();
+        if (this.gameService.game$) {
+            this.subscriptions = [];
+            this.addActiveGameSubInGameServiceInSubList();
+            this.observeNewGameIdFromLastGame();
+        }
     }
 
     /**
@@ -209,11 +212,13 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
     }
 
     /**
-     * Observes the status of the new game to determine if it is over.
+     * Unsubscribes from all active subscriptions.
      */
     private unsubscribeAll(): void {
-        this.subscriptions.forEach((sub) => sub.unsubscribe());
-        this.subscriptions = [];
+        if (this.subscriptions) {
+            this.subscriptions.forEach((sub) => sub.unsubscribe());
+            this.subscriptions = [];
+        }
     }
 
     /**
@@ -221,7 +226,10 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
      */
     public async startNewGame(): Promise<void> {
         this.unsubscribeAll();
-        const includeLastGamePlayers = this.joinGameDecision === undefined ? await this.promptIncludeLastGamePlayers() : false;
+        let includeLastGamePlayers = false;
+        if (this.gameService.game.players.length > 0) {
+            includeLastGamePlayers = this.joinGameDecision === undefined ? await this.promptIncludeLastGamePlayers() : false;
+        }
         const creationSuccess = await this.createGame(includeLastGamePlayers);
         if (creationSuccess) {
             this.navigateToGame();

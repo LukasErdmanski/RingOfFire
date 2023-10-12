@@ -24,9 +24,6 @@ import { TransactionStatus } from '../enums/transaction-status.enum';
     providedIn: 'root',
 })
 export class GameService {
-    /* ================================================================================================================================= */
-    /* ================================================================================================================================= */
-    /* ==============================  AB 22.09.2023 NEU ANFANG  ======================================================================= */
     private firestore: Firestore = inject(Firestore);
     public firstDataReceived!: boolean;
     public game!: Game;
@@ -43,11 +40,7 @@ export class GameService {
     /* Erstellt neues Game Objekt */
     resetGame(): void {
         console.log('GAME SERVICE__ / __ resetGame Anfang, firstDataReceived: ', this.firstDataReceived);
-        // this.firstDataReceived = false;
-
         this.game = new Game();
-
-        // this.game = new Game();
     }
 
     async createGameDoc(includeLastGamePlayers?: boolean): Promise<TransactionStatus> {
@@ -124,10 +117,6 @@ export class GameService {
             }
         });
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //#region READ / GET / SUB
     /* TODO: Vielleicht am Ende nach Oben schieben */
