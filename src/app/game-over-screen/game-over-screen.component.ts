@@ -22,47 +22,47 @@ const ERROR_MESSAGE = 'An error occurred while creating the game. The app will b
     styleUrls: ['../../assets/scss/screen.scss'],
 })
 export class GameOverScreenComponent implements OnInit, AfterViewInit {
-    /* Properties related to the game over screen's state and behavior. */
+    // Properties related to the game over screen's state and behavior.
     /**
-     * Überblick über die verschiedenen Arten von Subjects in RxJS:
+     * Overview of the different types of Subjects in RxJS:
      *
      * - **Subject**:
-     *   - Ein einfacher Event-Emitter.
-     *   - Hat keinen aktuellen Wert.
-     *   - Sendet Werte nur an Abonnenten, die nach dem Senden des Wertes abonniert haben.
-     *   - **In diesem Kontext**: Nicht ideal. Wenn Sie Subject verwenden und das Rendering abgeschlossen ist,
-     * bevor Sie den Wert gameOver erhalten, wird der Dialog nicht angezeigt, da der Subject den Wert nicht
-     * an nachträglich hinzugefügte Abonnenten sendet.
+     *   - A simple event emitter.
+     *   - Does not have a current value.
+     *   - Sends values only to subscribers who subscribed after the value was emitted.
+     *   - **In this context**: Not ideal. If you use Subject and rendering completes before you receive
+     *     the gameOver value, the dialog won't be displayed since the Subject doesn't send the value to
+     *     subsequently added subscribers.
      *
      * - **BehaviorSubject**:
-     *   - Hat einen Anfangswert oder den letzten Wert, der an alle neuen Abonnenten gesendet wird.
-     *   - **In diesem Kontext**: Wenn Sie BehaviorSubject mit einem Anfangswert verwenden, wird dieser Wert an alle
-     *  neuen Abonnenten gesendet, auch wenn das Rendering oder gameOver bereits abgeschlossen ist. Das könnte nützlich
-     * sein, aber Sie müssen sicherstellen, dass Sie einen sinnvollen Anfangswert setzen.
+     *   - Has an initial value or the last value, which is sent to all new subscribers.
+     *   - **In this context**: If you use BehaviorSubject with an initial value, that value is sent to all
+     *     new subscribers, even if rendering or gameOver has already completed. This could be useful, but
+     *     you need to ensure you set a meaningful initial value.
      *
      * - **ReplaySubject**:
-     *   - Kann mehrere Werte "speichern" und diese an neue Abonnenten senden.
-     *   - **In diesem Kontext**: ReplaySubject mit einer Konfiguration von 1 wäre eine Möglichkeit,
-     * da es sicherstellt, dass der letzte Wert (z.B. das Ende des Renderings) an alle neuen Abonnenten gesendet wird,
-     * unabhängig davon, wann sie abonnieren.
+     *   - Can "store" multiple values and send them to new subscribers.
+     *   - **In this context**: ReplaySubject with a configuration of 1 would be an option, as it ensures
+     *     the last value (e.g., end of rendering) is sent to all new subscribers, regardless of when they
+     *     subscribe.
      *
      * - **AsyncSubject**:
-     *   - Sendet nur den letzten Wert und nur, wenn der Subject abgeschlossen wurde.
-     *   - **In diesem Kontext**: AsyncSubject könnte tatsächlich ideal sein, da er genau das Verhalten bietet,
-     * das Sie wünschen: Er sendet den Wert nur, wenn das Rendering abgeschlossen ist und der Wert nur einmal
-     * gesendet wird. Sie würden den Wert in ngAfterViewInit setzen und dann complete() aufrufen, um zu signalisieren,
-     * dass das Rendering abgeschlossen ist.
+     *   - Sends only the last value and only when the Subject has completed.
+     *   - **In this context**: AsyncSubject might actually be ideal as it provides exactly the behavior
+     *     you want: It sends the value only when rendering is complete and the value is sent only once.
+     *     You'd set the value in ngAfterViewInit and then call complete() to signal that rendering is done.
      *
-     * **Empfehlung**: Basierend auf Anforderungen, insbesondere der Notwendigkeit, sicherzustellen, dass das Rendering
-     * wirklich abgeschlossen ist und dieser Zustand nur einmal gesendet wird, wäre AsyncSubject die beste Wahl.
-     * Es bietet eine einfache und klare Lösung für Ihr spezifisches Problem, ohne Overengineering.
+     * **Recommendation**: Based on requirements, especially the need to ensure rendering is truly complete
+     * and this state is sent only once, AsyncSubject would be the best choice. It offers a simple and clear
+     * solution to your specific problem without overengineering.
      */
+
     private viewInit$ = new AsyncSubject<boolean>();
     private joinGameDecision!: boolean;
     private subscriptions!: Subscription[];
 
     /**
-     * Creates an instance of the GameOverScreenComponent.
+     * Initializes a new instance of the GameOverScreenComponent.
      *
      * @param gameService - Service to manage game-related operations and data.
      * @param router - Angular's router to navigate between components.
@@ -121,9 +121,11 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
                 catchError(this.handleObservationError('newGameId')) // Handle any errors that occur during the observation
             )
             .subscribe((newGameId) => {
+                debugger;
                 // Handle the received newGameId
                 this.unsubscribeAll();
                 this.resetGameWithNewGameId(newGameId);
+                debugger;
                 this.observeGameOverInNewGame();
             });
 
@@ -133,6 +135,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
     /**
      * Handles errors during observation.
      * @param field - The field being observed.
+     * @throws {string} Throws an error message if an error occurs during observation.
      */
     private handleObservationError(field: string) {
         return (error: any) => {
@@ -171,6 +174,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
             .pipe(take(1))
             .subscribe(() => {
                 // Prompt the user to join the new game once the game is not over and the view has been initialized
+                debugger;
                 this.promptJoinNewGame();
             });
 
@@ -179,6 +183,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
     /**
      * Prompts the user to join the new game.
+     * @returns A promise that resolves when the user has made a decision.
      */
     private async promptJoinNewGame(): Promise<void> {
         this.joinGameDecision = await this.openJoinGameDialog();
@@ -187,6 +192,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
     /**
      * Opens a dialog to ask the user if they want to join the new game.
+     * @returns A promise that resolves to a boolean indicating the user's decision.
      */
     private async openJoinGameDialog(): Promise<boolean> {
         const dialogRef = this.dialog.open(DialogJoinGameComponent, { disableClose: true });
@@ -223,6 +229,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
     /**
      * Initiates the process to start a new game.
+     * @returns A promise that resolves when the new game has started.
      */
     public async startNewGame(): Promise<void> {
         this.unsubscribeAll();
@@ -238,6 +245,8 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
     /**
      * Attempts to create a new game.
+     * @param includeLastGamePlayers - A boolean indicating whether to include players from the last game.
+     * @returns A promise that resolves to a boolean indicating the success of the game creation.
      */
     private async createGame(includeLastGamePlayers: boolean): Promise<boolean> {
         try {
@@ -250,7 +259,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
     }
 
     /**
-     * Handles errors that occur during game creation.
+     * Handles errors that occ ur during game creation.
      * @param error - The error that occurred.
      * @throws {string} Throws an error message if the game creation fails.
      */
@@ -265,6 +274,7 @@ export class GameOverScreenComponent implements OnInit, AfterViewInit {
 
     /**
      * Prompts the user to decide whether to include players from the last game in the new game.
+     * @returns A promise that resolves to a boolean indicating the user's decision.
      */
     private async promptIncludeLastGamePlayers(): Promise<boolean> {
         const dialogRef = this.dialog.open(DialogIncludeLastGamePlayersComponent, { disableClose: true });
