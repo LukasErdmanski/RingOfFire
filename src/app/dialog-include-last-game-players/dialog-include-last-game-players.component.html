@@ -1,19 +1,19 @@
 <h1 mat-dialog-title translate>Would you like to start a new round with the same players?</h1>
 
-<div mat-dialog-content >
-<!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
+<div mat-dialog-content>
+    <!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
 und an in DialogEditPlayer() Methode, an dialogRef.afterClosed().subscribe((change: string) => {} 
 als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change' gleich, und in der Arrow-Fn verarbeitet. -->
     <!-- <p>Möchten Sie eine neue Runde mit den gleichen Spielern starten?<br><br> -->
-    <p><span translate>Select the desired players to include or exclude.</span><br>
-        <span translate>By default, all previous players are selected.</span><br><br>
+    <p>
+        <span translate>Select the desired players to include or exclude.</span><br />
+        <span translate>By default, all previous players are selected.</span><br /><br />
         <span translate>Click 'Yes' to continue with the selected players, or 'No' to start without them.</span>
     </p>
 
     <div class="avatar-collection">
-
-        <div (click)="togglePlayerSelection(i)" class="avatar-name-container" *ngFor="let picture of game.player_images, let i = index">  
-            <div [class.avatarSelected]="playerSelections[i]" class="avatar-img-border-bg" >
+        <div (click)="togglePlayerSelection(i)" class="avatar-name-container" *ngFor="let picture of game.playerImages; let i = index">
+            <div [class.avatarSelected]="playerSelections[i]" class="avatar-img-border-bg">
                 <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
             </div>
             <span class="player-name" [class.player-nameSelected]="playerSelections[i]">{{ game.players[i] }}</span>
@@ -33,6 +33,6 @@ als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change
 
     DELETE muss man "''" so schreiben damit dies als String Eintrag und nicht eine Variable erkannt wird. -->
     <button mat-button color="primary" (click)="closeDialog(true)" cdkFocusInitial>
-    <span translate>Yes</span>
+        <span translate>Yes</span>
     </button>
 </div>

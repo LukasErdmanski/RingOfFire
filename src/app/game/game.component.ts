@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { map, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
+import { Game } from 'src/models/game';
 
 /**
  * Represents the main game component.
@@ -70,6 +71,7 @@ export class GameComponent implements OnInit {
 
     /**
      * Getter for the first data received flag from the game service.
+     * @returns {boolean} True if the first data is received, otherwise false.
      */
     get firstDataReceived(): boolean {
         return this.gameService.firstDataReceived;
@@ -77,8 +79,9 @@ export class GameComponent implements OnInit {
 
     /**
      * Getter for the game data from the game service.
+     * @returns {Game} The game data.
      */
-    get game() {
+    get game(): Game {
         return this.gameService.game;
     }
 
@@ -158,7 +161,7 @@ export class GameComponent implements OnInit {
         dialogRef.afterClosed().subscribe((data: { name: string; avatar: string }) => {
             if (data?.name && data?.name.trim().length > 0) {
                 this.game.players.push(data.name);
-                this.game.player_images.push(data.avatar);
+                this.game.playerImages.push(data.avatar);
                 this.gameService.updateGameDoc(this.game);
             }
         });
@@ -166,12 +169,14 @@ export class GameComponent implements OnInit {
 
     /**
      * Track by function for ngFor directive.
-     *
      * This function takes the index and the item itself as parameters and returns
      * a unique identifier for the item. In this case, we are simply using the index
      * of the item as the unique identifier. This helps Angular to optimize the rendering
      * of items in a list by only re-rendering the items that have changed.
      *
+     * @param index - The index of the item.
+     * @param item - The item itself.
+     * @returns {number} The index of the item.
      */
     trackByFn(index: number, item: any): number {
         return index;

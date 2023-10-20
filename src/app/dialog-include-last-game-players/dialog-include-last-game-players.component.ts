@@ -34,8 +34,8 @@ export class DialogIncludeLastGamePlayersComponent {
         this.gameService.game.players = selectedPlayers;
         console.log(selectedPlayers);
 
-        const selectedPlayerImages = this.game.player_images.filter((_, i) => this.playerSelections[i]);
-        this.gameService.game.player_images = selectedPlayerImages;
+        const selectedPlayerImages = this.game.playerImages.filter((_, i) => this.playerSelections[i]);
+        this.gameService.game.playerImages = selectedPlayerImages;
         console.log(selectedPlayerImages);
     }
 }

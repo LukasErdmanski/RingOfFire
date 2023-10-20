@@ -24,12 +24,12 @@ export class DialogEditPlayerComponent implements OnInit, OnDestroy {
         this.subscribeName();
     }
 
-    public get game():Game {
+    public get game(): Game {
         return this.gameService.game;
     }
 
     private setAvatarNameAfterForOpenedDialog(): void {
-        this.selectedAvatar = this.gameService.game.player_images[this.data.playerId];
+        this.selectedAvatar = this.gameService.game.playerImages[this.data.playerId];
         this.nameControl.setValue(this.gameService.game.players[this.data.playerId]);
     }
 

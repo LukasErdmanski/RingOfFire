@@ -113,24 +113,23 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
                 if (data.delete) {
                     this.deletePlayer(playerId!);
                     this.gameService.updateGameDoc(this.game);
-                } else if (this.game.players[playerId] !== data.name || this.game.player_images[playerId] !== data.avatar) {
+                } else if (this.game.players[playerId] !== data.name || this.game.playerImages[playerId] !== data.avatar) {
                     this.changePlayerNameAvatar(playerId!, data.name!, data.avatar!);
                     this.gameService.updateGameDoc(this.game);
                 }
             }
         });
     }
-    
+
     deletePlayer(playerId: number): void {
         this.game.players.splice(playerId, 1);
-        this.game.player_images.splice(playerId, 1);
+        this.game.playerImages.splice(playerId, 1);
     }
-    
+
     changePlayerNameAvatar(playerId: number, name: string, avatar: string): void {
         this.game.players[playerId] = name;
-        this.game.player_images[playerId] = avatar;
+        this.game.playerImages[playerId] = avatar;
     }
-    
 
     moveDownTop() {
         this.playersSlideContainerHidden = !this.playersSlideContainerHidden;
