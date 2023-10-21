@@ -63,8 +63,6 @@ export class PlayerContainerComponent implements AfterViewInit, OnChanges {
         }
     }
 
-    ngOnDestroy() {}
-
     setScrollArrowsVisibility(): void {
         if (this.playersContainer && this.playersContainer.nativeElement) {
             const playersContainerElement: HTMLElement = this.playersContainer.nativeElement;

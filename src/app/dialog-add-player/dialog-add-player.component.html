@@ -17,10 +17,10 @@
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()"><span translate>Cancel</span></button>
 
-
-    <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
-    und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
-' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf.-->
+    <!-- Using 'mat-dialog-close', the variables 'name' (from 'matInput [(ngModel)]="name"') and 
+     'selectedAvatar' (set in 'selectAvatar(picture)') are passed to 'dialogRef.afterClosed()...' 
+     in 'game.component.ts'. The directive '[disabled]="name.length == 0"' disables the OK button 
+     to prevent submitting an empty name. -->
     <button color="primary" mat-button [disabled]="name.length == 0" [mat-dialog-close]="{ name: name, avatar: selectedAvatar }" cdkFocusInitial>
         <span translate>Add</span>
     </button>    

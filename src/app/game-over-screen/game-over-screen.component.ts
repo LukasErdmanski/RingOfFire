@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { Router } from '@angular/router';
 import { AsyncSubject, Observable, Subscription, catchError, combineLatest, filter, firstValueFrom, map, take } from 'rxjs';
@@ -21,7 +21,7 @@ const ERROR_MESSAGE = 'An error occurred while creating the game. The app will b
     templateUrl: './game-over-screen.component.html',
     styleUrls: ['../../assets/scss/screen.scss'],
 })
-export class GameOverScreenComponent implements OnInit, AfterViewInit {
+export class GameOverScreenComponent implements OnInit, AfterViewInit, OnDestroy {
     // Properties related to the game over screen's state and behavior.
     /**
      * Overview of the different types of Subjects in RxJS:

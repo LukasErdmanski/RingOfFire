@@ -1,25 +1,16 @@
 <div mat-dialog-content class="avatat-collection">
-  <!--  [mat-dialog-close]=""" wird ein Wert beim Closen des Dialogs returnt, hier der aktuelle BildDateiName
-und an in DialogEditPlayer() Methode, an dialogRef.afterClosed().subscribe((change: string) => {} 
-als change Eingabeparamenter weitergegeben, d.h. hier sind 'picture' und 'change' gleich, und in der Arrow-Fn verarbeitet. -->
     <p>
-        Ein Spieler aus der letzten Runde hat bereits ein neues Spiel gestartet, mit denselben Mitspielern.<br><br>
-        Möchten Sie beitreten?
+        <span translate>One player from the last round has already started a new game with the same teammates.</span><br /><br />
+        <span translate>Would you like to join?</span>
     </p>
-  <!-- <div class="avatar-img-border-bg" [mat-dialog-close]="picture" *ngFor="let picture of allProfilesPictures">
-    <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
-  </div> -->
 </div>
 
 <div mat-dialog-actions>
+  <!-- The 'mat-dialog-close' is set as 'false' and passed to 'dialogRef.afterClosed()...' 
+    in 'game-over-screen.component.ts'. -->
   <button mat-button color="warn" [mat-dialog-close]="false"><span translate>No</span></button>
-  <!-- Beim 'mat-dialog-close' wird die Variable 'name' aus dem ' matInput [(ngModel)]="name" 'eingegeben 
-  und an ' dialogRef.afterClosed().subscribe((result) => {...}) ' in 'game.component.ts' weitergegeben. 
-  ' [disabled]="name.length == 0" ' macht den Button OK unaktiv, damit man keinen leeren Namen eingeben darf
-
-  Rote Farbe des Button from https://material.angular.io/components/button/overview  
-
-  DELETE muss man "''" so schreiben damit dies als String Eintrag und nicht eine Variable erkannt wird. -->
+  <!-- The 'mat-dialog-close' is set as 'true' and passed to 'dialogRef.afterClosed()...' 
+    in 'game-over-screen.component.ts'. -->
   <button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>
     <span translate>Yes</span>
   </button>

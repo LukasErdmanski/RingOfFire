@@ -17,7 +17,7 @@ export class StartScreenComponent {
      * @param gameService - Service to manage the game.
      * @param router - Angular router for navigation.
      */
-    constructor(private readonly gameService: GameService, private readonly router: Router) {}
+    constructor(private gameService: GameService, private router: Router) {}
 
     /**
      * Starts a new game by creating a game document and navigating to the game screen.

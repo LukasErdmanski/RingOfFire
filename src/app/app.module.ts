@@ -41,10 +41,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GameService } from './services/game.service';
 import { DialogJoinGameComponent } from './dialog-join-game/dialog-join-game.component';
-import { DialogIncludeLastGamePlayersComponent } from './dialog-include-last-game-players/dialog-include-last-game-players.component';
+
 import { DialogEditPlayerComponent } from './dialog-edit-player/dialog-edit-player.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.component';
+import { DialogIncludeLastGamePlayersComponent } from './dialog-include-last-game-players/dialog-include-last-game-players.component';
 
 // Required for ngx-translate
 // AoT requires an exported function for factorie
