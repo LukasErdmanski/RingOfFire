@@ -20,10 +20,11 @@ export class DialogIncludeLastGamePlayersComponent implements OnInit {
      * @param dialogRef - Reference to the opened dialog.
      * @param gameService - Service to handle game operations.
      */
-    public constructor(public dialogRef: MatDialogRef<DialogIncludeLastGamePlayersComponent>, public gameService: GameService) {}
+    constructor(public dialogRef: MatDialogRef<DialogIncludeLastGamePlayersComponent>, public gameService: GameService) {}
 
     /**
-     * Lifecycle method for initialization.
+     * Lifecycle method called after the component's view (and child views) are initialized.
+     * Initializes player selections for the component.
      */
     public ngOnInit(): void {
         this.initializePlayerSelections();
