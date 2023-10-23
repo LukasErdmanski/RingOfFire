@@ -5,8 +5,8 @@
         <div #playersContainer id="players-container" class="players-container box-shadow-unsivible" [class.players-container-hidden]="playersSlideContainerHidden" [class.box-shadow]="scrollArrowsVisable" [class.box-shadow-unsivible]="scrollArrowsVisable && playersSlideContainerHidden" (window:resize)="setScrollArrowsVisibility()">
             <div id="players-bar" class="players-bar">
                 <!-- PLAYER AVATAR & NAME 
-        [name] ist Input Variable, deklariert in 'player.component.ts; Wert wird hier aus dem Array eingegeben
-        und weiter an 'player.component.ts' und player.component.html' gegeben. -->
+                [name] is an input variable declared in 'player.component.ts'. Its value is assigned from an array here 
+                and then passed to both 'player.component.ts' and 'player.component.html'. -->
                 <app-player (click)="editPlayer(i)" *ngFor="let player of game.players; let i = index; trackBy: trackByFn" [name]="player" [playerActive]="i == game.currentPlayer" [image]="game.playerImages[i]" [playersSlideContainerHidden]="playersSlideContainerHidden"></app-player>
             </div>
         </div>
@@ -14,7 +14,6 @@
         <img [class.scroll-arrow]="scrollArrowsVisable" class="scroll-arrow-unvisible" (click)="scrollByPlayerCard(+1)" src="assets/img/arrow2-right.png" />
     </mat-card>
 
-    <!-- AB HIER MAT CARD WEGEN SCHATTEN UND CSS ÜBERSCHREIBUNGEN KORRIGIEREN; SONST FUNKTIUONIERT ALLES -->
     <mat-card class="top-down-arrow-container" [class.top-down-arrow-container-center]="playersSlideContainerHidden">
         <img [class.rotage-90-deg]="playersSlideContainerHidden" class="scroll-arrow top-down-arrow" src="assets/img/arrow2-right.png" (click)="moveDownTop()" />
         <span class="player-name" [class.player-name-hidden]="!playersSlideContainerHidden">

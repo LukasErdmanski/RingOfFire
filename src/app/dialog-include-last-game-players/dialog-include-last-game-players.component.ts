@@ -81,13 +81,15 @@ export class DialogIncludeLastGamePlayersComponent implements OnInit {
 
     /**
      * Get an array of selected players.
+     * @returns {string[]} An array containing the names of the selected players.
      */
-    private getSelectedPlayers(): any[] {
+    private getSelectedPlayers(): string[] {
         return this.game.players.filter((_, i) => this.playerSelections[i]);
     }
 
     /**
      * Get an array of selected player images.
+     * @returns {string[]} An array containing the image URLs of the selected players.
      */
     private getSelectedPlayerImages(): string[] {
         return this.game.playerImages.filter((_, i) => this.playerSelections[i]);

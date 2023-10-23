@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GameService } from '../services/game.service';
 import { FormControl } from '@angular/forms';
-import { DialogData } from './dialog-data.interface';
+import { DialogData } from '../../interfaces/dialog-data.interface';
 import { Subscription } from 'rxjs';
 import { Game } from 'src/models/game';
 
@@ -15,9 +15,16 @@ import { Game } from 'src/models/game';
     styleUrls: ['./dialog-edit-player.component.scss'],
 })
 export class DialogEditPlayerComponent implements OnInit, OnDestroy {
+    /** Selected avatar for the player. */
     public selectedAvatar!: string;
+
+    /** Form control instance for the player's name. */
     public nameControl = new FormControl('');
+
+    /** Indicates if the submit button should be enabled based on input validity. */
     public buttonEnabled: boolean = false;
+
+    /** Subscription to changes in the `nameControl`. */
     private nameControlSub!: Subscription;
 
     /**

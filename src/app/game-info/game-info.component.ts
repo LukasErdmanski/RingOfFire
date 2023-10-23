@@ -1,35 +1,56 @@
 import { Component, Input, OnChanges } from '@angular/core';
+/**
+ * Imports all exports from the 'cardActionsData.json' file and makes them accessible
+ * under the `cardActionsData` namespace.
+ *
+ * The use of '*' indicates a wildcard import, meaning everything exported from the
+ * module is imported.
+ *
+ * The `as` keyword is used to create an alias (`cardActionsData`) for these imports. This allows
+ * for convenient access to the module's exports without having to reference them individually.
+ */
 import * as cardActionsData from '../../assets/cardActionsData/cardActionsData.json';
+import { CardAction } from 'src/interfaces/cardAction.interface';
 
-/** Represents the action associated with a card. */
-interface CardAction {
-    title: string;
-    description: string;
-}
-
+/**
+ * A component that displays information related to the current card in the game.
+ * It fetches card actions from a JSON data source and presents the corresponding
+ * action for the currently active card.
+ *
+ * This component listens to changes in its input properties, specifically the `card` property,
+ * and updates its display based on the card's action data.
+ */
 @Component({
     selector: 'app-game-info',
     templateUrl: './game-info.component.html',
     styleUrls: ['./game-info.component.scss'],
 })
 export class GameInfoComponent implements OnChanges {
-    /** Array of card actions imported from a JSON data source. */
-    private readonly cardActions: CardAction[] = cardActionsData;
+    /**
+     * Array of card actions imported from a JSON data source.
+     */
+    private cardActions: CardAction[] = cardActionsData;
 
-    /** Title of the current card action. */
+    /**
+     * Title of the current card action.
+     */
     public title: string = '';
 
-    /** Description of the current card action. */
+    /**
+     * Description of the current card action.
+     */
     public description: string = '';
 
     /**
      * Represents the current card, used to determine the corresponding card action.
      * It is provided in 'game.component.ts'.
      */
-    @Input() card!: string;
+    @Input() public card!: string;
 
-    /** Indicates if the game info is currently hidden or visible. */
-    hidden: boolean = false;
+    /**
+     * Indicates if the game info is currently hidden or visible.
+     */
+    public hidden: boolean = false;
 
     /**
      * Angular lifecycle hook method that is called whenever the data-bound input properties of the component change.
@@ -61,7 +82,7 @@ export class GameInfoComponent implements OnChanges {
     /**
      * Sets the card action details based on the current card value.
      */
-    setCardAction(): void {
+    private setCardAction(): void {
         // Update the title and description based on the parsed card number.
         let cardNumber = +this.card.split('_')[1];
 
@@ -77,7 +98,7 @@ export class GameInfoComponent implements OnChanges {
     /**
      * Toggles the visibility state of the game info.
      */
-    moveDownTop() {
+    public moveDownTop(): void {
         this.hidden = !this.hidden;
     }
 }

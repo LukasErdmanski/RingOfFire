@@ -16,23 +16,23 @@ export class PlayerComponent {
      * The name of the player.
      * This is assigned in the parent component (e.g., 'game.component.html').
      */
-    @Input() name!: string;
+    @Input() public name!: string;
 
     /**
      * Indicates whether the player is currently active (taking their turn).
      * Controls the presence/activity of the SCSS class 'player-active' in the template.
      */
-    @Input() playerActive: boolean = false;
+    @Input() public playerActive: boolean = false;
 
     /**
      * The image associated with the player.
      * By default, the image is set to '1.webp'.
      */
-    @Input() image: string = '1.webp';
+    @Input() public image: string = '1.webp';
 
     /**
      * Indicates the state of the players slide container.
      * This is used to control visibility in the UI.
      */
-    @Input() playersSlideContainerHidden: boolean = false;
+    @Input() public playersSlideContainerHidden: boolean = false;
 }
