@@ -1,11 +1,11 @@
 <mat-card [class.moveDownTop]="hidden" (click)="moveDownTop()">
-  <!-- Entweder Oder, d.h. wenn 'card' 'undefined' am Spielanfang ist, wird alternativ der Satz angezeigt. Sonst 'title'. -->
-  <mat-card-title>
-    {{ card ? (title | translate) : ('Please pick a card' | translate) }}
-  </mat-card-title>
-
-  <!-- Entweder Oder, d.h. wenn 'card' 'undefined' uam Spielanfang ist, wird alternativ der Satz angezeigt. Sonst 'description'. -->
-  <mat-card-content>
-    {{ card ? (description | translate) : ('Please click on the card stack to select the next card.' | translate) }}
-  </mat-card-content>
-</mat-card>
+    <!-- Either this or that, i.e., if 'card' is 'undefined' at game start, then display this. Otherwise, 'title'. -->
+    <mat-card-title>
+      {{ card ? (title | translate) : ('Please pick a card' | translate) }}
+    </mat-card-title>
+  
+    <!-- Either this or that, i.e., if 'card' is 'undefined' at game start, then display this. Otherwise, 'description'. -->
+    <mat-card-content>
+      {{ card ? (description | translate) : ('Please click on the card stack to select the next card.' | translate) }}
+    </mat-card-content>
+  </mat-card>  

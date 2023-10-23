@@ -1,44 +1,44 @@
 mat-card {
-  height: 162px;
-  width: 360px;
-  border-radius: 16px;
-  transition: transform 225ms ease-in-out;
+    height: 162px;
+    width: 360px;
+    border-radius: 16px;
+    transition: transform 225ms ease-in-out;
 
-  @media (max-width: 576px) {
-    font-size: 0.86rem;
-    border-radius: 16px 16px 0 0;
+    @media (max-width: 576px) {
+        font-size: 0.86rem;
+        border-radius: 16px 16px 0 0;
 
-    .moveDownTop {
-      transform: translateY(116px);
+        .moveDownTop {
+            transform: translateY(116px);
+        }
     }
-  }
 }
 
 mat-card-title {
-  padding: 16px 16px 0 16px;
+    padding: 16px 16px 0 16px;
 
-  @media (max-width: 576px) {
-    padding: 14px 14px 0 14px;
-  }
+    @media (max-width: 576px) {
+        padding: 14px 14px 0 14px;
+    }
 }
 
 mat-card-content {
-  @media (max-width: 576px) {
-    padding: 2px 14px 14px 14px !important;
-  }
+    @media (max-width: 576px) {
+        padding: 2px 14px 14px 14px !important;
+    }
 }
 
 @media (max-width: 576px) {
-  .moveDownTop {
-    transform: translateY(88px);
+    .moveDownTop {
+        transform: translateY(88px);
 
-    .mat-mdc-card-content {
-      box-sizing: border-box;
-      height: 20px;
-      max-width: 100vw;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+        .mat-mdc-card-content {
+            box-sizing: border-box;
+            height: 20px;
+            max-width: 100vw;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     }
-  }
 }

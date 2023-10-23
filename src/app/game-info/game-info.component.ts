@@ -1,54 +1,83 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import * as cardActionsData from '../../assets/cardActionsData/cardActionsData.json';
 
+/** Represents the action associated with a card. */
 interface CardAction {
-  title: string;
-  description: string;
+    title: string;
+    description: string;
 }
+
 @Component({
-  selector: 'app-game-info',
-  templateUrl: './game-info.component.html',
-  styleUrls: ['./game-info.component.scss'],
+    selector: 'app-game-info',
+    templateUrl: './game-info.component.html',
+    styleUrls: ['./game-info.component.scss'],
 })
 export class GameInfoComponent implements OnChanges {
-  /* Card actions from https://github.com/JunusErgin/ringoffire/blob/master/src/app/game-info/game-info.component.ts */
-  cardActions: CardAction[] = cardActionsData;
+    /** Array of card actions imported from a JSON data source. */
+    private readonly cardActions: CardAction[] = cardActionsData;
 
-  /* Variablen mit welchen die korrespondieren 'title' und 'description' gemäß 'card' (aktuelle Karte) eingestellt
-  und in game-info.component.html gesetzt werden. */
-  title: string = '';
-  description: string = '';
+    /** Title of the current card action. */
+    public title: string = '';
 
-  /* Es wird eine aktuelle Karte ('card') gebruacht um durch entsprechende Element in cardActions Array zu finden.
-  Wird in 'game.component.ts' eingegeben. */
-  @Input() card!: string;
-  hidden: boolean = false;
+    /** Description of the current card action. */
+    public description: string = '';
 
-  /* Es wird eine andere Methode als 'ngOnInit' erforderlich, damit 'card' Variable nicht nur bei 'ngOnInit' verarbeitet wird,
-  nur bei jeder Änderung, z.B. bei jedem Kartenzug. Muss genauso wie 'ngOnInit' mit 'implement OnChanges'hinter Klassensignatur
-  und oben bei 'import' berücksichtigt werden. */
-  ngOnChanges(): void {
-    /* Dies soll nur ausgeführt werden, wenn card bereits initialisiert wurde. 
-    Vor allem nicht am Anfang wenn es 'undefined' ist zum JS-Script-Fehler führt */
-    if (this.card) {
-      console.log('Current card is ', this.card);
-      /* Mit +Array[IndexDesArrayElements] wird ein das ArrayElement in Number gewandelt. */
+    /**
+     * Represents the current card, used to determine the corresponding card action.
+     * It is provided in 'game.component.ts'.
+     */
+    @Input() card!: string;
 
-      this.setCardAction();
+    /** Indicates if the game info is currently hidden or visible. */
+    hidden: boolean = false;
+
+    /**
+     * Angular lifecycle hook method that is called whenever the data-bound input properties of the component change.
+     * Here, it checks if the `card` property has been initialized and, if so, updates the card action details.
+     *
+     * A method alternative to 'ngOnInit' ensures that the 'card' variable is processed not just during 'ngOnInit',
+     * but on every change, such as drawing a card from the top of the deck. This also requires implementing
+     * 'OnChanges' in the class signature.
+     */
+    ngOnChanges(): void {
+        /**
+         * This should only execute when 'card' has been initialized.
+         * It's particularly crucial to avoid execution at the beginning when it's 'undefined',
+         * to prevent a JS script error.
+         */
+        this.handleCardChange();
     }
-  }
 
-  setCardAction(): void {
-    // debugger;
-    let cardNumber = +this.card.split('_')[1];
+    /**
+     * Checks if the `card` property is set and updates the card action details accordingly.
+     */
+    private handleCardChange(): void {
+        if (this.card) {
+            console.log('Current card is ', this.card);
+            this.setCardAction();
+        }
+    }
 
-    /* Weil currentCard zw. 1 und 13 ist und card diesen Wert zugewiesen bekommt, muss cardNummber um 1 reduziert werden,
-    um korrespondierend im 'cardActions' zu interrieren. */
-    this.title = this.cardActions[cardNumber - 1].title;
-    this.description = this.cardActions[cardNumber - 1].description;
-  }
+    /**
+     * Sets the card action details based on the current card value.
+     */
+    setCardAction(): void {
+        // Update the title and description based on the parsed card number.
+        let cardNumber = +this.card.split('_')[1];
 
-  moveDownTop() {
-    this.hidden = !this.hidden;
-  }
+        /**
+         * Update the title and description based on the parsed card number.
+         * As 'currentCard' is between 1 and 13 and 'card' gets this value, 'cardNumber' must be decremented by 1
+         * to correctly index the 'cardActions'.
+         */
+        this.title = this.cardActions[cardNumber - 1].title;
+        this.description = this.cardActions[cardNumber - 1].description;
+    }
+
+    /**
+     * Toggles the visibility state of the game info.
+     */
+    moveDownTop() {
+        this.hidden = !this.hidden;
+    }
 }
