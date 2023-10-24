@@ -1,9 +1,25 @@
 {
-  "hosting": [
-    {
-      "target": "ringoffire",
-      "source": ".",
-      "frameworksBackend": {}
+    "hosting": {
+        /**
+         * This is the default configuration after executing 'firebase init' and selecting '=== Hosting Setup'.
+         * Upon detecting an existing Angular codebase in the current directory, the response should be 'Yes'.
+         *
+         * For 'ng deploy' to function without errors, the "source": "." needs to be removed
+         * and replaced with "public": "dist/ringoffire".
+         */
+        // "source": ".",
+        "public": "dist/ringoffire",
+        "target": "ringoffire",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "frameworksBackend": {
+            "region": "europe-west1"
+        },
+        // Ensures all paths are directed to index.html for Angular's router handling.
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
     }
-  ]
 }

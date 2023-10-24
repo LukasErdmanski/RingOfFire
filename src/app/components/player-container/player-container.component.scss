@@ -1,0 +1,170 @@
+.translate-container {
+  transform: translateY(0px);
+  transition: all 225ms 450ms ease-in-out;
+}
+
+mat-card {
+  z-index: 1;
+}
+
+.arrows-players-container {
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 16px;
+  max-width: 944px;
+  transition: max-width 225ms 675ms ease-in-out;
+
+  @media (max-width: 576px) {
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+.scroll-arrow-unvisible {
+  width: 0px;
+  height: 0px;
+  margin: 0;
+  transition: all 225ms 225ms ease-in-out;
+}
+
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  opacity: 0.87;
+  margin: 8px;
+  transition: all 225ms 225ms ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.players-container {
+  padding: 7px 0 7px 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background-color: white;
+  transition: all 225ms 675ms ease-in-out;
+}
+
+.box-shadow {
+  box-shadow: inset 0px 0px 3px 3px rgba(0, 0, 0, 0.18);
+  transition: all 225ms ease-in-out;
+}
+
+.players-bar {
+  display: flex;
+  overflow-x: unset;
+}
+
+.top-down-arrow-container {
+  opacity: 0;
+  box-sizing: initial;
+  flex-direction: row;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 16px;
+  height: 70px;
+  background-color: rgb(255, 242, 173);
+  padding-top: 16px;
+  position: absolute;
+  top: 120px;
+  max-width: 280px;
+  overflow: hidden;
+  z-index: 0;
+  transition: all 225ms ease-in-out;
+}
+
+.top-down-arrow-container-center {
+  transform: translate(calc(-50% + 27px), -38px);
+  transition: all 225ms 450ms ease-in-out;
+}
+
+.top-down-arrow {
+  margin: 8px;
+  width: 36px;
+  height: 36px;
+  opacity: 0.87;
+  box-sizing: border-box;
+  transform: rotate(-90deg);
+  transition: all 225ms ease-in-out;
+}
+
+.player-name {
+  overflow: hidden;
+  max-width: 0px;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 225ms ease-in-out;
+}
+
+.player-name span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@media (max-width: 576px) {
+  .move-top-down {
+    transform: translateY(-116px);
+    transition: all 225ms 225ms ease-in-out;
+  }
+
+  .arrows-players-container-hidden {
+    max-width: 54px;
+    transition: all 225ms ease-in-out;
+  }
+
+  .box-shadow-unsivible {
+    box-shadow: unset;
+    transition: all 225ms ease-in-out;
+  }
+
+  .players-container-hidden {
+    max-width: 54px;
+    transition: all 225ms ease-in-out;
+  }
+
+  .scroll-arrows-unvisible img {
+    width: 0px;
+    height: 0px;
+    margin: 0;
+    transition: all 225ms ease-in-out;
+    background-color: red;
+  }
+
+  .top-down-arrow-container {
+    opacity: 1;
+    transform: translate(calc(-50% + 27px), -38px);
+    transition: all 225ms 225ms ease-in-out;
+  }
+
+  .top-down-arrow {
+    transform: rotate(-90deg);
+    transition: all 225ms 450ms ease-in-out;
+  }
+
+  .rotage-90-deg {
+    transform: rotate(90deg);
+    transition: all 225ms ease-in-out;
+  }
+
+  .player-name {
+    width: fit-content;
+    max-width: 232px;
+    transition: all 225ms 675ms ease-in-out;
+  }
+
+  .player-name-hidden {
+    max-width: 0px;
+    transition: all 225ms ease-in-out;
+  }
+}

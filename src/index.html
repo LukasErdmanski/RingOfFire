@@ -3,13 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <title>Ringoffire</title>
-    <base href="/" />
-    <!-- the property viewport-fit-cover has to be added to the viewport attributes in order the env(safe.are.inset-*) works -->
+
+    <!-- Required for successful routing when building and deploying on the Developer-Akademie FTP server. -->
+    <!-- ng build --configuration=production --base-href="/angular-projects/M14-10MyVersionOnlyOneServiceLogicInComponents-ringoffire/" -->
+    <!-- <base href="/angular-projects/M14-10MyVersionOnlyOneServiceLogicInComponents-ringoffire/"> -->
+
+    <!-- Required for successful routing when building and deploying on the Firebase Hosting. -->
+    <!-- <base href="/"> -->
+    
+    <!-- Required for successful routing during local development using "ng serve --open" and deploying on localhost. -->
+    <base href="/"/>
+
+    <!-- The property viewport-fit-cover has to be added to the viewport attributes in order the env(safe.are.inset-*) works -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <!-- The fonts can be sourced either from Google's CDN or from an existing CSS file.
+    Corresponding font files may be stored, for example, under '/assets/fonts'. They should be
+    linked in 'index.html', not in the app components. -->
+    <link rel="stylesheet" href="assets/css/fonts.css" />
+
+    <!-- Required for Angular Material Components, e.g., the Add Button -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Required for Icons in the Rotate-Device-Info Component. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
   </head>
   <body class="mat-typography">
