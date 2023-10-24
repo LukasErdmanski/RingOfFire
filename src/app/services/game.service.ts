@@ -94,7 +94,6 @@ export class GameService {
      * @throws Will throw an error if there's an issue during the game document creation process.
      */
     public async createGameDoc(includeLastGamePlayers?: boolean): Promise<TransactionStatus> {
-        debugger;
         return new Promise<TransactionStatus>(async (resolve, reject) => {
             try {
                 const initialNewGame = this.initializeNewGame(includeLastGamePlayers);
@@ -103,8 +102,6 @@ export class GameService {
                 resolve(TransactionStatus.SUCCESS);
             } catch (error) {
                 this.handleCreateGameDocError(error, reject);
-            } finally {
-                console.warn('GAME SERVICE / CREATE GAME DOC geht HIEEEEER ZU ENDE ');
             }
         });
     }
@@ -197,7 +194,6 @@ export class GameService {
     private handleExistingNewGameId(lastGameDoc: DocumentSnapshot<DocumentData>, reject: (reason?: any) => void): void {
         const newGameIdValue = lastGameDoc.data()?.['newGameId'];
         this.setCurrentGameIdWithNewGameId(newGameIdValue);
-        debugger;
         reject(TransactionStatus.ALREADY_CREATED);
     }
 
@@ -246,7 +242,6 @@ export class GameService {
      * @returns The updated game instance.
      */
     private updateNewGameWithIdInTransaction(transaction: Transaction, newGameDocRef: DocumentReference<DocumentData>, newGame: Game): Game {
-        debugger;
         const newGameIdValue: string = newGameDocRef.id;
         // Update locally the new game with the new game id on device .
         newGame.id = newGameIdValue;
@@ -271,7 +266,6 @@ export class GameService {
      * @param reject - The reject function of the promise.
      */
     private handleCreateGameDocError(error: any, reject: (reason?: any) => void): void {
-        console.error('Ein Fehler ist aufgetreten:', error);
         if (error === TransactionStatus.ALREADY_CREATED) {
             console.error('Game document already created. Another player from the last round started a new game before you:', error);
             reject(error);
@@ -315,7 +309,6 @@ export class GameService {
      * Initializes the state variables related to subscription.
      */
     private initializeSubscriptionState(): void {
-        debugger;
         this.firstDataReceived = false;
         this.navigatedToGameOverScreen = false;
     }
@@ -339,21 +332,15 @@ export class GameService {
      * @param resolve - The resolve function of the promise.
      */
     private handleGameSubscription(game: Game, resolve: (value: Game) => void): void {
-        console.log('GAME SERVICE / Am Anfang von SUBCRIBE_GAME_DOC_IN_GAME_SERVICE____RECEIVED GAME: ', game);
         this.updateGameBasedOnReceivedGameDoc(game);
 
-        console.log('GAME SERVICE / firstDataReceived___ IN subGame VOR IF ist the : ', this.firstDataReceived);
         if (!this.firstDataReceived) {
-            console.warn('GAME SERVICE / firstDataReceived___ IN subGame IST FALSE WIRD GLEICH TRUE : ', this.firstDataReceived);
             this.firstDataReceived = true;
-            console.warn('GAME SERVICE / firstDataReceived___ IN subGame TRUE AB JETZT!!! : ', this.firstDataReceived);
             resolve(game);
         }
 
-        console.warn('GAME SERVICE / VOR IF ÜBERPRÜFUNG OB GAME OVER TRUE UND NAVIGATE TO GO-COMPONENT FALSE IST, GAME OVER UND NAVIGATED IST: ', game.gameOver, this.navigatedToGameOverScreen);
         if (game && game.gameOver && !this.navigatedToGameOverScreen) {
             this.navigatedToGameOverScreen = true;
-            console.warn('GAME SERVICE / NAVIGIERE ZU GAME OVER SCREEN');
             this.router.navigate(['/game-over-screen']);
         }
     }

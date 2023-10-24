@@ -1,0 +1,12 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Set the base for rewrites
+RewriteBase /
+
+# Ignore actual files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect all requests targeting "angular-projects/[ProjectName]/" to their respective "index.html"
+RewriteRule ^angular-projects/([^/]+)/(.*)$ /angular-projects/$1/index.html [L]
