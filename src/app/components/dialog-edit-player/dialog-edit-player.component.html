@@ -28,7 +28,7 @@
      'selectedAvatar' (set in 'selectAvatar(picture)') are passed to 'dialogRef.afterClosed()...' 
      in 'player-container.component.ts'. The directive '[disabled]="!buttonEnabled"' disables the 'Save' button 
      to prevent submitting without any changes from editing the selected player. -->
-    <button color="primary" mat-button [disabled]="!buttonEnabled" [mat-dialog-close]="{ name: nameControl.value, avatar: selectedAvatar }" cdkFocusInitial>
+    <button color="primary" mat-button [disabled]="!buttonEnabled" [mat-dialog-close]="{ name: nameControl.value, avatar: selectedAvatar }">
         <span translate>Save</span>
     </button>  
 </div>
