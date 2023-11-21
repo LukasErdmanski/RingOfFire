@@ -420,7 +420,7 @@ export class GameService {
      * @param game - The game to update.
      * @throws Will throw an error if the update fails.
      */
-    public async updateGameDoc(game: Game): Promise<void> {
+    public async updateGameDoc(game: Game) {
         try {
             const gameDocRef = this.getGameDocRef(game);
             const gameAsJson = game.toJson();

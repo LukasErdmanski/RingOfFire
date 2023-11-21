@@ -3,8 +3,11 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 import { MatDialog } from '@angular/material/dialog';
 import { map, take } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IGame } from '../../interfaces/game';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { GameService } from 'src/app/services/game.service';
 import { Game } from 'src/models/game';
+import { GameLogicService } from 'src/app/services/game-logic.service';
 
 /**
  * Represents the main game component.
@@ -25,7 +28,7 @@ export class GameComponent implements OnInit {
      * @param router - Service for navigating among routes.
      * @param gameService - Service for game-related operations.
      */
-    constructor(private route: ActivatedRoute, private router: Router, private gameService: GameService, private dialog: MatDialog) {}
+    constructor(private route: ActivatedRoute, private router: Router, private gameService: GameService, private dialog: MatDialog, private gameLogicService: GameLogicService) {}
 
     /**
      * Angular's OnInit lifecycle hook.
@@ -34,6 +37,8 @@ export class GameComponent implements OnInit {
     ngOnInit(): void {
         this.subscribeToRouteParams();
         this.startSubcribeToGameInGameService();
+
+        this.gameLogicService.testNewStructure();
     }
 
     /**

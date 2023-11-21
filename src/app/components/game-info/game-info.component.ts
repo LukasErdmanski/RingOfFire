@@ -10,7 +10,7 @@ import { Component, Input, OnChanges } from '@angular/core';
  * for convenient access to the module's exports without having to reference them individually.
  */
 import * as cardActionsData from '../../../assets/cardActionsData/cardActionsData.json';
-import { CardAction } from 'src/interfaces/cardAction.interface';
+import { CardAction } from 'src/app/interfaces/cardAction.interface';
 
 /**
  * A component that displays information related to the current card in the game.
