@@ -25,12 +25,14 @@ export class FirebaseService {
             const docRef = await addDoc(colRef, game);
             console.log(`created game id=${docRef.id}`);
             console.log(`created game id=${docRef.id}`);
+
             this.gameId = docRef.id;
         } catch (error) {
             this.handleError<DocumentReference>('createGame');
         }
     }
 
+    //TODO: Change method name later to getGame
     public readGame<Data>(id: string): Observable<IGame> {
         try {
             const docRef = this.getGameDocRef(id);
@@ -45,7 +47,7 @@ export class FirebaseService {
                     const outcome = mappedGameDocData ? 'fetched' : 'did not find';
                     // Logs the result of the operation.
                     console.log(`${outcome} game id=${mappedGameDocData.id}`);
-                    // this.log(`${outcome} game id=${mappedGameDocData.id}`);
+                    this.log(`${outcome} game id=${mappedGameDocData.id}`);
                 })
             );
         } catch (error) {

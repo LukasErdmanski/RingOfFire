@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Game } from 'src/models/game';
+import { GameLogicService } from 'src/app/services/game-logic.service';
+import { IGame } from 'src/app/interfaces/game';
+import { Subscription } from 'rxjs';
 
 /**
  * Component to include players from the last game.
@@ -11,8 +13,14 @@ import { Game } from 'src/models/game';
     templateUrl: './dialog-include-last-game-players.component.html',
     styleUrls: ['./dialog-include-last-game-players.component.scss'],
 })
-export class DialogIncludeLastGamePlayersComponent implements OnInit {
+export class DialogIncludeLastGamePlayersComponent implements OnInit, OnDestroy {
     public playerSelections: boolean[] = [];
+
+    // TODO: To comment.
+    private gameSubjectSubscription!: Subscription;
+
+    //TODO: Comment later with TSDoc
+    public game!: IGame;
 
     /**
      * Initializes a new instance of the `DialogIncludeLastGamePlayersComponent`.
@@ -20,28 +28,36 @@ export class DialogIncludeLastGamePlayersComponent implements OnInit {
      * @param dialogRef - Reference to the opened dialog.
      * @param gameService - Service to handle game operations.
      */
-    constructor(public dialogRef: MatDialogRef<DialogIncludeLastGamePlayersComponent>, public gameService: GameService) {}
+    constructor(public dialogRef: MatDialogRef<DialogIncludeLastGamePlayersComponent>, public gameService: GameService, private gameLogicService: GameLogicService) {}
 
     /**
      * Lifecycle method called after the component's view (and child views) are initialized.
      * Initializes player selections for the component.
      */
     public ngOnInit(): void {
+        this.getGame();
         this.initializePlayerSelections();
+    }
+
+    /**
+     * Lifecycle method to clean up name control subscription.
+     */
+    public ngOnDestroy(): void {
+        this.gameSubjectSubscription.unsubscribe;
+    }
+
+    // TODO: To comments.
+    public getGame(): void {
+        this.gameSubjectSubscription = this.gameLogicService.gameSubject.subscribe((game) => {
+            this.game = game;
+        });
     }
 
     /**
      * Initialize player selections based on the number of players in the game.
      */
     private initializePlayerSelections(): void {
-        this.playerSelections = new Array(this.gameService.game.players.length).fill(true);
-    }
-
-    /**
-     * Returns the current game from the game service.
-     */
-    public get game(): Game {
-        return this.gameService.game;
+        this.playerSelections = new Array(this.game.players.length).fill(true);
     }
 
     /**
@@ -71,9 +87,25 @@ export class DialogIncludeLastGamePlayersComponent implements OnInit {
      */
     private updateSelectedPlayers(): void {
         const selectedPlayers = this.getSelectedPlayers();
+        /**
+         * TODO: To change later after implementing update in gameLogicService und fb service.
+         * Update this game first
+         * this.game.players = selectedPlayers;
+         * Then update with this updated game by selectedPlayers.
+         * this.gameLogicService.update(this.game)
+         *
+         */
         this.gameService.game.players = selectedPlayers;
 
         const selectedPlayerImages = this.getSelectedPlayerImages();
+        /**
+         * TODO: To change later after implementing update in gameLogicService und fb service.
+         * Update this game first
+         * this.game.playerImages = selectedPlayerImages;
+         * Then update with this updated game by selectedPlayerImages.
+         * this.gameLogicService.update(this.game)
+         *
+         */
         this.gameService.game.playerImages = selectedPlayerImages;
     }
 

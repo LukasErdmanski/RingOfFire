@@ -38,7 +38,7 @@ export class GameComponent implements OnInit {
         this.subscribeToRouteParams();
         this.startSubcribeToGameInGameService();
 
-        this.gameLogicService.testNewStructure();
+        this.gameLogicService.readGame(this.gameService.game.id);
     }
 
     /**

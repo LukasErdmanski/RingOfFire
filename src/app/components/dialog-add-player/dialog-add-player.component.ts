@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 /**
  * Required according to Angular Dialog documentation for the 'onNoClick()' method.
  */
 import { MatDialogRef } from '@angular/material/dialog';
-import { Game } from 'src/models/game';
-import { GameService } from '../../services/game.service';
+import { GameLogicService } from 'src/app/services/game-logic.service';
 
 /**
  * Component for the dialog to add a player.
@@ -50,15 +49,8 @@ export class DialogAddPlayerComponent {
          * Angular Dialog documentation for the 'onNoClick()' method.
          */
         public dialogRef: MatDialogRef<DialogAddPlayerComponent>,
-        private gameService: GameService
+        public gameLogicService: GameLogicService
     ) {}
-
-    /**
-     * Retrieves the current game.
-     */
-    public get game(): Game {
-        return this.gameService.game;
-    }
 
     /**
      * Selects an avatar based on the given avatar string.

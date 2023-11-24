@@ -3,32 +3,32 @@
 <div mat-dialog-content>
     <p translate>Select an avatar.</p>
     <div class="avatar-collection">
-        <div (click)="selectAvatar(picture)" [class.avatarSelected]="selectedAvatar === picture" class="avatar-img-border-bg" *ngFor="let picture of game.allProfilesPictures">
+        <div (click)="selectAvatar(picture)" [class.avatarSelected]="selectedAvatar === picture" class="avatar-img-border-bg" *ngFor="let picture of gameLogicService.allProfilesPictures">
             <img class="avatar-img" src="./assets/img/profile/{{ picture }}" />
-        </div> 
+        </div>
     </div>
 
     <p translate>Enter the name.</p>
     <mat-form-field>
         <mat-label translate>Name</mat-label>
-        <input matInput [formControl]="nameControl"/>
+        <input matInput [formControl]="nameControl" />
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()"><span translate>Cancel</span></button>
 
-    <!-- Using 'mat-dialog-close', the variable 'delete' is set as 'true' and passed to 'dialogRef.afterClosed()...' 
+    <!-- Using 'mat-dialog-close', the variable 'delete' is set as 'true' and passed to 'dialogRef.afterClosed()...'
      in 'player-container.component.ts'. -->
-    <button mat-button color="warn" [mat-dialog-close]="{ delete: true}">
+    <button mat-button color="warn" [mat-dialog-close]="{ delete: true }">
         <span translate>Delete</span>
     </button>
 
-    <!-- Using 'mat-dialog-close', the variables 'name' (from 'matInput [formControl]="nameControl"') and 
-     'selectedAvatar' (set in 'selectAvatar(picture)') are passed to 'dialogRef.afterClosed()...' 
-     in 'player-container.component.ts'. The directive '[disabled]="!buttonEnabled"' disables the 'Save' button 
+    <!-- Using 'mat-dialog-close', the variables 'name' (from 'matInput [formControl]="nameControl"') and
+     'selectedAvatar' (set in 'selectAvatar(picture)') are passed to 'dialogRef.afterClosed()...'
+     in 'player-container.component.ts'. The directive '[disabled]="!buttonEnabled"' disables the 'Save' button
      to prevent submitting without any changes from editing the selected player. -->
     <button color="primary" mat-button [disabled]="!buttonEnabled" [mat-dialog-close]="{ name: nameControl.value, avatar: selectedAvatar }">
         <span translate>Save</span>
-    </button>  
+    </button>
 </div>

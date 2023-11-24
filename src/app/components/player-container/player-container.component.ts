@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameService } from '../../services/game.service';
 import { DialogEditPlayerComponent } from '../dialog-edit-player/dialog-edit-player.component';
 
-/**
+/**z
  * Manages the display and interaction of players within the game.
  */
 @Component({

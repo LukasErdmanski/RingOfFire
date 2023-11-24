@@ -25,6 +25,4 @@ export interface IGame {
     pickCardAnimation: boolean;
     /** Represents the current card in play. */
     currentCard: string;
-    /** Predefined profile pictures available for players. */
-    allProfilesPictures: string[];
 }

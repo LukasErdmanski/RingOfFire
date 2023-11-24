@@ -2,27 +2,29 @@ import { Injectable } from '@angular/core';
 import { IGame } from 'src/app/interfaces/game';
 import { FirebaseService } from './firebase.service';
 import { ActivatedRoute } from '@angular/router';
-import { lastValueFrom, takeLast } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, takeLast } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GameLogicService {
-    game: IGame = this.initGame();
+    /** Predefined profile pictures available for players. */
+    public allProfilesPictures: string[] = ['1.webp', '2.png', 'monkey.png', 'pinguin.svg', 'serious-woman.svg', 'winkboy.svg'];
+
+    public gameSubject = new BehaviorSubject<IGame>(this.initGame());
+
+    public game: IGame = this.initGame();
 
     constructor(private route: ActivatedRoute, private firebaseService: FirebaseService) {
         // this.getGame();
-        // this.testNewStructure();
+        // this.testNewStructure();-
     }
 
-    async testNewStructure() {
-        await this.firebaseService.createGame(this.game);
-
-        this.game.id = this.firebaseService.gameId;
-        this.game.players.push('Lukas');
-        await this.firebaseService.updateGame(this.game);
-
-        this.firebaseService.readGame(this.firebaseService.gameId).subscribe();
+    //TODO: Change method name later to getGame
+    public readGame<Data>(id: string) {
+        this.firebaseService.readGame(id).subscribe((game: IGame) => {
+            this.gameSubject.next(game);
+        });
     }
 
     /**
@@ -52,7 +54,6 @@ export class GameLogicService {
             newGameId: '',
             pickCardAnimation: false,
             currentCard: '',
-            allProfilesPictures: ['1.webp', '2.png', 'monkey.png', 'pinguin.svg', 'serious-woman.svg', 'winkboy.svg'],
         };
     }
 

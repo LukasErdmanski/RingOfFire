@@ -60,14 +60,14 @@ export class Game {
      * @private
      */
     private initializeStack(): void {
-        // Comment the line below out and comment this line in to make tests and reach a fast game over after only three card draws. 
-        // for (let i = 1; i < 2; i++) {
-        for (let i = 1; i < 14; i++) {
+        // Comment the line below out and comment this line in to make tests and reach a fast game over after only three card draws.
+        for (let i = 1; i < 2; i++) {
+        // for (let i = 1; i < 14; i++) {
             this.stack.push('spade_' + i);
             this.stack.push('hearts_' + i);
             this.stack.push('clubs_' + i);
-            //  Comment the line below out to make tests and reach a fast game over after only three card draws. 
-            this.stack.push('diamonds_' + i); // Currently commented out.
+            //  Comment the line below out to make tests and reach a fast game over after only three card draws.
+            // this.stack.push('diamonds_' + i); // Currently commented out.
         }
     }
 

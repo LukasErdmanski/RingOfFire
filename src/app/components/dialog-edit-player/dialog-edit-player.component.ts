@@ -4,7 +4,8 @@ import { GameService } from '../../services/game.service';
 import { FormControl } from '@angular/forms';
 import { DialogData } from '../../interfaces/dialog-data.interface';
 import { Subscription } from 'rxjs';
-import { Game } from 'src/models/game';
+import { GameLogicService } from 'src/app/services/game-logic.service';
+import { IGame } from 'src/app/interfaces/game';
 
 /**
  * Component to edit player details.
@@ -36,6 +37,11 @@ export class DialogEditPlayerComponent implements OnInit, OnDestroy {
     /** Subscription to changes in the `nameControl`. */
     private nameControlSub!: Subscription;
 
+    // TODO: To comment.
+    private gameSubjectSubscription!: Subscription;
+
+    //TODO: Comment later with TSDoc
+    private game!: IGame;
     /**
      * Initializes a new instance of the `DialogEditPlayerComponent`.
      *
@@ -43,13 +49,15 @@ export class DialogEditPlayerComponent implements OnInit, OnDestroy {
      * @param gameService - Service to handle game operations.
      * @param data - Dialog data interface instance.
      */
-    public constructor(private dialogRef: MatDialogRef<DialogEditPlayerComponent>, public gameService: GameService, @Inject(MAT_DIALOG_DATA) private data: DialogData) {}
+    public constructor(private dialogRef: MatDialogRef<DialogEditPlayerComponent>, public gameService: GameService, @Inject(MAT_DIALOG_DATA) private data: DialogData, public gameLogicService: GameLogicService) {}
 
     /**
      * Lifecycle method for initialization.
      * Initialize dialog data after opening.
      */
     public ngOnInit(): void {
+        this.getGame();
+
         this.setAvatarNameAfterForOpenedDialog();
         this.subscribeName();
     }
@@ -59,21 +67,22 @@ export class DialogEditPlayerComponent implements OnInit, OnDestroy {
      */
     public ngOnDestroy(): void {
         this.nameControlSub?.unsubscribe();
+        this.gameSubjectSubscription.unsubscribe;
     }
 
-    /**
-     * Returns the current game from the game service.
-     */
-    public get game(): Game {
-        return this.gameService.game;
+    // TODO: To comments.
+    public getGame(): void {
+        this.gameSubjectSubscription = this.gameLogicService.gameSubject.subscribe((game) => {
+            this.game = game;
+        });
     }
 
     /**
      * Set avatar and name for the opened dialog.
      */
     private setAvatarNameAfterForOpenedDialog(): void {
-        this.selectedAvatar = this.gameService.game.playerImages[this.data.playerId];
-        this.nameControl.setValue(this.gameService.game.players[this.data.playerId]);
+        this.selectedAvatar = this.game.playerImages[this.data.playerId];
+        this.nameControl.setValue(this.game.players[this.data.playerId]);
     }
 
     /**
@@ -111,7 +120,7 @@ export class DialogEditPlayerComponent implements OnInit, OnDestroy {
     /**
      * Event handler for the keyup event on the document.
      * If the 'Enter' key is pressed and changes have been made (either the avatar or the name),
-     * the dialog is closed and the current values for 'name' and 'selectedAvatar' are returned.
+     * the dialog is closed and the  values for 'name' and 'selectedAvatar' are returned.
      * Without changes, pressing 'Enter' will have no effect.
      *
      * @param event - The keyboard event object containing details about the key press.
